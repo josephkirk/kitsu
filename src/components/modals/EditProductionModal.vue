@@ -125,6 +125,10 @@ export default {
         {
           label: 'tvshow',
           value: 'tvshow'
+        },
+        {
+          label: 'game',
+          value: 'game'
         }
       ]
     }
@@ -167,6 +171,10 @@ export default {
       {
         label: 'tvshow',
         value: 'tvshow'
+      },
+      {
+        label: 'game',
+        value: 'game'
       }
     ]
   },

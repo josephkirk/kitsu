@@ -554,7 +554,8 @@ export default {
     type: {
       short: 'Short',
       featurefilm: 'Feature Film',
-      tvshow: 'TV Show'
+      tvshow: 'TV Show',
+      game: 'Game Production'
     }
   },
 
