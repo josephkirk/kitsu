@@ -4,7 +4,6 @@
     ref="player1"
     preload="auto"
     :muted="muted"
-    :frame-
     @ended="playNext"
   />
   <scrubbable-video
