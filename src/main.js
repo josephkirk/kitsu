@@ -18,6 +18,7 @@ import vuescroll from 'vue-scroll'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import VTooltip from 'v-tooltip'
 import VueWebsocket from 'vue-websocket'
+import ScrubbableVideo from '@diracleo/vue-scrubbable-video'
 
 import 'v-autocomplete/dist/v-autocomplete.css'
 
@@ -33,6 +34,7 @@ Vue.use(VueLazyload)
 Vue.use(vuescroll)
 Vue.use(VueDragDrop)
 Vue.use(VueTextareaAutosize)
+Vue.use(ScrubbableVideo)
 
 // Make the current route part of the main state.
 sync(store, router)

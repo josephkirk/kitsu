@@ -1,12 +1,12 @@
 <template>
 <div ref="container" class="video-wrapper filler flexrow-item">
-  <video
+  <scrubbable-video
     ref="player1"
     preload="auto"
     :muted="muted"
     @ended="playNext"
   />
-  <video
+  <scrubbable-video
     ref="player2"
     preload="auto"
     :muted="muted"
@@ -297,7 +297,12 @@ export default {
 
     setCurrentTime (currentTime) {
       currentTime = roundToFrame(currentTime, this.fps)
-      if (this.currentPlayer) this.currentPlayer.currentTime = currentTime
+      if (this.currentPlayer) {
+        this.currentPlayer.currentTime = currentTime
+        this.currentPlayer.current-progress = (currentTime / this.currentPlayer.duration) * 100
+        this.currentPlayer.frames-per-second = this.fps
+
+      }
     },
 
     switchPlayers () {

@@ -4,7 +4,7 @@
     <div class="loading-background" v-if="isLoading" >
       <spinner class="spinner" />
     </div>
-    <video
+    <scrubbable-video
       id="annotation-movie"
       ref="movie"
       class="annotation-movie"
@@ -15,7 +15,7 @@
       :src="moviePath"
       :poster="posterPath"
     >
-    </video>
+    </scrubbable-video>
   </div>
 </div>
 </template>
