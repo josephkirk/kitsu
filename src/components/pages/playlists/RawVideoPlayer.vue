@@ -4,6 +4,7 @@
     ref="player1"
     preload="auto"
     :muted="muted"
+    :frame-
     @ended="playNext"
   />
   <scrubbable-video
@@ -299,9 +300,6 @@ export default {
       currentTime = roundToFrame(currentTime, this.fps)
       if (this.currentPlayer) {
         this.currentPlayer.currentTime = currentTime
-        this.currentPlayer.current-progress = (currentTime / this.currentPlayer.duration) * 100
-        this.currentPlayer.frames-per-second = this.fps
-
       }
     },
 
