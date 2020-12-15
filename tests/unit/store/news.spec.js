@@ -1,6 +1,5 @@
 import store from '../../../src/store/modules/news'
 
-
 describe('News store', () => {
   describe('Getters', () => {
     test('newsByDay empty', () => {
@@ -15,7 +14,7 @@ describe('News store', () => {
       const state = {
         newsList: [
           { id: 'news-2', created_at: '2019-05-04T23:12:23' },
-          { id: 'news-1', created_at: '2019-05-04T21:12:23' },
+          { id: 'news-1', created_at: '2019-05-04T21:12:23' }
         ]
       }
       const newsListByDay = store.getters.newsListByDay(state)
@@ -39,7 +38,7 @@ describe('News store', () => {
       expect(newsListByDay).toEqual([
         [
           { id: 'news-3', created_at: '2019-05-04T23:12:23' },
-          { id: 'news-2', created_at: '2019-05-04T21:12:23' },
+          { id: 'news-2', created_at: '2019-05-04T21:12:23' }
         ],
         [
           { id: 'news-1', created_at: '2019-05-03T23:12:23' }
@@ -105,7 +104,7 @@ describe('News store', () => {
 
     test('ADD_FIRST_NEWS', () => {
       store.mutations.ADD_FIRST_NEWS(state, {
-        id: 'news-4', created_at: '2019-05-06T23:12:23',
+        id: 'news-4', created_at: '2019-05-06T23:12:23'
       })
       expect(state.newsList).toEqual([
         { id: 'news-4', created_at: '2019-05-06T23:12:23' },

@@ -16,7 +16,6 @@ import {
 } from '../../../src/lib/time'
 
 describe('time', () => {
-
   test('range', () => {
     expect(range(1, 10)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     expect(range(1, -1)).toEqual([])
