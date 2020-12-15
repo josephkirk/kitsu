@@ -1,9 +1,17 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import productionsApi from '../../src/store/api/productions'
 import productionStore from '../../src/store/modules/productions'
 import { reset, runAction } from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+import store from '../../src/store'
+import productionsApi from '../../src/store/api/productions'
+import productionStore from '../../src/store/modules/productions'
+
+>>>>>>> 1de73864 (Add electron)
 import {
   LOAD_PRODUCTIONS_START,
   LOAD_PRODUCTIONS_ERROR,
@@ -24,10 +32,16 @@ import {
 
   SET_CURRENT_PRODUCTION,
   TEAM_ADD_PERSON,
+<<<<<<< HEAD
   TEAM_REMOVE_PERSON,
 } from '../../src/store/mutation-types'
 
 
+=======
+  TEAM_REMOVE_PERSON
+} from '../../src/store/mutation-types'
+
+>>>>>>> 1de73864 (Add electron)
 const productionStatuses = [
   {
     id: 1,
@@ -73,13 +87,21 @@ productionsApi.postAvatar = (productionId, formData, callback) => {
 }
 
 productionsApi.addPersonToTeam = (projectId, personId) => {
+<<<<<<< HEAD
   return new Promise ((resolve, reject) => {
+=======
+  return new Promise((resolve, reject) => {
+>>>>>>> 1de73864 (Add electron)
     return process.nextTick(resolve)
   })
 }
 
 productionsApi.removePersonFromTeam = (projectId, personId) => {
+<<<<<<< HEAD
   return new Promise ((resolve, reject) => {
+=======
+  return new Promise((resolve, reject) => {
+>>>>>>> 1de73864 (Add electron)
     return process.nextTick(resolve)
   })
 }
@@ -88,7 +110,10 @@ const getters = productionStore.getters
 const state = store.state.productions
 
 describe('productions', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -230,7 +255,11 @@ describe('productions', () => {
           () => {
             expect(state.productionMap['production-2'].has_avatar)
               .to.equal(true)
+<<<<<<< HEAD
         })
+=======
+          })
+>>>>>>> 1de73864 (Add electron)
     })
 
     /*
@@ -254,7 +283,10 @@ describe('productions', () => {
         })
     })
     */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   })
 
   describe('mutations', () => {

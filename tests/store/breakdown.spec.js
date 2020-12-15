@@ -1,10 +1,18 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+>>>>>>> 1de73864 (Add electron)
 import store from '../../src/store'
 import assetsApi from '../../src/store/api/assets'
 import shotsApi from '../../src/store/api/shots'
 import breakdownStore from '../../src/store/modules/breakdown'
+<<<<<<< HEAD
 import { reset, runAction } from './helpers'
+=======
+
+>>>>>>> 1de73864 (Add electron)
 import {
   CASTING_SET_SHOT,
   CASTING_SET_SHOTS,
@@ -18,13 +26,21 @@ import {
   RESET_ALL
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 let assets = []
 let assetTypes = []
+=======
+const assets = []
+const assetTypes = []
+>>>>>>> 1de73864 (Add electron)
 
 const getters = breakdownStore.getters
 const state = store.state.breakdown
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 const shot = {
   id: 'shot-1',
   sequence_id: 'sequence-1'
@@ -40,7 +56,10 @@ let casting = {}
 const shots = [shot, shot2]
 
 describe('breakdown', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -80,8 +99,13 @@ describe('breakdown', () => {
       expect(assetsByType.length).to.equal(2)
       expect(assetsByType[0].length).to.equal(2)
       expect(assetsByType[1].length).to.equal(1)
+<<<<<<< HEAD
       expect(assetsByType[0][0]["asset_type_name"]).to.equal('Character')
       expect(assetsByType[1][0]["asset_type_name"]).to.equal('Props')
+=======
+      expect(assetsByType[0][0].asset_type_name).to.equal('Character')
+      expect(assetsByType[1][0].asset_type_name).to.equal('Props')
+>>>>>>> 1de73864 (Add electron)
     })
   })
 
@@ -142,13 +166,21 @@ describe('breakdown', () => {
     })
 
     it('CASTING_ADD_TO_CASTING', () => {
+<<<<<<< HEAD
       const asset =  {
+=======
+      const asset = {
+>>>>>>> 1de73864 (Add electron)
         id: 'asset-4',
         asset_type_name: 'Props',
         name: 'Plant'
       }
       store.commit(CASTING_SET_CASTING, casting)
+<<<<<<< HEAD
       store.commit(CASTING_ADD_TO_CASTING, {asset, nbOccurences: 2})
+=======
+      store.commit(CASTING_ADD_TO_CASTING, { asset, nbOccurences: 2 })
+>>>>>>> 1de73864 (Add electron)
 
       expect(state.castingAssetsByType.length).to.equal(2)
       expect(state.castingAssetsByType[0].length).to.equal(2)
@@ -157,32 +189,52 @@ describe('breakdown', () => {
 
       expect(state.isCastingDirty).to.equal(true)
 
+<<<<<<< HEAD
       store.commit(CASTING_ADD_TO_CASTING, {asset, nbOccurences: 2})
+=======
+      store.commit(CASTING_ADD_TO_CASTING, { asset, nbOccurences: 2 })
+>>>>>>> 1de73864 (Add electron)
       expect(state.castingAssetsByType[0].length).to.equal(2)
       expect(state.castingAssetsByType[1].length).to.equal(2)
       expect(state.castingAssetsByType[1][0].nb_occurences).to.equal(4)
     })
 
     it('CASTING_REMOVE_FROM_CASTING', () => {
+<<<<<<< HEAD
       const asset =  {
+=======
+      const asset = {
+>>>>>>> 1de73864 (Add electron)
         id: 'asset-4',
         asset_type_name: 'Props',
         name: 'Plant'
       }
       store.commit(CASTING_SET_CASTING, casting)
+<<<<<<< HEAD
       store.commit(CASTING_ADD_TO_CASTING, {asset, nbOccurences: 2})
       store.commit(CASTING_REMOVE_FROM_CASTING, {asset, nbOccurences: 1})
+=======
+      store.commit(CASTING_ADD_TO_CASTING, { asset, nbOccurences: 2 })
+      store.commit(CASTING_REMOVE_FROM_CASTING, { asset, nbOccurences: 1 })
+>>>>>>> 1de73864 (Add electron)
       expect(state.castingAssetsByType.length).to.equal(2)
       expect(state.castingAssetsByType[0].length).to.equal(2)
       expect(state.castingAssetsByType[1].length).to.equal(2)
       expect(state.castingAssetsByType[1][0].nb_occurences).to.equal(1)
       expect(state.isCastingDirty).to.equal(true)
 
+<<<<<<< HEAD
       store.commit(CASTING_REMOVE_FROM_CASTING, {asset, nbOccurences: 1})
+=======
+      store.commit(CASTING_REMOVE_FROM_CASTING, { asset, nbOccurences: 1 })
+>>>>>>> 1de73864 (Add electron)
       expect(state.castingAssetsByType.length).to.equal(2)
       expect(state.castingAssetsByType[0].length).to.equal(2)
       expect(state.castingAssetsByType[1].length).to.equal(1)
     })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   })
 })

@@ -42,7 +42,10 @@ peopleApi.getPeople = (callback) => {
 }
 
 describe('login', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

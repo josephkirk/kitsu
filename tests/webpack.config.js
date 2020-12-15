@@ -10,12 +10,21 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
+<<<<<<< HEAD
 				use: {
 					loader: 'babel-loader',
 					options: {
 						presets: ['@babel/preset-env']
 					}
 				}
+=======
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+>>>>>>> 1de73864 (Add electron)
       }
     ]
   }

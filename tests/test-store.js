@@ -1,7 +1,10 @@
 import expect from 'chai'
 
+<<<<<<< HEAD
 global.localStorage = require('localStorage')
 
+=======
+>>>>>>> 1de73864 (Add electron)
 import './store/assets.spec.js'
 import './store/assettypes.spec.js'
 import './store/breakdown.spec.js'
@@ -22,3 +25,8 @@ import './store/lib/indexing.spec.js'
 import './store/lib/helpers.spec.js'
 import './store/lib/sorting.spec.js'
 import './store/lib/string.spec.js'
+<<<<<<< HEAD
+=======
+
+global.localStorage = require('localStorage')
+>>>>>>> 1de73864 (Add electron)

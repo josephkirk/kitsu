@@ -1,9 +1,17 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import episodesApi from '../../src/store/api/shots'
 import episodesStore from '../../src/store/modules/shots'
 import { reset, runAction } from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+import store from '../../src/store'
+import episodesApi from '../../src/store/api/shots'
+import episodesStore from '../../src/store/modules/shots'
+
+>>>>>>> 1de73864 (Add electron)
 import {
   LOAD_EPISODES_END,
   LOAD_SEQUENCES_END,
@@ -31,7 +39,10 @@ import {
   LOAD_TASK_TYPES_END
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 let episodes = []
 let sequences = []
 let shots = []
@@ -73,7 +84,10 @@ const getters = episodesStore.getters
 const state = store.state.shots
 
 describe('episodes', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -262,7 +276,11 @@ describe('episodes', () => {
 
   describe('actions', () => {
     it('displayMoreEpisodes', () => {
+<<<<<<< HEAD
       for(let i = 0; i < 100; i++) {
+=======
+      for (let i = 0; i < 100; i++) {
+>>>>>>> 1de73864 (Add electron)
         episodes.push({
           id: 'episode-x' + i,
           name: 'SE0x' + i,
@@ -307,7 +325,11 @@ describe('episodes', () => {
         .runAction('editEpisode', episode)
         .then(() => {
           expect(state.episodes[0].name).to.equal(episode.name)
+<<<<<<< HEAD
           expect(state.episodeIndex['e01b'][0].name).to.equal(episode.name)
+=======
+          expect(state.episodeIndex.e01b[0].name).to.equal(episode.name)
+>>>>>>> 1de73864 (Add electron)
         })
     })
 
@@ -364,7 +386,11 @@ describe('episodes', () => {
 
       expect(state.displayedEpisodes.length).to.equal(3)
       expect(state.displayedEpisodesLength).to.equal(3)
+<<<<<<< HEAD
       expect(state.episodeIndex['e0'].length).to.equal(3)
+=======
+      expect(state.episodeIndex.e0.length).to.equal(3)
+>>>>>>> 1de73864 (Add electron)
     })
 
     it(NEW_EPISODE_START, () => {})
@@ -393,7 +419,11 @@ describe('episodes', () => {
       store.commit(EDIT_EPISODE_END, episode)
 
       expect(state.episodes[0].name).to.equal(episode.name)
+<<<<<<< HEAD
       expect(state.episodeIndex['se01b'][0].name).to.equal(episode.name)
+=======
+      expect(state.episodeIndex.se01b[0].name).to.equal(episode.name)
+>>>>>>> 1de73864 (Add electron)
     })
 
     it(DELETE_EPISODE_START, () => {})
@@ -423,7 +453,11 @@ describe('episodes', () => {
     })
 
     it(DISPLAY_MORE_EPISODES, () => {
+<<<<<<< HEAD
       for(let i = 0; i < 100; i++) {
+=======
+      for (let i = 0; i < 100; i++) {
+>>>>>>> 1de73864 (Add electron)
         episodes.push({
           id: 'episode-x' + i,
           name: 'SE0x' + i,

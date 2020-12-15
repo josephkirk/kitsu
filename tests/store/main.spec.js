@@ -7,9 +7,13 @@ import {
   TOGGLE_USER_MENU
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 
 describe('main', () => {
 
+=======
+describe('main', () => {
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

@@ -1,9 +1,17 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import playlistsApi from '../../src/store/api/playlists'
 import playlistStore from '../../src/store/modules/playlists'
 import { reset, runAction } from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+import store from '../../src/store'
+import playlistsApi from '../../src/store/api/playlists'
+import playlistStore from '../../src/store/modules/playlists'
+
+>>>>>>> 1de73864 (Add electron)
 import {
   LOAD_PLAYLISTS_START,
   LOAD_PLAYLISTS_ERROR,
@@ -20,7 +28,10 @@ import {
   LOAD_PLAYLIST_STATUS_END
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 let playlists = []
 
 playlistsApi.getPlaylists = (production, episode, callback) => {
@@ -48,12 +59,18 @@ playlistsApi.deletePlaylist = (playlist, callback) => {
   })
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 const getters = playlistStore.getters
 const state = store.state.playlists
 
 describe('playlists', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -125,7 +142,10 @@ describe('playlists', () => {
       helpers.runAction('deletePlaylist', {
         playlist: playlists[1],
         callback: (err) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
           expect(err).to.be.null
           expect(state.playlists.length).to.equal(2)
           done()

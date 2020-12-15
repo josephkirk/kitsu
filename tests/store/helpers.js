@@ -9,7 +9,11 @@ const helpers = {
   },
 
   runAction (action, payload, callback) {
+<<<<<<< HEAD
     if (typeof(payload) === 'function') {
+=======
+    if (typeof (payload) === 'function') {
+>>>>>>> 1de73864 (Add electron)
       callback = payload
       return store._actions[action][0](callback)
     } else {

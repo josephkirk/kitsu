@@ -1,5 +1,8 @@
 describe('Testing production page', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   context('Create a new production', () => {
     before(() => {
       Cypress.Cookies.defaults({
@@ -41,6 +44,10 @@ describe('Testing production page', () => {
   })
 
   after(() => {
+<<<<<<< HEAD
     cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+=======
+    cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
+>>>>>>> 1de73864 (Add electron)
   })
 })

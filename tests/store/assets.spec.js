@@ -1,9 +1,17 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import assetsApi from '../../src/store/api/assets'
 import assetsStore from '../../src/store/modules/assets'
 import { reset, runAction } from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+import store from '../../src/store'
+import assetsApi from '../../src/store/api/assets'
+import assetsStore from '../../src/store/modules/assets'
+
+>>>>>>> 1de73864 (Add electron)
 import {
   LOAD_ASSETS_START,
   LOAD_ASSETS_ERROR,
@@ -42,10 +50,16 @@ import {
   SET_CURRENT_PRODUCTION
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 
 let assets = []
 let assetTypes = []
 let production = {
+=======
+let assets = []
+let assetTypes = []
+const production = {
+>>>>>>> 1de73864 (Add electron)
   id: 'production-1',
   name: 'Big Buck Bunny'
 }
@@ -87,12 +101,18 @@ assetsApi.postCsv = (formData, callback) => {
   })
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 const getters = assetsStore.getters
 const state = store.state.assets
 
 describe('assets', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -249,11 +269,19 @@ describe('assets', () => {
         id: 'filter-2'
       }
       helpers.runAction('saveAssetSearch', query)
+<<<<<<< HEAD
       .then(() => {
         expect(state.assetSearchQueries.length).to.equal(2)
       })
       .catch((err) => {
       })
+=======
+        .then(() => {
+          expect(state.assetSearchQueries.length).to.equal(2)
+        })
+        .catch((err) => {
+        })
+>>>>>>> 1de73864 (Add electron)
     })
 
     it('removeAssetSearch', () => {
@@ -266,11 +294,19 @@ describe('assets', () => {
         id: 'filter-1'
       }
       helpers.runAction('removeAssetSearch', query)
+<<<<<<< HEAD
       .then(() => {
         expect(state.assetSearchQueries.length).to.equal(0)
       })
       .catch((err) => {
       })
+=======
+        .then(() => {
+          expect(state.assetSearchQueries.length).to.equal(0)
+        })
+        .catch((err) => {
+        })
+>>>>>>> 1de73864 (Add electron)
     })
 
     it.skip('initAssetTypes', (done) => {
@@ -279,7 +315,10 @@ describe('assets', () => {
   })
 
   describe('mutations', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
     it('LOAD_ASSETS_START', () => {
       store.commit(LOAD_ASSETS_START)
       expect(state.isAssetsLoading).to.equal(true)
@@ -406,7 +445,11 @@ describe('assets', () => {
           query: 'characters',
           id: 'filter-2'
         },
+<<<<<<< HEAD
         production: {id: 'production-1'}
+=======
+        production: { id: 'production-1' }
+>>>>>>> 1de73864 (Add electron)
       })
       expect(state.assetSearchQueries.length).to.equal(2)
     })

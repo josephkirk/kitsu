@@ -1,9 +1,17 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import notificationsApi from '../../src/store/api/notifications'
 import notificationsStore from '../../src/store/modules/notifications'
 import { reset, runAction } from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+import store from '../../src/store'
+import notificationsApi from '../../src/store/api/notifications'
+import notificationsStore from '../../src/store/modules/notifications'
+
+>>>>>>> 1de73864 (Add electron)
 import {
   LOAD_NOTIFICATIONS_END,
   LOAD_NOTIFICATION_END,
@@ -12,11 +20,17 @@ import {
   NOTIFICATION_ADD_PREVIEW
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 
 let notifications = []
 let notification = {}
 
 
+=======
+let notifications = []
+let notification = {}
+
+>>>>>>> 1de73864 (Add electron)
 notificationsApi.getNotifications = (callback) => {
   process.nextTick(() => {
     callback(null, notifications)
@@ -33,7 +47,10 @@ const getters = notificationsStore.getters
 const state = store.state.notifications
 
 describe('notifications', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

@@ -1,9 +1,17 @@
 import { expect } from 'chai'
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import customActionsApi from '../../src/store/api/customactions'
 import customActionStore from '../../src/store/modules/customactions'
 import { reset, runAction } from './helpers'
+=======
+import helpers, { reset, runAction } from './helpers'
+import store from '../../src/store'
+import customActionsApi from '../../src/store/api/customactions'
+import customActionStore from '../../src/store/modules/customactions'
+
+>>>>>>> 1de73864 (Add electron)
 import {
   LOAD_CUSTOM_ACTIONS_START,
   LOAD_CUSTOM_ACTIONS_ERROR,
@@ -20,7 +28,10 @@ import {
   LOAD_CUSTOM_ACTION_STATUS_END
 } from '../../src/store/mutation-types'
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 let customActions = []
 
 customActionsApi.getCustomActions = (callback) => {
@@ -48,12 +59,18 @@ customActionsApi.deleteCustomAction = (customAction, callback) => {
   })
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
 const getters = customActionStore.getters
 const state = store.state.customActions
 
 describe('customActions', () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -104,7 +121,10 @@ describe('customActions', () => {
       expect(customActions[0].name).to.equal('Build Playlist')
       expect(customActions[1].name).to.equal('Change status')
     })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1de73864 (Add electron)
   })
 
   describe('actions', () => {
