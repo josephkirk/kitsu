@@ -3,15 +3,18 @@
   "version": "0.12.29",
   "description": "Production Management Software (user interface)",
   "author": "Frank Rousseau <frank@cg-wire.com>",
-  "repository": "https://github.com/cgwire/kitsu",
-  "license": "AGPL v3.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "lint": "vue-cli-service lint",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
+  "main": "background.js",
   "dependencies": {
     "async": "3.2.0",
     "bowser": "2.11.0",
@@ -72,6 +75,8 @@
     "babel-jest": "26.3.0",
     "babel-loader": "8.1.0",
     "core-js": "3.6.5",
+    "electron": "^9.0.0",
+    "electron-devtools-installer": "^3.1.0",
     "eslint": "7.9.0",
     "eslint-plugin-jest": "24.0.2",
     "eslint-plugin-vue": "6.2.2",
@@ -79,8 +84,12 @@
     "ncu": "0.2.1",
     "node-sass": "4.14.1",
     "sass-loader": "10.0.2",
+    "spectron": "11.0.0",
+    "vue-cli-plugin-electron-builder": "~2.0.0-rc.5",
     "vue-template-compiler": "2.6.12",
     "webpack": "4.44.2"
   },
-  "babel": {}
+  "babel": {},
+  "license": "AGPL v3.0",
+  "repository": "https://github.com/cgwire/kitsu"
 }

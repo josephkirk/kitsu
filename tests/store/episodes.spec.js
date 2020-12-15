@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers from './helpers'
+import helpers, { reset, runAction } from './helpers'
 import store from '../../src/store'
 import episodesApi from '../../src/store/api/shots'
 import episodesStore from '../../src/store/modules/shots'
-import { reset, runAction } from './helpers'
+
 import {
   LOAD_EPISODES_END,
   LOAD_SEQUENCES_END,
@@ -30,7 +30,6 @@ import {
   LOAD_TASK_STATUSES_END,
   LOAD_TASK_TYPES_END
 } from '../../src/store/mutation-types'
-
 
 let episodes = []
 let sequences = []
@@ -73,7 +72,6 @@ const getters = episodesStore.getters
 const state = store.state.shots
 
 describe('episodes', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -262,7 +260,7 @@ describe('episodes', () => {
 
   describe('actions', () => {
     it('displayMoreEpisodes', () => {
-      for(let i = 0; i < 100; i++) {
+      for (let i = 0; i < 100; i++) {
         episodes.push({
           id: 'episode-x' + i,
           name: 'SE0x' + i,
@@ -307,7 +305,7 @@ describe('episodes', () => {
         .runAction('editEpisode', episode)
         .then(() => {
           expect(state.episodes[0].name).to.equal(episode.name)
-          expect(state.episodeIndex['e01b'][0].name).to.equal(episode.name)
+          expect(state.episodeIndex.e01b[0].name).to.equal(episode.name)
         })
     })
 
@@ -364,7 +362,7 @@ describe('episodes', () => {
 
       expect(state.displayedEpisodes.length).to.equal(3)
       expect(state.displayedEpisodesLength).to.equal(3)
-      expect(state.episodeIndex['e0'].length).to.equal(3)
+      expect(state.episodeIndex.e0.length).to.equal(3)
     })
 
     it(NEW_EPISODE_START, () => {})
@@ -393,7 +391,7 @@ describe('episodes', () => {
       store.commit(EDIT_EPISODE_END, episode)
 
       expect(state.episodes[0].name).to.equal(episode.name)
-      expect(state.episodeIndex['se01b'][0].name).to.equal(episode.name)
+      expect(state.episodeIndex.se01b[0].name).to.equal(episode.name)
     })
 
     it(DELETE_EPISODE_START, () => {})
@@ -423,7 +421,7 @@ describe('episodes', () => {
     })
 
     it(DISPLAY_MORE_EPISODES, () => {
-      for(let i = 0; i < 100; i++) {
+      for (let i = 0; i < 100; i++) {
         episodes.push({
           id: 'episode-x' + i,
           name: 'SE0x' + i,

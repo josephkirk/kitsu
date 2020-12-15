@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers from './helpers'
+import helpers, { reset, runAction } from './helpers'
 import store from '../../src/store'
 import notificationsApi from '../../src/store/api/notifications'
 import notificationsStore from '../../src/store/modules/notifications'
-import { reset, runAction } from './helpers'
+
 import {
   LOAD_NOTIFICATIONS_END,
   LOAD_NOTIFICATION_END,
@@ -12,10 +12,8 @@ import {
   NOTIFICATION_ADD_PREVIEW
 } from '../../src/store/mutation-types'
 
-
 let notifications = []
 let notification = {}
-
 
 notificationsApi.getNotifications = (callback) => {
   process.nextTick(() => {
@@ -33,7 +31,6 @@ const getters = notificationsStore.getters
 const state = store.state.notifications
 
 describe('notifications', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

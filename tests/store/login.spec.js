@@ -42,7 +42,6 @@ peopleApi.getPeople = (callback) => {
 }
 
 describe('login', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers from './helpers'
+import helpers, { reset, runAction } from './helpers'
 import store from '../../src/store'
 import taskTypesApi from '../../src/store/api/tasktypes'
 import taskTypeStore from '../../src/store/modules/tasktypes'
-import { reset, runAction } from './helpers'
+
 import {
   LOAD_TASK_TYPES_START,
   LOAD_TASK_TYPES_ERROR,
@@ -19,7 +19,6 @@ import {
 
   LOAD_TASK_TYPE_STATUS_END
 } from '../../src/store/mutation-types'
-
 
 let taskTypes = []
 
@@ -48,12 +47,10 @@ taskTypesApi.deleteTaskType = (taskType, callback) => {
   })
 }
 
-
 const getters = taskTypeStore.getters
 const state = store.state.taskTypes
 
 describe('taskTypes', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

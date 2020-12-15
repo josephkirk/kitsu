@@ -30,9 +30,9 @@ describe('Checking task with superviseur', function () {
         .parent()
         .children()
         .then(($children) => {
-        cy.wrap($children[4]).contains('wfa')
-        cy.wrap($children[4]).contains('CP')
-      })
+          cy.wrap($children[4]).contains('wfa')
+          cy.wrap($children[4]).contains('CP')
+        })
     })
   })
 
@@ -44,8 +44,8 @@ describe('Checking task with superviseur', function () {
         .parent()
         .children()
         .then(($children) => {
-        cy.wrap($children[4]).contains('wfa').click()
-      })
+          cy.wrap($children[4]).contains('wfa').click()
+        })
     })
 
     it('select done status', function () {
@@ -62,6 +62,6 @@ describe('Checking task with superviseur', function () {
   })
 
   after(function () {
-    cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+    cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
   })
 })

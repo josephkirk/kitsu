@@ -9,7 +9,7 @@ const helpers = {
   },
 
   runAction (action, payload, callback) {
-    if (typeof(payload) === 'function') {
+    if (typeof (payload) === 'function') {
       callback = payload
       return store._actions[action][0](callback)
     } else {

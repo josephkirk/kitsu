@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers from './helpers'
+import helpers, { reset, runAction } from './helpers'
 import store from '../../src/store'
 import assetTypesApi from '../../src/store/api/assettypes'
 import assetTypeStore from '../../src/store/modules/assettypes'
-import { reset, runAction } from './helpers'
+
 import {
   LOAD_ASSET_TYPES_START,
   LOAD_ASSET_TYPES_ERROR,
@@ -19,7 +19,6 @@ import {
 
   LOAD_ASSET_TYPE_STATUS_END
 } from '../../src/store/mutation-types'
-
 
 let assetTypes = []
 
@@ -48,12 +47,10 @@ assetTypesApi.deleteAssetType = (assetType, callback) => {
   })
 }
 
-
 const getters = assetTypeStore.getters
 const state = store.state.assetTypes
 
 describe('assetTypes', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

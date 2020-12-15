@@ -88,8 +88,8 @@ describe('Testing assets page', () => {
         .parent()
         .children()
         .then(($children) => {
-        $children[4].click()
-      })
+          $children[4].click()
+        })
     })
 
     it('select a user: Curtis Parker', () => {
@@ -114,8 +114,8 @@ describe('Testing assets page', () => {
         .parent()
         .children()
         .then(($children) => {
-        cy.wrap($children[4]).contains('todo').click()
-      })
+          cy.wrap($children[4]).contains('todo').click()
+        })
     })
 
     it('select WFA', () => {
@@ -129,6 +129,6 @@ describe('Testing assets page', () => {
   })
 
   after(() => {
-    cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+    cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
   })
 })

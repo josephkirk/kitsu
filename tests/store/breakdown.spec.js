@@ -1,10 +1,10 @@
 import { expect } from 'chai'
-import helpers from './helpers'
+import helpers, { reset, runAction } from './helpers'
 import store from '../../src/store'
 import assetsApi from '../../src/store/api/assets'
 import shotsApi from '../../src/store/api/shots'
 import breakdownStore from '../../src/store/modules/breakdown'
-import { reset, runAction } from './helpers'
+
 import {
   CASTING_SET_SHOT,
   CASTING_SET_SHOTS,
@@ -18,12 +18,11 @@ import {
   RESET_ALL
 } from '../../src/store/mutation-types'
 
-let assets = []
-let assetTypes = []
+const assets = []
+const assetTypes = []
 
 const getters = breakdownStore.getters
 const state = store.state.breakdown
-
 
 const shot = {
   id: 'shot-1',
@@ -40,7 +39,6 @@ let casting = {}
 const shots = [shot, shot2]
 
 describe('breakdown', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -80,8 +78,8 @@ describe('breakdown', () => {
       expect(assetsByType.length).to.equal(2)
       expect(assetsByType[0].length).to.equal(2)
       expect(assetsByType[1].length).to.equal(1)
-      expect(assetsByType[0][0]["asset_type_name"]).to.equal('Character')
-      expect(assetsByType[1][0]["asset_type_name"]).to.equal('Props')
+      expect(assetsByType[0][0].asset_type_name).to.equal('Character')
+      expect(assetsByType[1][0].asset_type_name).to.equal('Props')
     })
   })
 
@@ -142,13 +140,13 @@ describe('breakdown', () => {
     })
 
     it('CASTING_ADD_TO_CASTING', () => {
-      const asset =  {
+      const asset = {
         id: 'asset-4',
         asset_type_name: 'Props',
         name: 'Plant'
       }
       store.commit(CASTING_SET_CASTING, casting)
-      store.commit(CASTING_ADD_TO_CASTING, {asset, nbOccurences: 2})
+      store.commit(CASTING_ADD_TO_CASTING, { asset, nbOccurences: 2 })
 
       expect(state.castingAssetsByType.length).to.equal(2)
       expect(state.castingAssetsByType[0].length).to.equal(2)
@@ -157,32 +155,31 @@ describe('breakdown', () => {
 
       expect(state.isCastingDirty).to.equal(true)
 
-      store.commit(CASTING_ADD_TO_CASTING, {asset, nbOccurences: 2})
+      store.commit(CASTING_ADD_TO_CASTING, { asset, nbOccurences: 2 })
       expect(state.castingAssetsByType[0].length).to.equal(2)
       expect(state.castingAssetsByType[1].length).to.equal(2)
       expect(state.castingAssetsByType[1][0].nb_occurences).to.equal(4)
     })
 
     it('CASTING_REMOVE_FROM_CASTING', () => {
-      const asset =  {
+      const asset = {
         id: 'asset-4',
         asset_type_name: 'Props',
         name: 'Plant'
       }
       store.commit(CASTING_SET_CASTING, casting)
-      store.commit(CASTING_ADD_TO_CASTING, {asset, nbOccurences: 2})
-      store.commit(CASTING_REMOVE_FROM_CASTING, {asset, nbOccurences: 1})
+      store.commit(CASTING_ADD_TO_CASTING, { asset, nbOccurences: 2 })
+      store.commit(CASTING_REMOVE_FROM_CASTING, { asset, nbOccurences: 1 })
       expect(state.castingAssetsByType.length).to.equal(2)
       expect(state.castingAssetsByType[0].length).to.equal(2)
       expect(state.castingAssetsByType[1].length).to.equal(2)
       expect(state.castingAssetsByType[1][0].nb_occurences).to.equal(1)
       expect(state.isCastingDirty).to.equal(true)
 
-      store.commit(CASTING_REMOVE_FROM_CASTING, {asset, nbOccurences: 1})
+      store.commit(CASTING_REMOVE_FROM_CASTING, { asset, nbOccurences: 1 })
       expect(state.castingAssetsByType.length).to.equal(2)
       expect(state.castingAssetsByType[0].length).to.equal(2)
       expect(state.castingAssetsByType[1].length).to.equal(1)
     })
-
   })
 })

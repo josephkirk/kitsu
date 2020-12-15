@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers from './helpers'
+import helpers, { reset, runAction } from './helpers'
 import store from '../../src/store'
 import playlistsApi from '../../src/store/api/playlists'
 import playlistStore from '../../src/store/modules/playlists'
-import { reset, runAction } from './helpers'
+
 import {
   LOAD_PLAYLISTS_START,
   LOAD_PLAYLISTS_ERROR,
@@ -19,7 +19,6 @@ import {
 
   LOAD_PLAYLIST_STATUS_END
 } from '../../src/store/mutation-types'
-
 
 let playlists = []
 
@@ -48,12 +47,10 @@ playlistsApi.deletePlaylist = (playlist, callback) => {
   })
 }
 
-
 const getters = playlistStore.getters
 const state = store.state.playlists
 
 describe('playlists', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -125,7 +122,6 @@ describe('playlists', () => {
       helpers.runAction('deletePlaylist', {
         playlist: playlists[1],
         callback: (err) => {
-
           expect(err).to.be.null
           expect(state.playlists.length).to.equal(2)
           done()

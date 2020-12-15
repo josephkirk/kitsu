@@ -1,5 +1,4 @@
 describe('Testing production page', () => {
-
   context('Create a new production', () => {
     before(() => {
       Cypress.Cookies.defaults({
@@ -41,6 +40,6 @@ describe('Testing production page', () => {
   })
 
   after(() => {
-    cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+    cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
   })
 })

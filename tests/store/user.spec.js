@@ -36,9 +36,9 @@ let doneTasks = []
 let userFilters = {}
 
 const taskTypeMap = {
-  'task-type-1': {id: 'task-type-1', priority: 1, name: 'Modeling'},
-  'task-type-2': {id: 'task-type-2', priority: 1, name: 'Setup'},
-  'task-type-3': {id: 'task-type-3', priority: 2, name: 'Texture'}
+  'task-type-1': { id: 'task-type-1', priority: 1, name: 'Modeling' },
+  'task-type-2': { id: 'task-type-2', priority: 1, name: 'Setup' },
+  'task-type-3': { id: 'task-type-3', priority: 2, name: 'Texture' }
 }
 
 peopleApi.updatePerson = (form, callback) => {
@@ -76,7 +76,6 @@ peopleApi.loadTimeSpents = (data, callback) => {
 }
 
 describe('user', () => {
-
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -102,8 +101,8 @@ describe('user', () => {
         task_status_short_name: 'todo',
         task_type_id: 'task-type-1',
         last_comment: {
-          text: "last comment",
-          person_id: "person-1"
+          text: 'last comment',
+          person_id: 'person-1'
         },
         id: 'task-2'
       }
@@ -142,7 +141,7 @@ describe('user', () => {
         callback: () => {
           expect(store._vm.isSaveProfileLoading).to.not.be.ok
           expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
-          expect(store._vm.user.phone).to.equal("01 02 03 04")
+          expect(store._vm.user.phone).to.equal('01 02 03 04')
           done()
         }
       })
@@ -162,7 +161,6 @@ describe('user', () => {
       expect(store._vm.isSaveProfileLoading).to.be.ok
       expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
     })
-
 
     it('checkPasswordValidityAndSave (password unvalid)', (done) => {
       helpers.runAction('checkNewPasswordValidityAndSave', {
@@ -300,10 +298,10 @@ describe('user', () => {
     })
     it('USER_SAVE_PROFILE_SUCCESS', () => {
       store.commit(USER_LOGIN, user)
-      store.commit(USER_SAVE_PROFILE_SUCCESS, {phone: "01 02 03 04"})
+      store.commit(USER_SAVE_PROFILE_SUCCESS, { phone: '01 02 03 04' })
       expect(store._vm.isSaveProfileLoading).to.not.be.ok
       expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
-      expect(store._vm.user.phone).to.equal("01 02 03 04")
+      expect(store._vm.user.phone).to.equal('01 02 03 04')
     })
 
     it('USER_CHANGE_PASSWORD_LOADING', () => {
