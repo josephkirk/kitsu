@@ -4,6 +4,7 @@ import {
   getChartColors
 } from '../../../src/lib/stats'
 
+
 const taskMap = {
   'task-1': {
     id: 'task-1',
@@ -82,7 +83,7 @@ const expectedStatResult = {
   all: {
     all: {
       'task-status-1': { name: 'wip', color: 'blue', count: 4, frames: 29 },
-      'task-status-2': { name: 'retake', color: 'red', count: 2, frames: 9 }
+      'task-status-2': { name: 'retake', color: 'red', count: 2, frames: 9 },
     },
     'task-type-1': {
       'task-status-1': { name: 'wip', color: 'blue', count: 2, frames: 14 },
@@ -91,7 +92,7 @@ const expectedStatResult = {
     'task-type-2': {
       'task-status-1': { name: 'wip', color: 'blue', count: 2, frames: 15 },
       'task-status-2': { name: 'retake', color: 'red', count: 1, frames: 4 }
-    }
+    },
   },
   'sequence-1': {
     all: {
@@ -120,7 +121,9 @@ const expectedStatResult = {
   }
 }
 
+
 describe('lib/stats', () => {
+
   it('computeStats - empty list', () => {
     const shots = []
     const stats = computeStats(shots, 'sequence_id', taskStatusMap, taskMap)
@@ -156,17 +159,17 @@ describe('lib/stats', () => {
     const sequence = { id: 'sequence-1' }
     const taskType = taskTypeMap['task-type-1']
     let data = getChartData(expectedStatResult, sequence.id, taskType.id)
-    expect(data).toEqual([['retake', 1, 'red'], ['wip', 1, 'blue']])
+    expect(data).toEqual([ [ 'retake', 1, 'red' ], [ 'wip', 1, 'blue' ] ])
     data = getChartData(expectedStatResult, 'all', 'all')
-    expect(data).toEqual([['retake', 2, 'red'], ['wip', 4, 'blue']])
+    expect(data).toEqual([ [ 'retake', 2, 'red' ], [ 'wip', 4, 'blue' ] ])
   })
 
   it('getChartColors', () => {
     const sequence = { id: 'sequence-1' }
     const taskType = taskTypeMap['task-type-1']
     let data = getChartColors(expectedStatResult, sequence.id, taskType.id)
-    expect(data).toEqual(['red', 'blue'])
+    expect(data).toEqual([ 'red' , 'blue' ])
     data = getChartColors(expectedStatResult, 'all', 'all')
-    expect(data).toEqual(['red', 'blue'])
+    expect(data).toEqual([ 'red', 'blue' ])
   })
 })

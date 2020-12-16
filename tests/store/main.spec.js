@@ -7,7 +7,9 @@ import {
   TOGGLE_USER_MENU
 } from '../../src/store/mutation-types'
 
+
 describe('main', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers, { reset, runAction } from './helpers'
+import helpers from './helpers'
 import store from '../../src/store'
 import taskStatusApi from '../../src/store/api/taskstatus'
 import taskStatusStore from '../../src/store/modules/taskstatus'
-
+import { reset, runAction } from './helpers'
 import {
   LOAD_TASK_STATUSES_START,
   LOAD_TASK_STATUSES_ERROR,
@@ -19,6 +19,7 @@ import {
 
   LOAD_TASK_STATUS_STATUS_END
 } from '../../src/store/mutation-types'
+
 
 let taskStatus = []
 
@@ -47,10 +48,12 @@ taskStatusApi.deleteTaskStatus = (taskStatus, callback) => {
   })
 }
 
+
 const getters = taskStatusStore.getters
 const state = store.state.taskStatus
 
 describe('taskStatus', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -154,6 +157,7 @@ describe('taskStatus', () => {
       })
     })
   })
+
 
   describe('mutations', () => {
     it('LOAD_TASK_STATUSES_START', () => {

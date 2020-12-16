@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers, { reset, runAction } from './helpers'
+import helpers from './helpers'
 import store from '../../src/store'
 import customActionsApi from '../../src/store/api/customactions'
 import customActionStore from '../../src/store/modules/customactions'
-
+import { reset, runAction } from './helpers'
 import {
   LOAD_CUSTOM_ACTIONS_START,
   LOAD_CUSTOM_ACTIONS_ERROR,
@@ -19,6 +19,7 @@ import {
 
   LOAD_CUSTOM_ACTION_STATUS_END
 } from '../../src/store/mutation-types'
+
 
 let customActions = []
 
@@ -47,10 +48,12 @@ customActionsApi.deleteCustomAction = (customAction, callback) => {
   })
 }
 
+
 const getters = customActionStore.getters
 const state = store.state.customActions
 
 describe('customActions', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -101,6 +104,7 @@ describe('customActions', () => {
       expect(customActions[0].name).to.equal('Build Playlist')
       expect(customActions[1].name).to.equal('Change status')
     })
+
   })
 
   describe('actions', () => {

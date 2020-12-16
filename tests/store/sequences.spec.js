@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers, { reset, runAction } from './helpers'
+import helpers from './helpers'
 import store from '../../src/store'
 import sequencesApi from '../../src/store/api/shots'
 import sequencesStore from '../../src/store/modules/shots'
-
+import { reset, runAction } from './helpers'
 import {
   LOAD_EPISODES_END,
   LOAD_SEQUENCES_END,
@@ -30,6 +30,7 @@ import {
   LOAD_TASK_STATUSES_END,
   LOAD_TASK_TYPES_END
 } from '../../src/store/mutation-types'
+
 
 let episodes = []
 let sequences = []
@@ -72,6 +73,7 @@ const getters = sequencesStore.getters
 const state = store.state.shots
 
 describe('sequences', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -249,7 +251,7 @@ describe('sequences', () => {
 
   describe('actions', () => {
     it('displayMoreSequences', () => {
-      for (let i = 0; i < 100; i++) {
+      for(let i = 0; i < 100; i++) {
         sequences.push({
           id: 'sequence-x' + i,
           name: 'SE0x' + i,
@@ -298,7 +300,7 @@ describe('sequences', () => {
         .runAction('editSequence', sequence)
         .then(() => {
           expect(state.sequences[0].name).to.equal(sequence.name)
-          expect(state.sequenceIndex.se01b[0].name).to.equal(sequence.name)
+          expect(state.sequenceIndex['se01b'][0].name).to.equal(sequence.name)
         })
     })
 
@@ -347,6 +349,7 @@ describe('sequences', () => {
       expect(
         state.sequenceStats['sequence-2']['task-type-1']['#333333'].value
       ).to.equal(1)
+
     })
   })
 
@@ -363,7 +366,7 @@ describe('sequences', () => {
 
       expect(state.displayedSequences.length).to.equal(3)
       expect(state.displayedSequencesLength).to.equal(3)
-      expect(state.sequenceIndex.se0.length).to.equal(3)
+      expect(state.sequenceIndex['se0'].length).to.equal(3)
     })
 
     it(NEW_SEQUENCE_START, () => {})
@@ -395,7 +398,7 @@ describe('sequences', () => {
       store.commit(EDIT_SEQUENCE_END, sequence)
 
       expect(state.sequences[0].name).to.equal(sequence.name)
-      expect(state.sequenceIndex.se01b[0].name).to.equal(sequence.name)
+      expect(state.sequenceIndex['se01b'][0].name).to.equal(sequence.name)
     })
 
     it(DELETE_SEQUENCE_START, () => {})
@@ -427,7 +430,7 @@ describe('sequences', () => {
     })
 
     it(DISPLAY_MORE_SEQUENCES, () => {
-      for (let i = 0; i < 100; i++) {
+      for(let i = 0; i < 100; i++) {
         sequences.push({
           id: 'sequence-x' + i,
           name: 'SE0x' + i,

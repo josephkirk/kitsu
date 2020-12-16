@@ -2,6 +2,7 @@ import i18n from '../../../src/lib/i18n'
 import { mount } from '@vue/test-utils'
 import ButtonSimple from '../../../src/components/widgets/ButtonSimple'
 
+
 describe('ButtonSimple', () => {
   let wrapper
 
@@ -21,20 +22,20 @@ describe('ButtonSimple', () => {
         propsData: {
         }
       })
-      const buttons = emptyWrapper.findAll('.button')
-      expect(buttons).toHaveLength(1)
+      let buttons = emptyWrapper.findAll('.button')
+      expect(buttons.length).toEqual(1)
     })
 
     test('Ensure button', () => {
-      const buttons = wrapper.findAll('button')
-      expect(buttons).toHaveLength(1)
+      let buttons = wrapper.findAll('button')
+      expect(buttons.length).toEqual(1)
     })
   })
 
   describe('Methods', () => {
     test('iconClass', () => {
       let buttons = wrapper.findAll('.only-icon')
-      expect(buttons).toHaveLength(0)
+      expect(buttons.length).toEqual(0)
       const newWrapper = mount(ButtonSimple, {
         propsData: {
           icon: 'download',
@@ -43,7 +44,7 @@ describe('ButtonSimple', () => {
         }
       })
       buttons = newWrapper.findAll('.only-icon')
-      expect(buttons).toHaveLength(1)
+      expect(buttons.length).toEqual(1)
     })
   })
 })

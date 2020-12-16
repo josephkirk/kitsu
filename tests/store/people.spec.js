@@ -41,14 +41,14 @@ import {
 let people = []
 let tasks = []
 let doneTasks = []
-const personTasksFilters = {}
+let personTasksFilters = {}
 let userFilters = {}
-const person = {}
+let person = {}
 
 const taskTypeMap = {
-  'task-type-1': { id: 'task-type-1', priority: 1, name: 'Modeling' },
-  'task-type-2': { id: 'task-type-2', priority: 1, name: 'Setup' },
-  'task-type-3': { id: 'task-type-3', priority: 2, name: 'Texture' }
+  'task-type-1': {id: 'task-type-1', priority: 1, name: 'Modeling'},
+  'task-type-2': {id: 'task-type-2', priority: 1, name: 'Setup'},
+  'task-type-3': {id: 'task-type-3', priority: 2, name: 'Texture'}
 }
 
 peopleApi.getPeople = (callback) => {
@@ -58,7 +58,7 @@ peopleApi.getPeople = (callback) => {
 }
 
 peopleApi.newPerson = (data, callback) => {
-  const person = { id: 'new-person' }
+  const person = {id: 'new-person'}
   Object.assign(person, data)
   process.nextTick(() => {
     callback(null, person)
@@ -110,6 +110,7 @@ peopleApi.getTimeSpents = (personId, date, callback) => {
 }
 
 describe('people', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
   beforeEach(() => {
@@ -163,14 +164,14 @@ describe('people', () => {
       }
     ]
     doneTasks = [{
-      project_name: 'Agent327',
-      task_type_name: 'Concept',
-      entity_name: 'Tree',
-      entity_type_name: 'Props',
-      entity_id: 'asset-1',
-      task_status_short_name: 'done',
-      last_comment: {},
-      id: 'task-1'
+        project_name: 'Agent327',
+        task_type_name: 'Concept',
+        entity_name: 'Tree',
+        entity_type_name: 'Props',
+        entity_id: 'asset-1',
+        task_status_short_name: 'done',
+        last_comment: {},
+        id: 'task-1'
     }]
     userFilters = {
     }
@@ -194,47 +195,41 @@ describe('people', () => {
     it('editPeople', (done) => {
       store.commit(LOAD_PEOPLE_END, people)
       const personId = 'person-2'
-      const data = { last_name: 'Edited' }
+      const data = {last_name: 'Edited'}
 
       helpers.runAction('showPersonEditModal', personId)
-      helpers.runAction('editPeople', {
-        data: data,
-        callback: (err) => {
-          expect(store._vm.isEditLoading).to.equal(false)
-          expect(store._vm.isEditModalShown).to.equal(false)
-          expect(store._vm.personToEdit.last_name).to.equal(undefined)
-          expect(
-            store._vm.people
-              .find((person) => person.id === personId)
-              .last_name
-          ).to.equal('Edited')
-          done()
-        }
-      })
+      helpers.runAction('editPeople', {data: data, callback: (err) => {
+        expect(store._vm.isEditLoading).to.equal(false)
+        expect(store._vm.isEditModalShown).to.equal(false)
+        expect(store._vm.personToEdit.last_name).to.equal(undefined)
+        expect(
+          store._vm.people
+            .find((person) => person.id === personId)
+            .last_name
+        ).to.equal('Edited')
+        done()
+      }})
       expect(store._vm.isEditLoading).to.equal(true)
       expect(store._vm.isEditLoadingError).to.equal(false)
     })
 
     it('newPeople', (done) => {
       store.commit(LOAD_PEOPLE_END, people)
-      const data = { first_name: 'New', last_name: 'Person' }
+      const data = {first_name: 'New', last_name: 'Person'}
 
       helpers.runAction('showPersonEditModal')
-      helpers.runAction('newPeople', {
-        data: data,
-        callback: (err) => {
-          expect(store._vm.isEditLoading).to.equal(false)
-          expect(store._vm.isEditModalShown).to.equal(false)
-          expect(store._vm.personToEdit.last_name).to.equal(undefined)
-          expect(
-            store._vm.people
-              .find((person) => person.id === 'new-person')
-              .last_name
-          ).to.equal('Person')
-          expect(store._vm.people.length).to.equal(5)
-          done()
-        }
-      })
+      helpers.runAction('newPeople', {data: data, callback: (err) => {
+        expect(store._vm.isEditLoading).to.equal(false)
+        expect(store._vm.isEditModalShown).to.equal(false)
+        expect(store._vm.personToEdit.last_name).to.equal(undefined)
+        expect(
+          store._vm.people
+            .find((person) => person.id === 'new-person')
+            .last_name
+        ).to.equal('Person')
+        expect(store._vm.people.length).to.equal(5)
+        done()
+      }})
       expect(store._vm.isEditLoading).to.equal(true)
       expect(store._vm.isEditLoadingError).to.equal(false)
     })
@@ -267,6 +262,7 @@ describe('people', () => {
       expect(store._vm.isImportPeopleLoading).to.equal(true)
       expect(store._vm.isImportPeopleLoadingError).to.equal(false)
     })
+
 
     it('showPersonImportModal / hidePersonImportModal', () => {
       helpers.runAction('showPersonImportModal')
@@ -373,7 +369,7 @@ describe('people', () => {
     it('DELETE_PEOPLE_END', () => {
       store.commit(LOAD_PEOPLE_END, people)
       store.commit(SHOW_DELETE_PEOPLE_MODAL, 'person-3')
-      store.commit(DELETE_PEOPLE_END, { id: 'person-3' })
+      store.commit(DELETE_PEOPLE_END, {id: 'person-3'})
       expect(store._vm.isDeleteLoading).to.equal(false)
       expect(store._vm.isDeleteLoadingError).to.equal(false)
       expect(store._vm.personToDelete).to.equal(undefined)
@@ -405,7 +401,7 @@ describe('people', () => {
     })
 
     it('EDIT_PEOPLE_START', () => {
-      store.commit(EDIT_PEOPLE_START, { last_name: 'New' })
+      store.commit(EDIT_PEOPLE_START, {last_name: 'New'})
       expect(store._vm.isEditLoading).to.equal(true)
       expect(store._vm.isEditLoadingError).to.equal(false)
       expect(store._vm.personToEdit.last_name).to.equal('New')
@@ -414,26 +410,26 @@ describe('people', () => {
     it('EDIT_PEOPLE_END', () => {
       store.commit(LOAD_PEOPLE_END, people)
       store.commit(SHOW_EDIT_PEOPLE_MODAL, 'person-3')
-      store.commit(EDIT_PEOPLE_START, { last_name: 'Edited' })
+      store.commit(EDIT_PEOPLE_START, {last_name: 'Edited'})
       store.commit(EDIT_PEOPLE_END)
       expect(store._vm.isEditLoading).to.equal(false)
       expect(store._vm.isEditLoadingError).to.equal(false)
       expect(
         store._vm.people.find((person) => person.id === 'person-3')
-          .last_name).to.equal('Edited')
+      .last_name).to.equal('Edited')
     })
 
     it('EDIT_PEOPLE_END creation', () => {
       store.commit(LOAD_PEOPLE_END, people)
       store.commit(SHOW_EDIT_PEOPLE_MODAL)
-      store.commit(EDIT_PEOPLE_START, { first_name: 'New', last_name: 'Person' })
+      store.commit(EDIT_PEOPLE_START, {first_name: 'New', last_name: 'Person'})
       store.commit(NEW_PEOPLE_END, 'new-person')
       store.commit(EDIT_PEOPLE_END)
       expect(store._vm.isEditLoading).to.equal(false)
       expect(store._vm.isEditLoadingError).to.equal(false)
       expect(
         store._vm.people.find((person) => person.id === 'new-person')
-          .last_name).to.equal('Person')
+      .last_name).to.equal('Person')
     })
 
     it('EDIT_PEOPLE_ERROR', () => {
@@ -504,7 +500,7 @@ describe('people', () => {
     })
 
     it('PERSON_CSV_FILE_SELECTED', () => {
-      const formData = { file: {} }
+      const formData = {file: {}}
       store.commit(PERSON_CSV_FILE_SELECTED, formData)
       expect(store._vm.personCsvFormData).to.deep.equal(formData)
     })

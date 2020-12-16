@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers, { reset, runAction } from './helpers'
+import helpers from './helpers'
 import store from '../../src/store'
 import productionsApi from '../../src/store/api/productions'
 import productionStore from '../../src/store/modules/productions'
-
+import { reset, runAction } from './helpers'
 import {
   LOAD_PRODUCTIONS_START,
   LOAD_PRODUCTIONS_ERROR,
@@ -24,8 +24,9 @@ import {
 
   SET_CURRENT_PRODUCTION,
   TEAM_ADD_PERSON,
-  TEAM_REMOVE_PERSON
+  TEAM_REMOVE_PERSON,
 } from '../../src/store/mutation-types'
+
 
 const productionStatuses = [
   {
@@ -72,13 +73,13 @@ productionsApi.postAvatar = (productionId, formData, callback) => {
 }
 
 productionsApi.addPersonToTeam = (projectId, personId) => {
-  return new Promise((resolve, reject) => {
+  return new Promise ((resolve, reject) => {
     return process.nextTick(resolve)
   })
 }
 
 productionsApi.removePersonFromTeam = (projectId, personId) => {
-  return new Promise((resolve, reject) => {
+  return new Promise ((resolve, reject) => {
     return process.nextTick(resolve)
   })
 }
@@ -87,6 +88,7 @@ const getters = productionStore.getters
 const state = store.state.productions
 
 describe('productions', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -228,7 +230,7 @@ describe('productions', () => {
           () => {
             expect(state.productionMap['production-2'].has_avatar)
               .to.equal(true)
-          })
+        })
     })
 
     /*
@@ -252,6 +254,7 @@ describe('productions', () => {
         })
     })
     */
+
   })
 
   describe('mutations', () => {

@@ -13,6 +13,7 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(vuescroll)
 
+
 describe('Schedule', () => {
   let store
 
@@ -88,7 +89,7 @@ describe('Schedule', () => {
       strict: true,
       modules: {
         tasks: taskStore,
-        productions: { ...productionStoreFixture },
+        productions: {... productionStoreFixture },
         taskStatus: taskStatusStore,
         taskTypes: taskTypeStore,
         user: userStore,
@@ -108,6 +109,7 @@ describe('Schedule', () => {
     })
   })
 
+
   describe('Mount', () => {
     test('mounted', () => {
     })
@@ -124,7 +126,7 @@ describe('Schedule', () => {
 
     test('daysToDisplay', () => {
       const days = wrapper.vm.daysAvailable
-      expect(days).toHaveLength(185)
+      expect(days.length).toEqual(185)
       expect(days[4].newMonth).toBeFalsy()
       expect(days[4].newWeek).toBeFalsy()
       expect(days[4].weekend).toBeFalsy()
@@ -189,6 +191,7 @@ describe('Schedule', () => {
   })
 
   describe('Methods', () => {
+
     describe('Layout', () => {
       test('resetScheduleSize', () => {
         wrapper.vm.resetScheduleSize()
@@ -233,10 +236,10 @@ describe('Schedule', () => {
           .toEqual(moment('2019-08-13').format('YYYY-MM-DD'))
       })
       test('changeEndDate', () => {
-        wrapper.vm.moveTimebarRightSide(timeElement, initialEvent)
-        wrapper.vm.changeEndDate(event)
-        expect(wrapper.vm.currentElement.endDate.format('YYYY-MM-DD'))
-          .toEqual(moment('2019-08-30').format('YYYY-MM-DD'))
+         wrapper.vm.moveTimebarRightSide(timeElement, initialEvent)
+         wrapper.vm.changeEndDate(event)
+         expect(wrapper.vm.currentElement.endDate.format('YYYY-MM-DD'))
+           .toEqual(moment('2019-08-30').format('YYYY-MM-DD'))
       })
       test('scrollScheduleHeight', () => {
         wrapper.vm.timelineContentWrapper.scrollLeft = 150
@@ -428,7 +431,7 @@ describe('Schedule', () => {
       })
 
       test('entityLineStyle', () => {
-        const entityLineStyle = wrapper.vm.entityLineStyle({ color: 'red' })
+        let entityLineStyle = wrapper.vm.entityLineStyle({ color: 'red' })
         expect(entityLineStyle).toEqual({
           'background-color': 'red'
         })
@@ -441,9 +444,9 @@ describe('Schedule', () => {
           editable: true
         })
         expect(timebarStyle).toEqual({
-          cursor: 'ew-resize',
-          left: (33 * 60 + 5) + 'px',
-          width: 14 * 60 - 10 + 'px'
+          'cursor': 'ew-resize',
+          'left': (33 * 60 + 5) + 'px',
+          'width': 14 * 60 - 10 + 'px'
         })
         timebarStyle = wrapper.vm.timebarStyle({
           startDate: moment('2019-08-15', 'YYYY-MM-DD'),
@@ -451,9 +454,9 @@ describe('Schedule', () => {
           editable: false
         })
         expect(timebarStyle).toEqual({
-          cursor: 'default',
-          left: (33 * 60 + 5) + 'px',
-          width: 14 * 60 - 10 + 'px'
+          'cursor': 'default',
+          'left': (33 * 60 + 5) + 'px',
+          'width': 14 * 60 - 10 + 'px'
         })
       })
 
@@ -461,7 +464,7 @@ describe('Schedule', () => {
       })
 
       test('getTimebarLeft', () => {
-        const timebarLeft = wrapper.vm.getTimebarLeft({
+        let timebarLeft = wrapper.vm.getTimebarLeft({
           startDate: moment('2019-08-15', 'YYYY-MM-DD'),
           endDate: moment('2019-09-01', 'YYYY-MM-DD')
         })
@@ -469,7 +472,7 @@ describe('Schedule', () => {
       })
 
       test('getTimebarWidth', () => {
-        const timebarWidth = wrapper.vm.getTimebarWidth({
+        let timebarWidth = wrapper.vm.getTimebarWidth({
           startDate: moment('2019-08-15', 'YYYY-MM-DD'),
           endDate: moment('2019-09-01', 'YYYY-MM-DD')
         })

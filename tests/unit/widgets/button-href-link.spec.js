@@ -2,6 +2,7 @@ import i18n from '../../../src/lib/i18n'
 import { mount } from '@vue/test-utils'
 import ButtonHrefLink from '../../../src/components/widgets/ButtonHrefLink'
 
+
 describe('ButtonHrefLink', () => {
   let wrapper
 
@@ -21,13 +22,13 @@ describe('ButtonHrefLink', () => {
         propsData: {
         }
       })
-      const buttons = emptyWrapper.findAll('.button')
-      expect(buttons).toHaveLength(1)
+      let buttons = emptyWrapper.findAll('.button')
+      expect(buttons.length).toEqual(1)
     })
 
     test('Ensure button', () => {
-      const buttons = wrapper.findAll('.button')
-      expect(buttons).toHaveLength(1)
+      let buttons = wrapper.findAll('.button')
+      expect(buttons.length).toEqual(1)
     })
   })
 
