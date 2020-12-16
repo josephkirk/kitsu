@@ -11,6 +11,7 @@ localVue.use(Vuex)
 localVue.use(VueRouter)
 const router = new VueRouter()
 
+
 describe('BuildFilterModal', () => {
   let store, assetStore, peopleStore, productionStore, shotStore, taskStore
   let wrapper
@@ -26,7 +27,7 @@ describe('BuildFilterModal', () => {
           {
             id: 'descriptor-1', name: 'Difficulty', choices: ['easy', 'hard']
           },
-          { id: 'descriptor-2', name: 'Size' }
+          { id: 'descriptor-2', name: 'Size' },
         ],
         assetSearchText: (state) => state.assetSearchText,
         assetValidationColumns: () => ['task-type-1', 'task-type-2'],
@@ -39,10 +40,10 @@ describe('BuildFilterModal', () => {
           { id: 'asset-type-1', name: 'chars' },
           { id: 'asset-type-2', name: 'sets' },
           { id: 'asset-type-3', name: 'props' }
-        ]
+        ],
       },
       mutations: {
-        CHANGE_SEARCH: (state, query) => state.assetSearchText = query
+        'CHANGE_SEARCH': (state, query) => state.assetSearchText = query
       },
       actions: {
         changeSearch ({ commit, state }, query) {
@@ -54,7 +55,7 @@ describe('BuildFilterModal', () => {
       getters: {
         shotMetadataDescriptors: () => [
           { id: 'descriptor-3', name: 'Style' },
-          { id: 'descriptor-4', name: 'Length' }
+          { id: 'descriptor-4', name: 'Length' },
         ],
         shotSearchText: () => '',
         shotValidationColumns: () => ['task-type-3', 'task-type-4']
@@ -99,7 +100,7 @@ describe('BuildFilterModal', () => {
         taskStatusMap: () => ({
           'task-status-1': { id: 'task-status-1', short_name: 'WFA' },
           'task-status-2': { id: 'task-status-2', short_name: 'WIP' },
-          'task-status-3': { id: 'task-status-3', short_name: 'Retake' }
+          'task-status-3': { id: 'task-status-3', short_name: 'Retake' },
         })
       },
       actions: {}
@@ -138,8 +139,8 @@ describe('BuildFilterModal', () => {
           taskTypeFilters: {
             values: [
               {
-                id: 'task-type-1',
-                operator: '=',
+                id: 'task-type-1' ,
+                operator: '=' ,
                 values: ['task-status-2']
               }
             ]
@@ -157,12 +158,17 @@ describe('BuildFilterModal', () => {
             values: [
               {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 id: 'descriptor-1' ,
                 operator: '=' ,
                 values: ['easy']
 =======
                 id: 'descriptor-1',
                 operator: '=',
+=======
+                id: 'descriptor-1' ,
+                operator: '=' ,
+>>>>>>> 1af13f21 (Revert "Add electron")
                 text: 'easy'
 >>>>>>> caf16d6c (Add electron)
               }
@@ -194,13 +200,13 @@ describe('BuildFilterModal', () => {
       })
       it('descriptorOptions', () => {
         expect(wrapper.vm.descriptorOptions[0]).toStrictEqual({
-          label: 'Difficulty',
-          value: 'descriptor-1'
+          'label': 'Difficulty',
+          'value': 'descriptor-1'
         })
         wrapper.setProps({ entityType: 'shot' })
         expect(wrapper.vm.descriptorOptions[0]).toStrictEqual({
-          label: 'Style',
-          value: 'descriptor-3'
+          'label': 'Style',
+          'value': 'descriptor-3'
         })
       })
       it('metadataDescriptors', () => {
@@ -212,27 +218,27 @@ describe('BuildFilterModal', () => {
 
     describe('methods', () => {
       it('applyFilter', () => {
-        wrapper.setData({
-          taskTypeFilters: {
-            values: [
-              {
-                id: 'task-type-1',
-                operator: '=',
-                values: ['task-status-2']
-              }
-            ]
-          }
-        })
-        const query = wrapper.vm.applyFilter()
-        expect(wrapper.emitted().confirm).toBeTruthy()
-        expect(wrapper.emitted().confirm[0][0]).toBe('[Modeling]=[WIP]')
+          wrapper.setData({
+            taskTypeFilters: {
+              values: [
+                {
+                  id: 'task-type-1' ,
+                  operator: '=' ,
+                  values: ['task-status-2']
+                }
+              ]
+            }
+          })
+          const query = wrapper.vm.applyFilter()
+          expect(wrapper.emitted().confirm).toBeTruthy()
+          expect(wrapper.emitted().confirm[0][0]).toBe('[Modeling]=[WIP]')
       })
       describe('Build filter', () => {
         describe('asset types', () => {
           it('type is', () => {
             wrapper.setData({
               assetTypeFilters: {
-                operator: '=',
+                operator: '=' ,
                 value: 'asset-type-1'
               }
             })
@@ -242,7 +248,7 @@ describe('BuildFilterModal', () => {
           it('type is not', () => {
             wrapper.setData({
               assetTypeFilters: {
-                operator: '=',
+                operator: '=' ,
                 value: 'asset-type-1'
               }
             })
@@ -256,8 +262,8 @@ describe('BuildFilterModal', () => {
               taskTypeFilters: {
                 values: [
                   {
-                    id: 'task-type-1',
-                    operator: '=',
+                    id: 'task-type-1' ,
+                    operator: '=' ,
                     values: ['task-status-2']
                   }
                 ]
@@ -271,8 +277,8 @@ describe('BuildFilterModal', () => {
               taskTypeFilters: {
                 values: [
                   {
-                    id: 'task-type-1',
-                    operator: '=-',
+                    id: 'task-type-1' ,
+                    operator: '=-' ,
                     values: ['task-status-2']
                   }
                 ]
@@ -289,12 +295,17 @@ describe('BuildFilterModal', () => {
                 values: [
                   {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     id: 'descriptor-1' ,
                     operator: '=' ,
                     values: ['easy']
 =======
                     id: 'descriptor-1',
                     operator: '=',
+=======
+                    id: 'descriptor-1' ,
+                    operator: '=' ,
+>>>>>>> 1af13f21 (Revert "Add electron")
                     text: 'easy'
 >>>>>>> caf16d6c (Add electron)
                   }
@@ -310,12 +321,17 @@ describe('BuildFilterModal', () => {
                 values: [
                   {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     id: 'descriptor-1' ,
                     operator: '=-' ,
                     values: ['easy']
 =======
                     id: 'descriptor-1',
                     operator: '=-',
+=======
+                    id: 'descriptor-1' ,
+                    operator: '=-' ,
+>>>>>>> 1af13f21 (Revert "Add electron")
                     text: 'easy'
 >>>>>>> caf16d6c (Add electron)
                   }
@@ -366,7 +382,7 @@ describe('BuildFilterModal', () => {
             wrapper.setData({
               assignation: {
                 value: 'assignedto',
-                person: { id: 'person-1', name: 'John' }
+                person: {id: 'person-1', name: 'John'}
               }
             })
             const query = wrapper.vm.buildFilter()
@@ -376,7 +392,7 @@ describe('BuildFilterModal', () => {
             wrapper.setData({
               assignation: {
                 value: '-assignedto',
-                person: { id: 'person-1', name: 'John' }
+                person: {id: 'person-1', name: 'John'}
               }
             })
             const query = wrapper.vm.buildFilter()
@@ -408,7 +424,7 @@ describe('BuildFilterModal', () => {
             wrapper.setData({
               assignation: {
                 value: 'assignedto',
-                person: { id: 'person-1', name: 'John' }
+                person: {id: 'person-1', name: 'John'}
               },
               union: 'or'
             })
@@ -432,8 +448,8 @@ describe('BuildFilterModal', () => {
             wrapper.vm.setFiltersFromCurrentQuery()
             expect(wrapper.vm.taskTypeFilters.values).toStrictEqual([
               {
-                id: 'task-type-1',
-                operator: '=',
+                id: 'task-type-1' ,
+                operator: '=' ,
                 values: ['task-status-2']
               }
             ])
@@ -443,8 +459,8 @@ describe('BuildFilterModal', () => {
             wrapper.vm.setFiltersFromCurrentQuery()
             expect(wrapper.vm.taskTypeFilters.values).toStrictEqual([
               {
-                id: 'task-type-1',
-                operator: '=',
+                id: 'task-type-1' ,
+                operator: '=' ,
                 values: ['task-status-2']
               }
             ])
@@ -454,7 +470,7 @@ describe('BuildFilterModal', () => {
             wrapper.vm.setFiltersFromCurrentQuery()
             expect(wrapper.vm.taskTypeFilters.values).toStrictEqual([
               {
-                id: 'task-type-1',
+                id: 'task-type-1' ,
                 operator: 'in',
                 values: ['task-status-2', 'task-status-1']
               }
@@ -468,12 +484,17 @@ describe('BuildFilterModal', () => {
             expect(wrapper.vm.metadataDescriptorFilters.values).toStrictEqual([
               {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 id: 'descriptor-1' ,
                 operator: '=' ,
                 values: ['easy']
 =======
                 id: 'descriptor-1',
                 operator: '=',
+=======
+                id: 'descriptor-1' ,
+                operator: '=' ,
+>>>>>>> 1af13f21 (Revert "Add electron")
                 text: 'easy'
 >>>>>>> caf16d6c (Add electron)
               }
@@ -484,6 +505,7 @@ describe('BuildFilterModal', () => {
             wrapper.vm.setFiltersFromCurrentQuery()
             expect(wrapper.vm.metadataDescriptorFilters.values).toStrictEqual([
               {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 id: 'descriptor-1' ,
                 operator: '=-' ,
@@ -502,6 +524,10 @@ describe('BuildFilterModal', () => {
 =======
                 id: 'descriptor-1',
                 operator: '=-',
+=======
+                id: 'descriptor-1' ,
+                operator: '=-' ,
+>>>>>>> 1af13f21 (Revert "Add electron")
                 text: 'easy'
 >>>>>>> caf16d6c (Add electron)
               }
@@ -562,53 +588,57 @@ describe('BuildFilterModal', () => {
 
       describe('Task type filters', () => {
         it('add', () => {
-          expect(wrapper.vm.taskTypeFilters.values).toHaveLength(0)
+          expect(wrapper.vm.taskTypeFilters.values.length).toBe(0)
           wrapper.vm.addTaskTypeFilter()
           expect(wrapper.vm.taskTypeFilters.values).toStrictEqual([{
             id: 'task-type-1',
             operator: '=',
-            values: ['task-status-1']
+            values: ['task-status-1'],
           }])
           wrapper.vm.addTaskTypeFilter()
-          expect(wrapper.vm.taskTypeFilters.values).toHaveLength(2)
+          expect(wrapper.vm.taskTypeFilters.values.length).toBe(2)
         })
         it('remove', () => {
           wrapper.vm.addTaskTypeFilter()
           wrapper.vm.addTaskTypeFilter()
           const filter = wrapper.vm.addTaskTypeFilter()
           wrapper.vm.removeTaskTypeFilter(filter)
-          expect(wrapper.vm.taskTypeFilters.values).toHaveLength(2)
+          expect(wrapper.vm.taskTypeFilters.values.length).toBe(2)
         })
       })
 
       describe('descriptors', () => {
         it('add', () => {
-          expect(wrapper.vm.taskTypeFilters.values).toHaveLength(0)
+          expect(wrapper.vm.taskTypeFilters.values.length).toBe(0)
           wrapper.vm.addDescriptorFilter()
           expect(wrapper.vm.metadataDescriptorFilters.values).toStrictEqual([{
             id: 'descriptor-1',
             operator: '=',
 <<<<<<< HEAD
+<<<<<<< HEAD
             values: ['easy'],
 =======
             text: 'easy'
 >>>>>>> caf16d6c (Add electron)
+=======
+            text: 'easy',
+>>>>>>> 1af13f21 (Revert "Add electron")
           }])
           wrapper.vm.addDescriptorFilter()
-          expect(wrapper.vm.metadataDescriptorFilters.values).toHaveLength(2)
+          expect(wrapper.vm.metadataDescriptorFilters.values.length).toBe(2)
         })
         it('remove', () => {
           wrapper.vm.addDescriptorFilter()
           wrapper.vm.addDescriptorFilter()
           const filter = wrapper.vm.addDescriptorFilter()
           wrapper.vm.removeDescriptorFilter(filter)
-          expect(wrapper.vm.metadataDescriptorFilters.values).toHaveLength(2)
+          expect(wrapper.vm.metadataDescriptorFilters.values.length).toBe(2)
         })
         it('options', () => {
           const option = wrapper.vm.getDescriptorChoiceOptions('descriptor-1')
           expect(option).toStrictEqual([
-            { label: 'easy', value: 'easy' },
-            { label: 'hard', value: 'hard' }
+            {label: 'easy', value: 'easy'},
+            {label: 'hard', value: 'hard'}
           ])
         })
       })

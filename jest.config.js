@@ -16,6 +16,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
 <<<<<<< HEAD
+<<<<<<< HEAD
     "js-3d-model-viewer": "<rootDir>/tests/substituted-model-viewer.js",
     "vue-slider-component": "<rootDir>/tests/substituted-model-viewer.js",
     "fabric": "<rootDir>/tests/fabric.js",
@@ -25,6 +26,11 @@ module.exports = {
     'vue-slider-component': '<rootDir>/tests/substituted-model-viewer.js',
     fabric: '<rootDir>/tests/fabric.js'
 >>>>>>> caf16d6c (Add electron)
+=======
+    "js-3d-model-viewer": "<rootDir>/tests/substituted-model-viewer.js",
+    "vue-slider-component": "<rootDir>/tests/substituted-model-viewer.js",
+    "fabric": "<rootDir>/tests/fabric.js"
+>>>>>>> 1af13f21 (Revert "Add electron")
   },
   setupFiles: ['<rootDir>/tests/setup.js'],
   snapshotSerializers: [
@@ -37,5 +43,5 @@ module.exports = {
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
-  ]
+  ],
 }
