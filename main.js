@@ -14,6 +14,6 @@ let mainWindow;
 	await loadURL(mainWindow);
 
 	// The above is equivalent to this:
-	await mainWindow.loadURL('app://-');
+	await mainWindow.loadURL('app://index.html');
 	// The `-` is just the required hostname
 })();
