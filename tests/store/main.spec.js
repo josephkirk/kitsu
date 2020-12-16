@@ -8,12 +8,18 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 describe('main', () => {
 
 =======
 describe('main', () => {
 >>>>>>> 1de73864 (Add electron)
+=======
+
+describe('main', () => {
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

@@ -42,10 +42,14 @@ describe('Testing people page', () => {
           cy.get('.is-active > .modal-content > .box > .has-text-right > .is-primary')
             .contains('Confirm')
 <<<<<<< HEAD
+<<<<<<< HEAD
             .click({force: true})
 =======
             .click({ force: true })
 >>>>>>> 1de73864 (Add electron)
+=======
+            .click({force: true})
+>>>>>>> 0aeab287 (Revert "Add electron")
 
           cy.log('controle new people')
           cy.get('div.people-name').contains(user.lastName)
@@ -58,9 +62,13 @@ describe('Testing people page', () => {
     cy.get('ul > :nth-child(2)')
       .contains('Logout')
 <<<<<<< HEAD
+<<<<<<< HEAD
       .click({force: true})
 =======
       .click({ force: true })
 >>>>>>> 1de73864 (Add electron)
+=======
+      .click({force: true})
+>>>>>>> 0aeab287 (Revert "Add electron")
   })
 })

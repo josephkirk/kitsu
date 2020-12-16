@@ -31,6 +31,7 @@ describe('Checking task with superviseur', function () {
         .children()
         .then(($children) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
         cy.wrap($children[4]).contains('wfa')
         cy.wrap($children[4]).contains('CP')
       })
@@ -39,6 +40,11 @@ describe('Checking task with superviseur', function () {
           cy.wrap($children[4]).contains('CP')
         })
 >>>>>>> 1de73864 (Add electron)
+=======
+        cy.wrap($children[4]).contains('wfa')
+        cy.wrap($children[4]).contains('CP')
+      })
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
   })
 
@@ -51,12 +57,17 @@ describe('Checking task with superviseur', function () {
         .children()
         .then(($children) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
         cy.wrap($children[4]).contains('wfa').click()
       })
 =======
           cy.wrap($children[4]).contains('wfa').click()
         })
 >>>>>>> 1de73864 (Add electron)
+=======
+        cy.wrap($children[4]).contains('wfa').click()
+      })
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('select done status', function () {
@@ -74,9 +85,13 @@ describe('Checking task with superviseur', function () {
 
   after(function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
     cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
 =======
     cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
 >>>>>>> 1de73864 (Add electron)
+=======
+    cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+>>>>>>> 0aeab287 (Revert "Add electron")
   })
 })

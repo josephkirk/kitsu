@@ -11,12 +11,16 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
 				use: {
 					loader: 'babel-loader',
 					options: {
 						presets: ['@babel/preset-env']
 					}
 				}
+<<<<<<< HEAD
 =======
         use: {
           loader: 'babel-loader',
@@ -25,6 +29,8 @@ module.exports = {
           }
         }
 >>>>>>> 1de73864 (Add electron)
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
       }
     ]
   }

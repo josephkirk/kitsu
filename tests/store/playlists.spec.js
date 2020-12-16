@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import playlistsApi from '../../src/store/api/playlists'
@@ -12,6 +13,13 @@ import playlistsApi from '../../src/store/api/playlists'
 import playlistStore from '../../src/store/modules/playlists'
 
 >>>>>>> 1de73864 (Add electron)
+=======
+import helpers from './helpers'
+import store from '../../src/store'
+import playlistsApi from '../../src/store/api/playlists'
+import playlistStore from '../../src/store/modules/playlists'
+import { reset, runAction } from './helpers'
+>>>>>>> 0aeab287 (Revert "Add electron")
 import {
   LOAD_PLAYLISTS_START,
   LOAD_PLAYLISTS_ERROR,
@@ -29,9 +37,13 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 let playlists = []
 
 playlistsApi.getPlaylists = (production, episode, callback) => {
@@ -60,17 +72,25 @@ playlistsApi.deletePlaylist = (playlist, callback) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 const getters = playlistStore.getters
 const state = store.state.playlists
 
 describe('playlists', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -143,9 +163,13 @@ describe('playlists', () => {
         playlist: playlists[1],
         callback: (err) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
           expect(err).to.be.null
           expect(state.playlists.length).to.equal(2)
           done()

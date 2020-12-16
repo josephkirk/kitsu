@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import sequencesApi from '../../src/store/api/shots'
@@ -12,6 +13,13 @@ import sequencesApi from '../../src/store/api/shots'
 import sequencesStore from '../../src/store/modules/shots'
 
 >>>>>>> 1de73864 (Add electron)
+=======
+import helpers from './helpers'
+import store from '../../src/store'
+import sequencesApi from '../../src/store/api/shots'
+import sequencesStore from '../../src/store/modules/shots'
+import { reset, runAction } from './helpers'
+>>>>>>> 0aeab287 (Revert "Add electron")
 import {
   LOAD_EPISODES_END,
   LOAD_SEQUENCES_END,
@@ -40,9 +48,13 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 let episodes = []
 let sequences = []
 let shots = []
@@ -85,9 +97,13 @@ const state = store.state.shots
 
 describe('sequences', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -266,10 +282,14 @@ describe('sequences', () => {
   describe('actions', () => {
     it('displayMoreSequences', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
       for(let i = 0; i < 100; i++) {
 =======
       for (let i = 0; i < 100; i++) {
 >>>>>>> 1de73864 (Add electron)
+=======
+      for(let i = 0; i < 100; i++) {
+>>>>>>> 0aeab287 (Revert "Add electron")
         sequences.push({
           id: 'sequence-x' + i,
           name: 'SE0x' + i,
@@ -319,10 +339,14 @@ describe('sequences', () => {
         .then(() => {
           expect(state.sequences[0].name).to.equal(sequence.name)
 <<<<<<< HEAD
+<<<<<<< HEAD
           expect(state.sequenceIndex['se01b'][0].name).to.equal(sequence.name)
 =======
           expect(state.sequenceIndex.se01b[0].name).to.equal(sequence.name)
 >>>>>>> 1de73864 (Add electron)
+=======
+          expect(state.sequenceIndex['se01b'][0].name).to.equal(sequence.name)
+>>>>>>> 0aeab287 (Revert "Add electron")
         })
     })
 
@@ -372,9 +396,13 @@ describe('sequences', () => {
         state.sequenceStats['sequence-2']['task-type-1']['#333333'].value
       ).to.equal(1)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
   })
 
@@ -392,10 +420,14 @@ describe('sequences', () => {
       expect(state.displayedSequences.length).to.equal(3)
       expect(state.displayedSequencesLength).to.equal(3)
 <<<<<<< HEAD
+<<<<<<< HEAD
       expect(state.sequenceIndex['se0'].length).to.equal(3)
 =======
       expect(state.sequenceIndex.se0.length).to.equal(3)
 >>>>>>> 1de73864 (Add electron)
+=======
+      expect(state.sequenceIndex['se0'].length).to.equal(3)
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it(NEW_SEQUENCE_START, () => {})
@@ -428,10 +460,14 @@ describe('sequences', () => {
 
       expect(state.sequences[0].name).to.equal(sequence.name)
 <<<<<<< HEAD
+<<<<<<< HEAD
       expect(state.sequenceIndex['se01b'][0].name).to.equal(sequence.name)
 =======
       expect(state.sequenceIndex.se01b[0].name).to.equal(sequence.name)
 >>>>>>> 1de73864 (Add electron)
+=======
+      expect(state.sequenceIndex['se01b'][0].name).to.equal(sequence.name)
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it(DELETE_SEQUENCE_START, () => {})
@@ -464,10 +500,14 @@ describe('sequences', () => {
 
     it(DISPLAY_MORE_SEQUENCES, () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
       for(let i = 0; i < 100; i++) {
 =======
       for (let i = 0; i < 100; i++) {
 >>>>>>> 1de73864 (Add electron)
+=======
+      for(let i = 0; i < 100; i++) {
+>>>>>>> 0aeab287 (Revert "Add electron")
         sequences.push({
           id: 'sequence-x' + i,
           name: 'SE0x' + i,

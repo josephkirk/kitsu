@@ -1,8 +1,12 @@
 describe('Testing production page', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   context('Create a new production', () => {
     before(() => {
       Cypress.Cookies.defaults({
@@ -45,9 +49,13 @@ describe('Testing production page', () => {
 
   after(() => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
 =======
     cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
 >>>>>>> 1de73864 (Add electron)
+=======
+    cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+>>>>>>> 0aeab287 (Revert "Add electron")
   })
 })

@@ -1,5 +1,6 @@
 import store from '../../../src/store/modules/productions'
 
+
 describe('Productions store', () => {
   describe('Getters', () => {
     let rootState
@@ -130,17 +131,17 @@ describe('Productions store', () => {
       expect(store.getters.currentProduction(state)).toBeNull()
       state = {
         openProductions: [
-          { id: 'production-1', name: 'Caminandes' },
-          { id: 'production-2', name: 'Agent 327' }
+          { id: 'production-1', name: 'Caminandes'},
+          { id: 'production-2', name: 'Agent 327'}
         ]
       }
       expect(store.getters.currentProduction(state)).toEqual(
         state.openProductions[0])
       state = {
-        currentProduction: { id: 'production-2', name: 'Agent 327' },
+        currentProduction: { id: 'production-2', name: 'Agent 327'},
         openProductions: [
-          { id: 'production-1', name: 'Caminandes' },
-          { id: 'production-2', name: 'Agent 327' }
+          { id: 'production-1', name: 'Caminandes'},
+          { id: 'production-2', name: 'Agent 327'}
         ]
       }
       expect(store.getters.currentProduction(state)).toEqual(
@@ -148,7 +149,7 @@ describe('Productions store', () => {
     })
 
     test('metadataDescriptors', () => {
-      const state = {
+      let state = {
         currentProduction: {
           id: 'production-1',
           name: 'Caminandes',
@@ -169,7 +170,7 @@ describe('Productions store', () => {
     })
 
     test('productionStatusOptions', () => {
-      const state = {
+      let state = {
         productionStatus: [
           { id: 'production-status-1', name: 'Open' },
           { id: 'production-status-2', name: 'Closed' }
@@ -182,7 +183,7 @@ describe('Productions store', () => {
     })
 
     test('openProductionOptions', () => {
-      const state = {
+      let state = {
         openProductions: [
           { id: 'production-1', name: 'Caminandes' },
           { id: 'production-2', name: 'Agent 327' }

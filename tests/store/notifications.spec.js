@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import notificationsApi from '../../src/store/api/notifications'
@@ -12,6 +13,13 @@ import notificationsApi from '../../src/store/api/notifications'
 import notificationsStore from '../../src/store/modules/notifications'
 
 >>>>>>> 1de73864 (Add electron)
+=======
+import helpers from './helpers'
+import store from '../../src/store'
+import notificationsApi from '../../src/store/api/notifications'
+import notificationsStore from '../../src/store/modules/notifications'
+import { reset, runAction } from './helpers'
+>>>>>>> 0aeab287 (Revert "Add electron")
 import {
   LOAD_NOTIFICATIONS_END,
   LOAD_NOTIFICATION_END,
@@ -21,16 +29,22 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
 
 let notifications = []
 let notification = {}
 
 
+<<<<<<< HEAD
 =======
 let notifications = []
 let notification = {}
 
 >>>>>>> 1de73864 (Add electron)
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
 notificationsApi.getNotifications = (callback) => {
   process.nextTick(() => {
     callback(null, notifications)
@@ -48,9 +62,13 @@ const state = store.state.notifications
 
 describe('notifications', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 

@@ -42,6 +42,7 @@ let people = []
 let tasks = []
 let doneTasks = []
 <<<<<<< HEAD
+<<<<<<< HEAD
 let personTasksFilters = {}
 let userFilters = {}
 let person = {}
@@ -52,14 +53,23 @@ const taskTypeMap = {
   'task-type-3': {id: 'task-type-3', priority: 2, name: 'Texture'}
 =======
 const personTasksFilters = {}
+=======
+let personTasksFilters = {}
+>>>>>>> 0aeab287 (Revert "Add electron")
 let userFilters = {}
-const person = {}
+let person = {}
 
 const taskTypeMap = {
+<<<<<<< HEAD
   'task-type-1': { id: 'task-type-1', priority: 1, name: 'Modeling' },
   'task-type-2': { id: 'task-type-2', priority: 1, name: 'Setup' },
   'task-type-3': { id: 'task-type-3', priority: 2, name: 'Texture' }
 >>>>>>> 1de73864 (Add electron)
+=======
+  'task-type-1': {id: 'task-type-1', priority: 1, name: 'Modeling'},
+  'task-type-2': {id: 'task-type-2', priority: 1, name: 'Setup'},
+  'task-type-3': {id: 'task-type-3', priority: 2, name: 'Texture'}
+>>>>>>> 0aeab287 (Revert "Add electron")
 }
 
 peopleApi.getPeople = (callback) => {
@@ -70,10 +80,14 @@ peopleApi.getPeople = (callback) => {
 
 peopleApi.newPerson = (data, callback) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const person = {id: 'new-person'}
 =======
   const person = { id: 'new-person' }
 >>>>>>> 1de73864 (Add electron)
+=======
+  const person = {id: 'new-person'}
+>>>>>>> 0aeab287 (Revert "Add electron")
   Object.assign(person, data)
   process.nextTick(() => {
     callback(null, person)
@@ -126,9 +140,13 @@ peopleApi.getTimeSpents = (personId, date, callback) => {
 
 describe('people', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
   beforeEach(() => {
@@ -183,6 +201,9 @@ describe('people', () => {
     ]
     doneTasks = [{
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
         project_name: 'Agent327',
         task_type_name: 'Concept',
         entity_name: 'Tree',
@@ -191,6 +212,7 @@ describe('people', () => {
         task_status_short_name: 'done',
         last_comment: {},
         id: 'task-1'
+<<<<<<< HEAD
 =======
       project_name: 'Agent327',
       task_type_name: 'Concept',
@@ -201,6 +223,8 @@ describe('people', () => {
       last_comment: {},
       id: 'task-1'
 >>>>>>> 1de73864 (Add electron)
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
     }]
     userFilters = {
     }
@@ -224,6 +248,7 @@ describe('people', () => {
     it('editPeople', (done) => {
       store.commit(LOAD_PEOPLE_END, people)
       const personId = 'person-2'
+<<<<<<< HEAD
 <<<<<<< HEAD
       const data = {last_name: 'Edited'}
 
@@ -258,12 +283,29 @@ describe('people', () => {
         }
       })
 >>>>>>> 1de73864 (Add electron)
+=======
+      const data = {last_name: 'Edited'}
+
+      helpers.runAction('showPersonEditModal', personId)
+      helpers.runAction('editPeople', {data: data, callback: (err) => {
+        expect(store._vm.isEditLoading).to.equal(false)
+        expect(store._vm.isEditModalShown).to.equal(false)
+        expect(store._vm.personToEdit.last_name).to.equal(undefined)
+        expect(
+          store._vm.people
+            .find((person) => person.id === personId)
+            .last_name
+        ).to.equal('Edited')
+        done()
+      }})
+>>>>>>> 0aeab287 (Revert "Add electron")
       expect(store._vm.isEditLoading).to.equal(true)
       expect(store._vm.isEditLoadingError).to.equal(false)
     })
 
     it('newPeople', (done) => {
       store.commit(LOAD_PEOPLE_END, people)
+<<<<<<< HEAD
 <<<<<<< HEAD
       const data = {first_name: 'New', last_name: 'Person'}
 
@@ -300,6 +342,23 @@ describe('people', () => {
         }
       })
 >>>>>>> 1de73864 (Add electron)
+=======
+      const data = {first_name: 'New', last_name: 'Person'}
+
+      helpers.runAction('showPersonEditModal')
+      helpers.runAction('newPeople', {data: data, callback: (err) => {
+        expect(store._vm.isEditLoading).to.equal(false)
+        expect(store._vm.isEditModalShown).to.equal(false)
+        expect(store._vm.personToEdit.last_name).to.equal(undefined)
+        expect(
+          store._vm.people
+            .find((person) => person.id === 'new-person')
+            .last_name
+        ).to.equal('Person')
+        expect(store._vm.people.length).to.equal(5)
+        done()
+      }})
+>>>>>>> 0aeab287 (Revert "Add electron")
       expect(store._vm.isEditLoading).to.equal(true)
       expect(store._vm.isEditLoadingError).to.equal(false)
     })
@@ -334,9 +393,13 @@ describe('people', () => {
     })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
     it('showPersonImportModal / hidePersonImportModal', () => {
       helpers.runAction('showPersonImportModal')
       expect(store._vm.isImportPeopleModalShown).to.equal(true)
@@ -443,10 +506,14 @@ describe('people', () => {
       store.commit(LOAD_PEOPLE_END, people)
       store.commit(SHOW_DELETE_PEOPLE_MODAL, 'person-3')
 <<<<<<< HEAD
+<<<<<<< HEAD
       store.commit(DELETE_PEOPLE_END, {id: 'person-3'})
 =======
       store.commit(DELETE_PEOPLE_END, { id: 'person-3' })
 >>>>>>> 1de73864 (Add electron)
+=======
+      store.commit(DELETE_PEOPLE_END, {id: 'person-3'})
+>>>>>>> 0aeab287 (Revert "Add electron")
       expect(store._vm.isDeleteLoading).to.equal(false)
       expect(store._vm.isDeleteLoadingError).to.equal(false)
       expect(store._vm.personToDelete).to.equal(undefined)
@@ -479,10 +546,14 @@ describe('people', () => {
 
     it('EDIT_PEOPLE_START', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
       store.commit(EDIT_PEOPLE_START, {last_name: 'New'})
 =======
       store.commit(EDIT_PEOPLE_START, { last_name: 'New' })
 >>>>>>> 1de73864 (Add electron)
+=======
+      store.commit(EDIT_PEOPLE_START, {last_name: 'New'})
+>>>>>>> 0aeab287 (Revert "Add electron")
       expect(store._vm.isEditLoading).to.equal(true)
       expect(store._vm.isEditLoadingError).to.equal(false)
       expect(store._vm.personToEdit.last_name).to.equal('New')
@@ -492,30 +563,42 @@ describe('people', () => {
       store.commit(LOAD_PEOPLE_END, people)
       store.commit(SHOW_EDIT_PEOPLE_MODAL, 'person-3')
 <<<<<<< HEAD
+<<<<<<< HEAD
       store.commit(EDIT_PEOPLE_START, {last_name: 'Edited'})
 =======
       store.commit(EDIT_PEOPLE_START, { last_name: 'Edited' })
 >>>>>>> 1de73864 (Add electron)
+=======
+      store.commit(EDIT_PEOPLE_START, {last_name: 'Edited'})
+>>>>>>> 0aeab287 (Revert "Add electron")
       store.commit(EDIT_PEOPLE_END)
       expect(store._vm.isEditLoading).to.equal(false)
       expect(store._vm.isEditLoadingError).to.equal(false)
       expect(
         store._vm.people.find((person) => person.id === 'person-3')
 <<<<<<< HEAD
+<<<<<<< HEAD
       .last_name).to.equal('Edited')
 =======
           .last_name).to.equal('Edited')
 >>>>>>> 1de73864 (Add electron)
+=======
+      .last_name).to.equal('Edited')
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('EDIT_PEOPLE_END creation', () => {
       store.commit(LOAD_PEOPLE_END, people)
       store.commit(SHOW_EDIT_PEOPLE_MODAL)
 <<<<<<< HEAD
+<<<<<<< HEAD
       store.commit(EDIT_PEOPLE_START, {first_name: 'New', last_name: 'Person'})
 =======
       store.commit(EDIT_PEOPLE_START, { first_name: 'New', last_name: 'Person' })
 >>>>>>> 1de73864 (Add electron)
+=======
+      store.commit(EDIT_PEOPLE_START, {first_name: 'New', last_name: 'Person'})
+>>>>>>> 0aeab287 (Revert "Add electron")
       store.commit(NEW_PEOPLE_END, 'new-person')
       store.commit(EDIT_PEOPLE_END)
       expect(store._vm.isEditLoading).to.equal(false)
@@ -523,10 +606,14 @@ describe('people', () => {
       expect(
         store._vm.people.find((person) => person.id === 'new-person')
 <<<<<<< HEAD
+<<<<<<< HEAD
       .last_name).to.equal('Person')
 =======
           .last_name).to.equal('Person')
 >>>>>>> 1de73864 (Add electron)
+=======
+      .last_name).to.equal('Person')
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('EDIT_PEOPLE_ERROR', () => {
@@ -598,10 +685,14 @@ describe('people', () => {
 
     it('PERSON_CSV_FILE_SELECTED', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
       const formData = {file: {}}
 =======
       const formData = { file: {} }
 >>>>>>> 1de73864 (Add electron)
+=======
+      const formData = {file: {}}
+>>>>>>> 0aeab287 (Revert "Add electron")
       store.commit(PERSON_CSV_FILE_SELECTED, formData)
       expect(store._vm.personCsvFormData).to.deep.equal(formData)
     })

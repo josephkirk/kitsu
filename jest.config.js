@@ -18,6 +18,7 @@ module.exports = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "js-3d-model-viewer": "<rootDir>/tests/substituted-model-viewer.js",
     "vue-slider-component": "<rootDir>/tests/substituted-model-viewer.js",
     "fabric": "<rootDir>/tests/fabric.js",
@@ -37,6 +38,11 @@ module.exports = {
     'vue-slider-component': '<rootDir>/tests/substituted-model-viewer.js',
     fabric: '<rootDir>/tests/fabric.js'
 >>>>>>> f4faebb5 (Add electron)
+=======
+    "js-3d-model-viewer": "<rootDir>/tests/substituted-model-viewer.js",
+    "vue-slider-component": "<rootDir>/tests/substituted-model-viewer.js",
+    "fabric": "<rootDir>/tests/fabric.js"
+>>>>>>> ee7fffeb (Revert "Add electron")
   },
   setupFiles: ['<rootDir>/tests/setup.js'],
   snapshotSerializers: [
@@ -49,5 +55,5 @@ module.exports = {
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
-  ]
+  ],
 }

@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import assetsApi from '../../src/store/api/assets'
@@ -12,6 +13,13 @@ import assetsApi from '../../src/store/api/assets'
 import assetsStore from '../../src/store/modules/assets'
 
 >>>>>>> 1de73864 (Add electron)
+=======
+import helpers from './helpers'
+import store from '../../src/store'
+import assetsApi from '../../src/store/api/assets'
+import assetsStore from '../../src/store/modules/assets'
+import { reset, runAction } from './helpers'
+>>>>>>> 0aeab287 (Revert "Add electron")
 import {
   LOAD_ASSETS_START,
   LOAD_ASSETS_ERROR,
@@ -51,6 +59,7 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 let assets = []
 let assetTypes = []
@@ -60,6 +69,12 @@ let assets = []
 let assetTypes = []
 const production = {
 >>>>>>> 1de73864 (Add electron)
+=======
+
+let assets = []
+let assetTypes = []
+let production = {
+>>>>>>> 0aeab287 (Revert "Add electron")
   id: 'production-1',
   name: 'Big Buck Bunny'
 }
@@ -102,17 +117,25 @@ assetsApi.postCsv = (formData, callback) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 const getters = assetsStore.getters
 const state = store.state.assets
 
 describe('assets', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -270,11 +293,15 @@ describe('assets', () => {
       }
       helpers.runAction('saveAssetSearch', query)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
       .then(() => {
         expect(state.assetSearchQueries.length).to.equal(2)
       })
       .catch((err) => {
       })
+<<<<<<< HEAD
 =======
         .then(() => {
           expect(state.assetSearchQueries.length).to.equal(2)
@@ -282,6 +309,8 @@ describe('assets', () => {
         .catch((err) => {
         })
 >>>>>>> 1de73864 (Add electron)
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('removeAssetSearch', () => {
@@ -295,11 +324,15 @@ describe('assets', () => {
       }
       helpers.runAction('removeAssetSearch', query)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
       .then(() => {
         expect(state.assetSearchQueries.length).to.equal(0)
       })
       .catch((err) => {
       })
+<<<<<<< HEAD
 =======
         .then(() => {
           expect(state.assetSearchQueries.length).to.equal(0)
@@ -307,6 +340,8 @@ describe('assets', () => {
         .catch((err) => {
         })
 >>>>>>> 1de73864 (Add electron)
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it.skip('initAssetTypes', (done) => {
@@ -316,9 +351,13 @@ describe('assets', () => {
 
   describe('mutations', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
     it('LOAD_ASSETS_START', () => {
       store.commit(LOAD_ASSETS_START)
       expect(state.isAssetsLoading).to.equal(true)
@@ -446,10 +485,14 @@ describe('assets', () => {
           id: 'filter-2'
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
         production: {id: 'production-1'}
 =======
         production: { id: 'production-1' }
 >>>>>>> 1de73864 (Add electron)
+=======
+        production: {id: 'production-1'}
+>>>>>>> 0aeab287 (Revert "Add electron")
       })
       expect(state.assetSearchQueries.length).to.equal(2)
     })

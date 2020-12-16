@@ -63,7 +63,7 @@ export const routes = [
         vivaldi: '>2.8',
         opera: '>22',
         edge: '>87',
-        electron: '>9'
+        electron: '>11'
       })
       if (!isValidBrowser) {
         return next({ name: 'wrong-browser' })

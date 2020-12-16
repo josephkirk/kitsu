@@ -1,10 +1,15 @@
 import expect from 'chai'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 global.localStorage = require('localStorage')
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+global.localStorage = require('localStorage')
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 import './store/assets.spec.js'
 import './store/assettypes.spec.js'
 import './store/breakdown.spec.js'
@@ -26,7 +31,10 @@ import './store/lib/helpers.spec.js'
 import './store/lib/sorting.spec.js'
 import './store/lib/string.spec.js'
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 global.localStorage = require('localStorage')
 >>>>>>> 1de73864 (Add electron)
+=======
+>>>>>>> 0aeab287 (Revert "Add electron")

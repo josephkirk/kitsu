@@ -15,7 +15,7 @@ describe('ButtonLink', () => {
         icon: 'download',
         text: 'My Button',
         title: 'My Button title',
-        path: { name: 'open-productions' }
+        path: {name: 'open-productions'}
       },
       router,
       localVue
@@ -29,12 +29,12 @@ describe('ButtonLink', () => {
         router,
         localVue
       })
-      const buttons = emptyWrapper.findAll('.button')
-      expect(buttons).toHaveLength(1)
+      let buttons = emptyWrapper.findAll('.button')
+      expect(buttons.length).toEqual(1)
     })
 
     test('Ensure button', () => {
-      const buttons = wrapper.findAll('button')
+      let buttons = wrapper.findAll('button')
     })
   })
 

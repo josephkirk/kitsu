@@ -89,12 +89,17 @@ describe('Testing assets page', () => {
         .children()
         .then(($children) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
         $children[4].click()
       })
 =======
           $children[4].click()
         })
 >>>>>>> 1de73864 (Add electron)
+=======
+        $children[4].click()
+      })
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('select a user: Curtis Parker', () => {
@@ -120,12 +125,17 @@ describe('Testing assets page', () => {
         .children()
         .then(($children) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
         cy.wrap($children[4]).contains('todo').click()
       })
 =======
           cy.wrap($children[4]).contains('todo').click()
         })
 >>>>>>> 1de73864 (Add electron)
+=======
+        cy.wrap($children[4]).contains('todo').click()
+      })
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('select WFA', () => {
@@ -140,9 +150,13 @@ describe('Testing assets page', () => {
 
   after(() => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
 =======
     cy.get('ul > :nth-child(2)').contains('Logout').click({ force: true })
 >>>>>>> 1de73864 (Add electron)
+=======
+    cy.get('ul > :nth-child(2)').contains('Logout').click({force: true})
+>>>>>>> 0aeab287 (Revert "Add electron")
   })
 })

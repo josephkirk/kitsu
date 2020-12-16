@@ -10,10 +10,14 @@ const helpers = {
 
   runAction (action, payload, callback) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (typeof(payload) === 'function') {
 =======
     if (typeof (payload) === 'function') {
 >>>>>>> 1de73864 (Add electron)
+=======
+    if (typeof(payload) === 'function') {
+>>>>>>> 0aeab287 (Revert "Add electron")
       callback = payload
       return store._actions[action][0](callback)
     } else {

@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import customActionsApi from '../../src/store/api/customactions'
@@ -12,6 +13,13 @@ import customActionsApi from '../../src/store/api/customactions'
 import customActionStore from '../../src/store/modules/customactions'
 
 >>>>>>> 1de73864 (Add electron)
+=======
+import helpers from './helpers'
+import store from '../../src/store'
+import customActionsApi from '../../src/store/api/customactions'
+import customActionStore from '../../src/store/modules/customactions'
+import { reset, runAction } from './helpers'
+>>>>>>> 0aeab287 (Revert "Add electron")
 import {
   LOAD_CUSTOM_ACTIONS_START,
   LOAD_CUSTOM_ACTIONS_ERROR,
@@ -29,9 +37,13 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 let customActions = []
 
 customActionsApi.getCustomActions = (callback) => {
@@ -60,17 +72,25 @@ customActionsApi.deleteCustomAction = (customAction, callback) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 const getters = customActionStore.getters
 const state = store.state.customActions
 
 describe('customActions', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -122,9 +142,13 @@ describe('customActions', () => {
       expect(customActions[1].name).to.equal('Change status')
     })
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   })
 
   describe('actions', () => {

@@ -37,6 +37,7 @@ let userFilters = {}
 
 const taskTypeMap = {
 <<<<<<< HEAD
+<<<<<<< HEAD
   'task-type-1': {id: 'task-type-1', priority: 1, name: 'Modeling'},
   'task-type-2': {id: 'task-type-2', priority: 1, name: 'Setup'},
   'task-type-3': {id: 'task-type-3', priority: 2, name: 'Texture'}
@@ -45,6 +46,11 @@ const taskTypeMap = {
   'task-type-2': { id: 'task-type-2', priority: 1, name: 'Setup' },
   'task-type-3': { id: 'task-type-3', priority: 2, name: 'Texture' }
 >>>>>>> 1de73864 (Add electron)
+=======
+  'task-type-1': {id: 'task-type-1', priority: 1, name: 'Modeling'},
+  'task-type-2': {id: 'task-type-2', priority: 1, name: 'Setup'},
+  'task-type-3': {id: 'task-type-3', priority: 2, name: 'Texture'}
+>>>>>>> 0aeab287 (Revert "Add electron")
 }
 
 peopleApi.updatePerson = (form, callback) => {
@@ -83,9 +89,13 @@ peopleApi.loadTimeSpents = (data, callback) => {
 
 describe('user', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -112,12 +122,17 @@ describe('user', () => {
         task_type_id: 'task-type-1',
         last_comment: {
 <<<<<<< HEAD
+<<<<<<< HEAD
           text: "last comment",
           person_id: "person-1"
 =======
           text: 'last comment',
           person_id: 'person-1'
 >>>>>>> 1de73864 (Add electron)
+=======
+          text: "last comment",
+          person_id: "person-1"
+>>>>>>> 0aeab287 (Revert "Add electron")
         },
         id: 'task-2'
       }
@@ -157,10 +172,14 @@ describe('user', () => {
           expect(store._vm.isSaveProfileLoading).to.not.be.ok
           expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
 <<<<<<< HEAD
+<<<<<<< HEAD
           expect(store._vm.user.phone).to.equal("01 02 03 04")
 =======
           expect(store._vm.user.phone).to.equal('01 02 03 04')
 >>>>>>> 1de73864 (Add electron)
+=======
+          expect(store._vm.user.phone).to.equal("01 02 03 04")
+>>>>>>> 0aeab287 (Revert "Add electron")
           done()
         }
       })
@@ -182,9 +201,13 @@ describe('user', () => {
     })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
     it('checkPasswordValidityAndSave (password unvalid)', (done) => {
       helpers.runAction('checkNewPasswordValidityAndSave', {
         form: {
@@ -322,6 +345,7 @@ describe('user', () => {
     it('USER_SAVE_PROFILE_SUCCESS', () => {
       store.commit(USER_LOGIN, user)
 <<<<<<< HEAD
+<<<<<<< HEAD
       store.commit(USER_SAVE_PROFILE_SUCCESS, {phone: "01 02 03 04"})
       expect(store._vm.isSaveProfileLoading).to.not.be.ok
       expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
@@ -332,6 +356,12 @@ describe('user', () => {
       expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
       expect(store._vm.user.phone).to.equal('01 02 03 04')
 >>>>>>> 1de73864 (Add electron)
+=======
+      store.commit(USER_SAVE_PROFILE_SUCCESS, {phone: "01 02 03 04"})
+      expect(store._vm.isSaveProfileLoading).to.not.be.ok
+      expect(store._vm.isSaveProfileLoadingError).to.not.be.ok
+      expect(store._vm.user.phone).to.equal("01 02 03 04")
+>>>>>>> 0aeab287 (Revert "Add electron")
     })
 
     it('USER_CHANGE_PASSWORD_LOADING', () => {

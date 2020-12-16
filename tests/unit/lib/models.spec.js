@@ -12,27 +12,28 @@ import {
 } from '../../../src/lib/models'
 
 describe('lib/helpers', () => {
+
   it('populateTask', () => {
     let task = {
-      entity_name: 'Agent 327',
-      entity_type_name: 'Characters'
+      'entity_name': 'Agent 327',
+      'entity_type_name': 'Characters'
     }
     populateTask(task)
     expect(task.full_entity_name).toEqual('Characters / Agent 327')
 
     task = {
-      entity_name: 'SH01',
-      entity_type_name: 'Shot',
-      sequence_name: 'SQ01',
-      episode_name: 'E01'
+      'entity_name': 'SH01',
+      'entity_type_name': 'Shot',
+      'sequence_name': 'SQ01',
+      'episode_name': 'E01'
     }
     populateTask(task)
     expect(task.full_entity_name).toEqual('E01 / SQ01 / SH01')
 
     task = {
-      entity_name: 'SH01',
-      entity_type_name: 'Shot',
-      sequence_name: 'SQ01'
+      'entity_name': 'SH01',
+      'entity_type_name': 'Shot',
+      'sequence_name': 'SQ01'
     }
     populateTask(task)
     expect(task.full_entity_name).toEqual('SQ01 / SH01')
@@ -132,7 +133,7 @@ describe('lib/helpers', () => {
     ]
     const model = { id: '2', name: 'item-2' }
     items = removeModelFromList(items, model)
-    expect(items).toHaveLength(2)
+    expect(items.length).toEqual(2)
     expect(items[1].name).toEqual('item-3')
   })
 

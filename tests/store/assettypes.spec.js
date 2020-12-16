@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import helpers from './helpers'
 import store from '../../src/store'
 import assetTypesApi from '../../src/store/api/assettypes'
@@ -12,6 +13,13 @@ import assetTypesApi from '../../src/store/api/assettypes'
 import assetTypeStore from '../../src/store/modules/assettypes'
 
 >>>>>>> 1de73864 (Add electron)
+=======
+import helpers from './helpers'
+import store from '../../src/store'
+import assetTypesApi from '../../src/store/api/assettypes'
+import assetTypeStore from '../../src/store/modules/assettypes'
+import { reset, runAction } from './helpers'
+>>>>>>> 0aeab287 (Revert "Add electron")
 import {
   LOAD_ASSET_TYPES_START,
   LOAD_ASSET_TYPES_ERROR,
@@ -29,9 +37,13 @@ import {
 } from '../../src/store/mutation-types'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 let assetTypes = []
 
 assetTypesApi.getAssetTypes = (callback) => {
@@ -60,17 +72,25 @@ assetTypesApi.deleteAssetType = (assetType, callback) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
 const getters = assetTypeStore.getters
 const state = store.state.assetTypes
 
 describe('assetTypes', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 1de73864 (Add electron)
+=======
+
+>>>>>>> 0aeab287 (Revert "Add electron")
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
