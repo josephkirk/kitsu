@@ -41,7 +41,7 @@ describe('Testing people page', () => {
           cy.log('submit form')
           cy.get('.is-active > .modal-content > .box > .has-text-right > .is-primary')
             .contains('Confirm')
-            .click({ force: true })
+            .click({force: true})
 
           cy.log('controle new people')
           cy.get('div.people-name').contains(user.lastName)
@@ -53,6 +53,6 @@ describe('Testing people page', () => {
   after(() => {
     cy.get('ul > :nth-child(2)')
       .contains('Logout')
-      .click({ force: true })
+      .click({force: true})
   })
 })

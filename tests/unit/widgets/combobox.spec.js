@@ -46,13 +46,13 @@ describe('Combobox', () => {
           value: ''
         }
       })
-      const lines = emptyWrapper.findAll('option')
-      expect(lines).toHaveLength(0)
+      let lines = emptyWrapper.findAll('option')
+      expect(lines.length).toEqual(0)
     })
 
     test('Ensure list', () => {
-      const lines = wrapper.findAll('option')
-      expect(lines).toHaveLength(2)
+      let lines = wrapper.findAll('option')
+      expect(lines.length).toEqual(2)
     })
   })
 

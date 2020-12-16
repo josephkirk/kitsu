@@ -10,6 +10,7 @@ localVue.use(Vuex)
 localVue.use(VueRouter)
 const router = new VueRouter()
 
+
 describe('AddThumbnailsModal', () => {
   let store, shotStore
   let wrapper

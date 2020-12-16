@@ -10,6 +10,7 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(vuescroll)
 
+
 describe('ProductionNewsFeed', () => {
   let store
   let newsStore
@@ -96,6 +97,7 @@ describe('ProductionNewsFeed', () => {
       actions: {}
     }
 
+
     store = new Vuex.Store({
       strict: true,
       modules: {
@@ -116,6 +118,7 @@ describe('ProductionNewsFeed', () => {
     })
   })
 
+
   describe('Mount', () => {
     test('list is there', () => {
       const newsLines = wrapper.findAll('.news-line')
@@ -131,7 +134,7 @@ describe('ProductionNewsFeed', () => {
         only_preview: false,
         page: 1,
         page_size: 50,
-        productionId: 'production-1',
+        productionId: "production-1",
         person_id: undefined,
         task_status_id: undefined,
         task_type_id: undefined,
@@ -140,7 +143,7 @@ describe('ProductionNewsFeed', () => {
       wrapper.vm.previewMode = 'previews'
       wrapper.vm.taskStatusId = 'task-status-1'
       wrapper.vm.taskTypeId = 'task-type-1'
-      wrapper.vm.person = { id: 'person-1' }
+      wrapper.vm.person = {id: 'person-1'}
       wrapper.vm.currentPage = 2
       expect(wrapper.vm.params).toEqual({
         after: '',
@@ -149,7 +152,7 @@ describe('ProductionNewsFeed', () => {
         page: 2,
         page_size: 6,
         person_id: 'person-1',
-        productionId: 'production-1',
+        productionId: "production-1",
         task_status_id: 'task-status-1',
         task_type_id: 'task-type-1'
       })
@@ -161,6 +164,7 @@ describe('ProductionNewsFeed', () => {
   })
 
   describe('Methods', () => {
+
     test('loadFollowingNews', () => {
       wrapper.vm.loading.more = false
       wrapper.vm.loadFollowingNews()
@@ -169,7 +173,7 @@ describe('ProductionNewsFeed', () => {
       expect(wrapper.vm.currentPage).toEqual(2)
       wrapper.vm.loading.more = true
       wrapper.vm.loadFollowingNews()
-      expect(newsStore.actions.loadMoreNews.mock.calls).toHaveLength(1)
+      expect(newsStore.actions.loadMoreNews.mock.calls.length).toEqual(1)
       expect(wrapper.vm.currentPage).toEqual(2)
       wrapper.vm.loading.more = false
     })
@@ -220,7 +224,7 @@ describe('ProductionNewsFeed', () => {
 
     test('init', () => {
       wrapper.vm.currentPage = 2
-      wrapper.vm.currentTask = { id: 'task-1' }
+      wrapper.vm.currentTask = { id: 'task-1'}
       wrapper.vm.errors.news = true
       wrapper.vm.init()
       expect(wrapper.vm.loading.news).toBeTruthy()

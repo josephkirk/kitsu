@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import helpers, { reset, runAction } from './helpers'
+import helpers from './helpers'
 import store from '../../src/store'
 import assetsApi from '../../src/store/api/assets'
 import assetsStore from '../../src/store/modules/assets'
-
+import { reset, runAction } from './helpers'
 import {
   LOAD_ASSETS_START,
   LOAD_ASSETS_ERROR,
@@ -42,9 +42,10 @@ import {
   SET_CURRENT_PRODUCTION
 } from '../../src/store/mutation-types'
 
+
 let assets = []
 let assetTypes = []
-const production = {
+let production = {
   id: 'production-1',
   name: 'Big Buck Bunny'
 }
@@ -86,10 +87,12 @@ assetsApi.postCsv = (formData, callback) => {
   })
 }
 
+
 const getters = assetsStore.getters
 const state = store.state.assets
 
 describe('assets', () => {
+
   beforeEach(helpers.reset)
   afterEach(helpers.reset)
 
@@ -246,11 +249,11 @@ describe('assets', () => {
         id: 'filter-2'
       }
       helpers.runAction('saveAssetSearch', query)
-        .then(() => {
-          expect(state.assetSearchQueries.length).to.equal(2)
-        })
-        .catch((err) => {
-        })
+      .then(() => {
+        expect(state.assetSearchQueries.length).to.equal(2)
+      })
+      .catch((err) => {
+      })
     })
 
     it('removeAssetSearch', () => {
@@ -263,11 +266,11 @@ describe('assets', () => {
         id: 'filter-1'
       }
       helpers.runAction('removeAssetSearch', query)
-        .then(() => {
-          expect(state.assetSearchQueries.length).to.equal(0)
-        })
-        .catch((err) => {
-        })
+      .then(() => {
+        expect(state.assetSearchQueries.length).to.equal(0)
+      })
+      .catch((err) => {
+      })
     })
 
     it.skip('initAssetTypes', (done) => {
@@ -276,6 +279,7 @@ describe('assets', () => {
   })
 
   describe('mutations', () => {
+
     it('LOAD_ASSETS_START', () => {
       store.commit(LOAD_ASSETS_START)
       expect(state.isAssetsLoading).to.equal(true)
@@ -402,7 +406,7 @@ describe('assets', () => {
           query: 'characters',
           id: 'filter-2'
         },
-        production: { id: 'production-1' }
+        production: {id: 'production-1'}
       })
       expect(state.assetSearchQueries.length).to.equal(2)
     })

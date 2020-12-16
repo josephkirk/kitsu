@@ -52,6 +52,3 @@ QA
 .idea/
 release.sh
 tests/test-bundle.js
-
-#Electron-builder output
-/dist_electron
