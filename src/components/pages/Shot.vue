@@ -104,9 +104,13 @@
               <tr class="datatable-row">
                 <td class="field-label">Metadata</td>
                 <td>
+<<<<<<< HEAD
                   <Collapsible :isOpen="false">
                     <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
                   </Collapsible>
+=======
+                    <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
+>>>>>>> 7f462520 (add json editor for metadata)
                 </td>
               </tr>
             </tbody>
@@ -188,10 +192,14 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import 'vue-collapsible-component/lib/vue-collapsible.css'
 import Collapsible from 'vue-collapsible-component'
 import VJsoneditor from 'v-jsoneditor'
 
+=======
+import VJsoneditor from 'v-jsoneditor'
+>>>>>>> 7f462520 (add json editor for metadata)
 import { mapGetters, mapActions } from 'vuex'
 import { ChevronLeftIcon } from 'vue-feather-icons'
 
@@ -210,7 +218,10 @@ import TaskInfo from '@/components/sides/TaskInfo'
 export default {
   name: 'shot',
   components: {
+<<<<<<< HEAD
     Collapsible,
+=======
+>>>>>>> 7f462520 (add json editor for metadata)
     VJsoneditor,
     ButtonSimple,
     ChevronLeftIcon,
@@ -244,7 +255,11 @@ export default {
       metadata: {},
       options: {
         name: 'metadata root',
+<<<<<<< HEAD
         mode: 'form',
+=======
+        mode: 'preview',
+>>>>>>> 7f462520 (add json editor for metadata)
         modes: ['tree', 'preview', 'form', 'code']
       }
     }
@@ -343,6 +358,7 @@ export default {
 
     onChangeMetadata (jsonstring) {
       console.log(jsonstring)
+<<<<<<< HEAD
       if (this.currentShot.data) {
         const assetdata = { ...this.currentShot.data }
         assetdata.metadata = JSON.parse(jsonstring)
@@ -352,6 +368,8 @@ export default {
         }
         this.editShot(data)
       }
+=======
+>>>>>>> 7f462520 (add json editor for metadata)
     },
 
     changeTab (tab) {
