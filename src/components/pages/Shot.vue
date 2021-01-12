@@ -101,7 +101,12 @@
                   {{ currentShot.data ? currentShot.data[descriptor.field_name] : '' }}
                 </td>
               </tr>
-
+              <tr class="datatable-row">
+                <td class="field-label">Metadata</td>
+                <td>
+                    <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
+                </td>
+              </tr>
             </tbody>
         </table>
       </div>
@@ -181,6 +186,7 @@
 </template>
 
 <script>
+import VJsoneditor from 'v-jsoneditor'
 import { mapGetters, mapActions } from 'vuex'
 import { ChevronLeftIcon } from 'vue-feather-icons'
 
@@ -199,6 +205,7 @@ import TaskInfo from '@/components/sides/TaskInfo'
 export default {
   name: 'shot',
   components: {
+    VJsoneditor,
     ButtonSimple,
     ChevronLeftIcon,
     DescriptionCell,
@@ -227,6 +234,12 @@ export default {
       },
       modals: {
         edit: false
+      },
+      metadata: {},
+      options: {
+        name: 'metadata root',
+        mode: 'preview',
+        modes: ['tree', 'preview', 'form', 'code']
       }
     }
   },
@@ -237,8 +250,15 @@ export default {
 
     this.casting.isLoading = true
     this.casting.isError = false
-
+    Object.assign(this.options, {
+      onChangeText: this.onChangeMetadata
+    })
     if (this.currentShot) {
+      if (this.currentShot.data) {
+        if (this.currentShot.data.metadata) {
+          this.metadata = this.currentShot.data.metadata
+        }
+      }
       this.loadShotCasting(this.currentShot)
         .then(() => {
           this.casting.isLoading = false
@@ -304,6 +324,10 @@ export default {
       'loadShots',
       'loadShotCasting'
     ]),
+
+    onChangeMetadata (jsonstring) {
+      console.log(jsonstring)
+    },
 
     changeTab (tab) {
       this.selectedTab = tab

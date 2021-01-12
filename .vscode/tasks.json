@@ -9,8 +9,8 @@
 			"detail": "vue-cli-service serve",
 			"options": {
 				"env": {
-					"KITSU_API_TARGET": "http://45.32.111.54/api",
-					"KITSU_EVENT_TARGET": "http://45.32.111.54"
+					"KITSU_API_TARGET": "http://kitsu.virtuos-sparx.com/api",
+					"KITSU_EVENT_TARGET": "http://kitsu.virtuos-sparx.com"
 				}
 			}
 		}

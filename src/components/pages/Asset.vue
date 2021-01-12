@@ -61,6 +61,12 @@
                   {{ currentAsset.data ? currentAsset.data[descriptor.field_name] : '' }}
                 </td>
               </tr>
+              <tr class="datatable-row">
+                <td class="field-label">Metadata</td>
+                <td>
+                    <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -188,6 +194,7 @@
 </template>
 
 <script>
+import VJsoneditor from 'v-jsoneditor'
 import { mapGetters, mapActions } from 'vuex'
 
 import { ChevronLeftIcon } from 'vue-feather-icons'
@@ -204,6 +211,7 @@ import TaskInfo from '../sides/TaskInfo'
 export default {
   name: 'asset',
   components: {
+    VJsoneditor,
     ButtonSimple,
     ChevronLeftIcon,
     DescriptionCell,
@@ -232,6 +240,12 @@ export default {
       },
       modals: {
         edit: false
+      },
+      metadata: {},
+      options: {
+        name: 'metadata root',
+        mode: 'preview',
+        modes: ['tree', 'preview', 'form', 'code']
       }
     }
   },
@@ -239,10 +253,18 @@ export default {
   mounted () {
     this.clearSelectedTasks()
     this.currentAsset = this.getCurrentAsset()
-
+    // this.json = this.currentAsset.data.metadata ? this.currentAsset.data.metadata : {}
     this.castIn.isLoading = true
     this.castIn.isError = false
+    Object.assign(this.options, {
+      onChangeText: this.onChangeMetadata
+    })
     if (this.currentAsset) {
+      if (this.currentAsset.data) {
+        if (this.currentAsset.data.metadata) {
+          this.metadata = this.currentAsset.data.metadata
+        }
+      }
       this.loadAssetCastIn(this.currentAsset)
         .then(() => this.loadAssetCasting(this.currentAsset))
         .then(() => {
@@ -301,6 +323,21 @@ export default {
       'loadShots',
       'setCurrentEpisode'
     ]),
+
+    onChangeMetadata (jsonstring) {
+      console.log(jsonstring)
+      if (this.currentAsset.data) {
+        const assetdata = { ...this.currentAsset.data }
+        assetdata.metadata = JSON.parse(jsonstring)
+        const data = {
+          id: this.currentAsset.id,
+          source_id: this.currentAsset.episode_id,
+          episode_id: this.currentAsset.episode_id,
+          data: assetdata
+        }
+        this.editAsset(data)
+      }
+    },
 
     changeTab (tab) {
       this.selectedTab = tab
@@ -384,6 +421,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.json-editor {
+  width: 100%;
+  height: 35px;
+  margin: 5px;
+  background-color: rgb(240, 240, 240);
+}
+
 .dark {
   .page {
     background: $dark-grey-light;
