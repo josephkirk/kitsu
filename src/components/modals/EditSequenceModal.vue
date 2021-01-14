@@ -30,7 +30,11 @@
           @keyup.ctrl.enter="runConfirmation"
           @keyup.meta.enter="runConfirmation"
         />
+<<<<<<< HEAD
         <div class="jsoneditor-container">
+=======
+        <div>
+>>>>>>> 61b7dbb1 (add metadata to shot, sequence, jsoneditor style)
           <h2>Metadata</h2>
           <v-jsoneditor class="json-editor" v-model="form.data" :options="options" :plus="true" height="400px"/>
         </div>
@@ -83,6 +87,7 @@ export default {
     const data = {}
     data.sequenceSuccessText = ''
     if (this.sequenceToEdit && this.sequenceToEdit.id) {
+<<<<<<< HEAD
       data.form = {
         id: this.sequenceToEdit.id,
         name: this.sequenceToEdit.name,
@@ -97,6 +102,38 @@ export default {
         description: '',
         fps: '',
         data: {}
+=======
+      return {
+        form: {
+          id: this.sequenceToEdit.id,
+          name: this.sequenceToEdit.name,
+          description: this.sequenceToEdit.description,
+          production_id: this.sequenceToEdit.project_id,
+          data: this.sequenceToEdit.data ? this.sequenceToEdit.data : {}
+        },
+        options: {
+          name: 'metadata root',
+          mode: 'tree',
+          modes: ['tree', 'form']
+        },
+        sequenceSuccessText: ''
+      }
+    } else {
+      return {
+        form: {
+          id: '',
+          name: '',
+          description: '',
+          fps: '',
+          data: {}
+        },
+        options: {
+          name: 'metadata root',
+          mode: 'tree',
+          modes: ['tree', 'form']
+        },
+        sequenceSuccessText: ''
+>>>>>>> 61b7dbb1 (add metadata to shot, sequence, jsoneditor style)
       }
     }
 

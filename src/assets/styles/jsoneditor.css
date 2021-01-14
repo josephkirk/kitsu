@@ -14,6 +14,7 @@ div.jsoneditor.th div.jsoneditor-tree table.jsoneditor-tree .datatable-row td .d
 }
 
 .jsoneditor-menu {
+<<<<<<< HEAD
   width: 100%!important;
   height: 35px!important;
   padding: 2px!important;
@@ -35,3 +36,16 @@ div.jsoneditor.th div.jsoneditor-tree table.jsoneditor-tree .datatable-row td .d
 .jsoneditor-container {
   margin-bottom: 2em;
 }
+=======
+  width: 100%;
+  height: 35px;
+  padding: 2px;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  background-color: rgb(49, 51, 53);
+  border: none;
+}
+>>>>>>> 61b7dbb1 (add metadata to shot, sequence, jsoneditor style)

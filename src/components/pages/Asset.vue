@@ -65,12 +65,18 @@
                 <td class="field-label">Metadata</td>
                 <td>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <Collapsible :isOpen="false">
                     <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
                   </Collapsible>
 =======
                     <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
 >>>>>>> 7f462520 (add json editor for metadata)
+=======
+                  <Collapsible :isOpen="false">
+                    <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
+                  </Collapsible>
+>>>>>>> 61b7dbb1 (add metadata to shot, sequence, jsoneditor style)
                 </td>
               </tr>
             </tbody>
@@ -201,6 +207,7 @@
 
 <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'vue-collapsible-component/lib/vue-collapsible.css'
 import VJsoneditor from 'v-jsoneditor'
 import Collapsible from 'vue-collapsible-component'
@@ -208,6 +215,12 @@ import Collapsible from 'vue-collapsible-component'
 =======
 import VJsoneditor from 'v-jsoneditor'
 >>>>>>> 7f462520 (add json editor for metadata)
+=======
+import 'vue-collapsible-component/lib/vue-collapsible.css'
+import VJsoneditor from 'v-jsoneditor'
+import Collapsible from 'vue-collapsible-component'
+
+>>>>>>> 61b7dbb1 (add metadata to shot, sequence, jsoneditor style)
 import { mapGetters, mapActions } from 'vuex'
 
 import { ChevronLeftIcon } from 'vue-feather-icons'
@@ -225,9 +238,13 @@ export default {
   name: 'asset',
   components: {
 <<<<<<< HEAD
+<<<<<<< HEAD
     Collapsible,
 =======
 >>>>>>> 7f462520 (add json editor for metadata)
+=======
+    Collapsible,
+>>>>>>> 61b7dbb1 (add metadata to shot, sequence, jsoneditor style)
     VJsoneditor,
     ButtonSimple,
     ChevronLeftIcon,
