@@ -15,6 +15,17 @@
       </h1>
 
       <form v-on:submit.prevent>
+
+        <div class="productionpicturedrop" v-if="productionToEdit && productionToEdit.id">
+          <span class="label">{{ $t("productions.picture") }}</span>
+          <file-upload
+            ref="fileField"
+            :label="$t('main.csv.upload_file')"
+            accept=".png,.jpg,.jpeg"
+            @fileselected="onFileSelected"
+          />
+        </div>
+
         <text-field
           ref="nameField"
           :label="$t('productions.fields.name')"
@@ -58,14 +69,9 @@
           v-focus
         />
 
-        <div v-if="productionToEdit && productionToEdit.id">
-          <span class="label">{{ $t("productions.picture") }}</span>
-          <file-upload
-            ref="fileField"
-            :label="$t('main.csv.upload_file')"
-            accept=".png,.jpg,.jpeg"
-            @fileselected="onFileSelected"
-          />
+        <div v-if="productionToEdit && productionToEdit.id" class="jsoneditor-container">
+          <h2>Metadata</h2>
+          <v-jsoneditor class="json-editor" v-model="form.data" :options="options" :plus="true" height="400px"/>
         </div>
       </form>
 
@@ -86,6 +92,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { modalMixin } from './base_modal'
 
+import VJsoneditor from 'v-jsoneditor'
 import Combobox from '../widgets/Combobox'
 import ModalFooter from '@/components/modals/ModalFooter'
 import FileUpload from '../widgets/FileUpload'
@@ -95,6 +102,7 @@ export default {
   name: 'edit-production-modal',
   mixins: [modalMixin],
   components: {
+    VJsoneditor,
     Combobox,
     FileUpload,
     ModalFooter,
@@ -140,7 +148,8 @@ export default {
         fps: this.productionToEdit.fps,
         ratio: this.productionToEdit.ratio,
         resolution: this.productionToEdit.resolution,
-        production_type: this.productionToEdit.production_type || 'short'
+        production_type: this.productionToEdit.production_type || 'short',
+        data: this.productionToEdit.data
       }
     } else {
       data.form = {
@@ -149,10 +158,15 @@ export default {
         fps: '',
         ratio: '',
         resolution: '',
-        production_type: 'short'
+        production_type: 'short',
+        data: {}
       }
     }
-
+    data.options = {
+      name: 'metadata root',
+      mode: 'form',
+      modes: ['tree', 'form', 'preview', 'code']
+    }
     return data
   },
 
@@ -214,7 +228,8 @@ export default {
           fps: this.productionToEdit.fps,
           ratio: this.productionToEdit.ratio,
           resolution: this.productionToEdit.resolution,
-          production_type: this.productionToEdit.production_type || 'short'
+          production_type: this.productionToEdit.production_type || 'short',
+          data: this.productionToEdit.data
         }
         this.form.project_status_id = null
         this.$nextTick(() => {
@@ -227,7 +242,8 @@ export default {
           fps: '',
           ratio: '',
           resolution: '',
-          production_type: 'short'
+          production_type: 'short',
+          data: {}
         }
       }
     }
@@ -251,7 +267,18 @@ export default {
 }
 </script>
 
+<style lang="css">
+
+@import '../../assets/styles/jsoneditor.css';
+
+</style>
+
 <style lang="scss" scoped>
+
+.productionpicturedrop {
+  margin-bottom: 2em;
+}
+
 .box {
   padding-bottom: 1.5em;
 }

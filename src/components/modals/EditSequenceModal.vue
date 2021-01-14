@@ -30,7 +30,7 @@
           @keyup.ctrl.enter="runConfirmation"
           @keyup.meta.enter="runConfirmation"
         />
-        <div>
+        <div class="jsoneditor-container">
           <h2>Metadata</h2>
           <v-jsoneditor class="json-editor" v-model="form.data" :options="options" :plus="true" height="400px"/>
         </div>
@@ -80,39 +80,32 @@ export default {
   ],
 
   data () {
+    const data = {}
+    data.sequenceSuccessText = ''
     if (this.sequenceToEdit && this.sequenceToEdit.id) {
-      return {
-        form: {
-          id: this.sequenceToEdit.id,
-          name: this.sequenceToEdit.name,
-          description: this.sequenceToEdit.description,
-          production_id: this.sequenceToEdit.project_id,
-          data: this.sequenceToEdit.data ? this.sequenceToEdit.data : {}
-        },
-        options: {
-          name: 'metadata root',
-          mode: 'tree',
-          modes: ['tree', 'form']
-        },
-        sequenceSuccessText: ''
+      data.form = {
+        id: this.sequenceToEdit.id,
+        name: this.sequenceToEdit.name,
+        description: this.sequenceToEdit.description,
+        production_id: this.sequenceToEdit.project_id,
+        data: this.sequenceToEdit.data ? this.sequenceToEdit.data : {}
       }
     } else {
-      return {
-        form: {
-          id: '',
-          name: '',
-          description: '',
-          fps: '',
-          data: {}
-        },
-        options: {
-          name: 'metadata root',
-          mode: 'tree',
-          modes: ['tree', 'form']
-        },
-        sequenceSuccessText: ''
+      data.form = {
+        id: '',
+        name: '',
+        description: '',
+        fps: '',
+        data: {}
       }
     }
+
+    data.options = {
+      name: 'metadata root',
+      mode: 'form',
+      modes: ['tree', 'form', 'preview', 'code']
+    }
+    return data
   },
 
   computed: {
@@ -143,11 +136,13 @@ export default {
         this.form.id = null
         this.form.name = ''
         this.form.description = ''
+        this.form.data = {}
       } else {
         this.form = {
           id: this.sequenceToEdit.id,
           name: this.sequenceToEdit.name,
-          description: this.sequenceToEdit.description
+          description: this.sequenceToEdit.description,
+          data: this.sequenceToEdit.data
         }
       }
     }
@@ -176,6 +171,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+
 .modal-content .box p.text {
   margin-bottom: 1em;
 }

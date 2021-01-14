@@ -80,6 +80,10 @@
             v-else
           />
         </div>
+        <div class="jsoneditor-container">
+          <h2>Metadata</h2>
+          <v-jsoneditor class="json-editor" v-model="form.data.metadata" :options="options" :plus="true" height="400px"/>
+        </div>
       </form>
 
       <modal-footer
@@ -97,6 +101,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { modalMixin } from './base_modal'
+
+import VJsoneditor from 'v-jsoneditor'
 import Combobox from '../widgets/Combobox'
 import ModalFooter from '@/components/modals/ModalFooter'
 import TextField from '../widgets/TextField'
@@ -107,6 +113,7 @@ export default {
   mixins: [modalMixin],
 
   components: {
+    VJsoneditor,
     Combobox,
     ModalFooter,
     TextField,
@@ -253,6 +260,10 @@ export default {
 
 }
 </script>
+
+<style lang="css">
+@import '../../assets/styles/jsoneditor.css';
+</style>
 
 <style lang="scss" scoped>
 .modal-content .box p.text {

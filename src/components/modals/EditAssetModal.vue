@@ -57,6 +57,10 @@
             v-else
           />
         </div>
+        <div class="jsoneditor-container">
+          <h2>Metadata</h2>
+          <v-jsoneditor class="json-editor" v-model="form.data.metadata" :options="options" :plus="true" height="400px"/>
+        </div>
       </form>
 
       <div class="has-text-right">
@@ -106,6 +110,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { modalMixin } from '@/components/modals/base_modal'
 import { descriptorMixin } from '@/components/mixins/descriptors'
 
+import VJsoneditor from 'v-jsoneditor'
 import TextField from '@/components/widgets/TextField'
 import TextareaField from '@/components/widgets/TextareaField'
 import Combobox from '@/components/widgets/Combobox'
@@ -115,6 +120,7 @@ export default {
   mixins: [descriptorMixin, modalMixin],
 
   components: {
+    VJsoneditor,
     TextField,
     TextareaField,
     Combobox
@@ -290,7 +296,12 @@ export default {
 }
 </script>
 
+<style lang="css">
+@import '../../assets/styles/jsoneditor.css';
+</style>
+
 <style lang="scss" scoped>
+
 .modal-content .box p.text {
   margin-bottom: 1em;
 }

@@ -250,7 +250,7 @@ export default {
       metadata: {},
       options: {
         name: 'metadata root',
-        mode: 'preview',
+        mode: 'form',
         modes: ['tree', 'preview', 'form', 'code']
       }
     }

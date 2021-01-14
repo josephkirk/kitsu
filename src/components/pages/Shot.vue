@@ -244,7 +244,7 @@ export default {
       metadata: {},
       options: {
         name: 'metadata root',
-        mode: 'preview',
+        mode: 'form',
         modes: ['tree', 'preview', 'form', 'code']
       }
     }
@@ -333,6 +333,15 @@ export default {
 
     onChangeMetadata (jsonstring) {
       console.log(jsonstring)
+      if (this.currentShot.data) {
+        const assetdata = { ...this.currentShot.data }
+        assetdata.metadata = JSON.parse(jsonstring)
+        const data = {
+          id: this.currentShot.id,
+          data: assetdata
+        }
+        this.editShot(data)
+      }
     },
 
     changeTab (tab) {

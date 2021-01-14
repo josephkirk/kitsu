@@ -14,14 +14,24 @@ div.jsoneditor.th div.jsoneditor-tree table.jsoneditor-tree .datatable-row td .d
 }
 
 .jsoneditor-menu {
-  width: 100%;
-  height: 35px;
-  padding: 2px;
-  margin: 0;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #fff;
-  background-color: rgb(49, 51, 53);
-  border: none;
+  width: 100%!important;
+  height: 35px!important;
+  padding: 2px!important;
+  margin: 0!important;
+  -moz-box-sizing: border-box!important;
+  -webkit-box-sizing: border-box!important;
+  box-sizing: border-box!important;
+  color: #fff!important;
+  background-color: rgb(49, 51, 53)!important;
+  border: none!important;
+}
+
+.dark .jsoneditor-box {
+  background-color: #e8e8e8;
+  margin-bottom: 2em;
+  margin-top: .5em;
+}
+
+.jsoneditor-container {
+  margin-bottom: 2em;
 }
