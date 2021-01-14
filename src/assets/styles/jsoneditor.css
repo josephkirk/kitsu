@@ -1,0 +1,27 @@
+.jsoneditor {
+  border: none;
+}
+div.jsoneditor.th div.jsoneditor-tree table.jsoneditor-tree .datatable-row td .datatable-row {
+  border: none;
+}
+
+div.jsoneditor.th div.jsoneditor-tree table.jsoneditor-tree .datatable-row td .datatable-row {
+  border: none;
+}
+
+.datatable-row, .datatable-row div, .datatable-row:first-child td, .datatable-row:last-child td ,.datatable-row th, .datatable-row td, .datatable-row tr, .datatable-row tbody {
+  border: none;
+}
+
+.jsoneditor-menu {
+  width: 100%;
+  height: 35px;
+  padding: 2px;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  background-color: rgb(49, 51, 53);
+  border: none;
+}

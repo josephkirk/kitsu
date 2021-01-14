@@ -64,7 +64,9 @@
               <tr class="datatable-row">
                 <td class="field-label">Metadata</td>
                 <td>
+                  <Collapsible :isOpen="false">
                     <v-jsoneditor class="json-editor" v-model="metadata" :options="options" :plus="true" height="400px"/>
+                  </Collapsible>
                 </td>
               </tr>
             </tbody>
@@ -194,7 +196,10 @@
 </template>
 
 <script>
+import 'vue-collapsible-component/lib/vue-collapsible.css'
 import VJsoneditor from 'v-jsoneditor'
+import Collapsible from 'vue-collapsible-component'
+
 import { mapGetters, mapActions } from 'vuex'
 
 import { ChevronLeftIcon } from 'vue-feather-icons'
@@ -211,6 +216,7 @@ import TaskInfo from '../sides/TaskInfo'
 export default {
   name: 'asset',
   components: {
+    Collapsible,
     VJsoneditor,
     ButtonSimple,
     ChevronLeftIcon,
@@ -419,6 +425,12 @@ export default {
   }
 }
 </script>
+
+<style lang="css">
+
+@import '../../assets/styles/jsoneditor.css';
+
+</style>
 
 <style lang="scss" scoped>
 

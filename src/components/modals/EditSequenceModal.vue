@@ -30,6 +30,10 @@
           @keyup.ctrl.enter="runConfirmation"
           @keyup.meta.enter="runConfirmation"
         />
+        <div>
+          <h2>Metadata</h2>
+          <v-jsoneditor class="json-editor" v-model="form.data" :options="options" :plus="true" height="400px"/>
+        </div>
       </form>
 
       <modal-footer
@@ -45,6 +49,7 @@
 </template>
 
 <script>
+import VJsoneditor from 'v-jsoneditor'
 import { mapGetters, mapActions } from 'vuex'
 import { modalMixin } from './base_modal'
 import ModalFooter from '@/components/modals/ModalFooter'
@@ -55,6 +60,7 @@ export default {
   name: 'edit-sequence-modal',
   mixins: [modalMixin],
   components: {
+    VJsoneditor,
     ModalFooter,
     TextField,
     TextareaField
@@ -80,7 +86,13 @@ export default {
           id: this.sequenceToEdit.id,
           name: this.sequenceToEdit.name,
           description: this.sequenceToEdit.description,
-          production_id: this.sequenceToEdit.project_id
+          production_id: this.sequenceToEdit.project_id,
+          data: this.sequenceToEdit.data ? this.sequenceToEdit.data : {}
+        },
+        options: {
+          name: 'metadata root',
+          mode: 'tree',
+          modes: ['tree', 'form']
         },
         sequenceSuccessText: ''
       }
@@ -90,7 +102,13 @@ export default {
           id: '',
           name: '',
           description: '',
-          fps: ''
+          fps: '',
+          data: {}
+        },
+        options: {
+          name: 'metadata root',
+          mode: 'tree',
+          modes: ['tree', 'form']
         },
         sequenceSuccessText: ''
       }
@@ -150,6 +168,12 @@ export default {
   }
 }
 </script>
+
+<style lang="css">
+
+@import '../../assets/styles/jsoneditor.css';
+
+</style>
 
 <style lang="scss" scoped>
 .modal-content .box p.text {

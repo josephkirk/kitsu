@@ -2,17 +2,37 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "npm",
-			"script": "serve",
+			"type": "shell",
+			"command": "npm run serve",
 			"problemMatcher": [],
-			"label": "npm: serve",
-			"detail": "vue-cli-service serve",
+			"label": "npm: serve work",
+			"group": "build",
 			"options": {
 				"env": {
 					"KITSU_API_TARGET": "http://kitsu.virtuos-sparx.com/api",
 					"KITSU_EVENT_TARGET": "http://kitsu.virtuos-sparx.com"
 				}
 			}
+		},
+		{
+			"type": "shell",
+			"command": "npm run serve",
+			"problemMatcher": [],
+			"label": "npm: serve local",
+			"group": "build",
+			"options": {
+				"env": {
+					"KITSU_API_TARGET": "http://localhost/api",
+					"KITSU_EVENT_TARGET": "http://localhost"
+				}
+			}
+		},
+		{
+			"type": "shell",
+			"command": "npm run build",
+			"problemMatcher": [],
+			"label": "npm: build",
+			"group": "build"
 		}
 	]
 }
