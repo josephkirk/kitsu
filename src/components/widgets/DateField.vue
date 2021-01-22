@@ -95,6 +95,14 @@ export default {
   watch: {
     value () {
       this.localValue = this.value
+<<<<<<< HEAD
+=======
+    },
+    localValue () {
+      if (this.localValue !== this.value) {
+        this.$emit('input', this.localValue)
+      }
+>>>>>>> ada26ed1 (Add dates and episodes spacing for task types (Production settings))
     }
   }
 }
