@@ -641,9 +641,9 @@ export default {
 
 th.start-date,
 th.due-date {
-  min-width: 105px;
-  max-width: 105px;
-  width: 105px;
+  min-width: 106px;
+  max-width: 106px;
+  width: 106px;
 }
 
 td.start-date,
