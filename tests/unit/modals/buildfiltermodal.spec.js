@@ -157,30 +157,9 @@ describe('BuildFilterModal', () => {
           metadataDescriptorFilters: {
             values: [
               {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 id: 'descriptor-1' ,
                 operator: '=' ,
                 values: ['easy']
-=======
-                id: 'descriptor-1',
-                operator: '=',
-=======
-                id: 'descriptor-1' ,
-                operator: '=' ,
->>>>>>> 1af13f21 (Revert "Add electron")
-=======
-                id: 'descriptor-1',
-                operator: '=',
->>>>>>> f4faebb5 (Add electron)
-=======
-                id: 'descriptor-1' ,
-                operator: '=' ,
->>>>>>> ee7fffeb (Revert "Add electron")
-                text: 'easy'
->>>>>>> caf16d6c (Add electron)
               }
             ]
           }
@@ -304,30 +283,9 @@ describe('BuildFilterModal', () => {
               metadataDescriptorFilters: {
                 values: [
                   {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                     id: 'descriptor-1' ,
                     operator: '=' ,
                     values: ['easy']
-=======
-                    id: 'descriptor-1',
-                    operator: '=',
-=======
-                    id: 'descriptor-1' ,
-                    operator: '=' ,
->>>>>>> 1af13f21 (Revert "Add electron")
-=======
-                    id: 'descriptor-1',
-                    operator: '=',
->>>>>>> f4faebb5 (Add electron)
-=======
-                    id: 'descriptor-1' ,
-                    operator: '=' ,
->>>>>>> ee7fffeb (Revert "Add electron")
-                    text: 'easy'
->>>>>>> caf16d6c (Add electron)
                   }
                 ]
               }
@@ -340,30 +298,9 @@ describe('BuildFilterModal', () => {
               metadataDescriptorFilters: {
                 values: [
                   {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                     id: 'descriptor-1' ,
                     operator: '=-' ,
                     values: ['easy']
-=======
-                    id: 'descriptor-1',
-                    operator: '=-',
-=======
-                    id: 'descriptor-1' ,
-                    operator: '=-' ,
->>>>>>> 1af13f21 (Revert "Add electron")
-=======
-                    id: 'descriptor-1',
-                    operator: '=-',
->>>>>>> f4faebb5 (Add electron)
-=======
-                    id: 'descriptor-1' ,
-                    operator: '=-' ,
->>>>>>> ee7fffeb (Revert "Add electron")
-                    text: 'easy'
->>>>>>> caf16d6c (Add electron)
                   }
                 ]
               }
@@ -513,30 +450,9 @@ describe('BuildFilterModal', () => {
             wrapper.vm.setFiltersFromCurrentQuery()
             expect(wrapper.vm.metadataDescriptorFilters.values).toStrictEqual([
               {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 id: 'descriptor-1' ,
                 operator: '=' ,
                 values: ['easy']
-=======
-                id: 'descriptor-1',
-                operator: '=',
-=======
-                id: 'descriptor-1' ,
-                operator: '=' ,
->>>>>>> 1af13f21 (Revert "Add electron")
-=======
-                id: 'descriptor-1',
-                operator: '=',
->>>>>>> f4faebb5 (Add electron)
-=======
-                id: 'descriptor-1' ,
-                operator: '=' ,
->>>>>>> ee7fffeb (Revert "Add electron")
-                text: 'easy'
->>>>>>> caf16d6c (Add electron)
               }
             ])
           })
@@ -545,10 +461,6 @@ describe('BuildFilterModal', () => {
             wrapper.vm.setFiltersFromCurrentQuery()
             expect(wrapper.vm.metadataDescriptorFilters.values).toStrictEqual([
               {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 id: 'descriptor-1' ,
                 operator: '=-' ,
                 values: ['easy']
@@ -563,23 +475,6 @@ describe('BuildFilterModal', () => {
                 id: 'descriptor-1' ,
                 operator: 'in' ,
                 values: ['easy', 'hard']
-=======
-                id: 'descriptor-1',
-                operator: '=-',
-=======
-                id: 'descriptor-1' ,
-                operator: '=-' ,
->>>>>>> 1af13f21 (Revert "Add electron")
-=======
-                id: 'descriptor-1',
-                operator: '=-',
->>>>>>> f4faebb5 (Add electron)
-=======
-                id: 'descriptor-1' ,
-                operator: '=-' ,
->>>>>>> ee7fffeb (Revert "Add electron")
-                text: 'easy'
->>>>>>> caf16d6c (Add electron)
               }
             ])
           })
@@ -664,23 +559,7 @@ describe('BuildFilterModal', () => {
           expect(wrapper.vm.metadataDescriptorFilters.values).toStrictEqual([{
             id: 'descriptor-1',
             operator: '=',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             values: ['easy'],
-=======
-            text: 'easy'
->>>>>>> caf16d6c (Add electron)
-=======
-            text: 'easy',
->>>>>>> 1af13f21 (Revert "Add electron")
-=======
-            text: 'easy'
->>>>>>> f4faebb5 (Add electron)
-=======
-            text: 'easy',
->>>>>>> ee7fffeb (Revert "Add electron")
           }])
           wrapper.vm.addDescriptorFilter()
           expect(wrapper.vm.metadataDescriptorFilters.values.length).toBe(2)
