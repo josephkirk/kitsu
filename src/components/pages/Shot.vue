@@ -381,9 +381,16 @@ export default {
         assetdata.metadata = JSON.parse(jsonstring)
         const data = {
           id: this.currentShot.id,
+<<<<<<< Updated upstream
           data: assetdata
         }
         this.editShot(data)
+=======
+          source_id: this.currentShot.episode_id,
+          episode_id: this.currentShot.episode_id,
+          data: assetdata
+        }
+>>>>>>> Stashed changes
       }
 =======
 >>>>>>> 7f462520 (add json editor for metadata)
