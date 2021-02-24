@@ -1420,6 +1420,10 @@ tbody:last-child .empty-line:last-child {
   align-items: center;
 }
 
+.flexrow-reverse {
+  flex-direction: row-reverse;
+}
+
 .flexrow-item {
   margin-right: 1rem;
 
@@ -1541,7 +1545,16 @@ th.validation-cell {
 }
 
 .tooltip {
+  background: var(--background);
+  border-radius: 1em;
+  box-shadow: 0 0 2px 2px var(--box-shadow);
+  color: var(--text);
+  padding: 1em;
   z-index: 2;
+
+  .popover-arrow {
+    border-color: var(--background);
+  }
 }
 
 .asset .description-cell,
@@ -1628,7 +1641,7 @@ th.validation-cell {
   width: 150px;
 
   &.short {
-    width: 105px;
+    width: 106px;
   }
 }
 

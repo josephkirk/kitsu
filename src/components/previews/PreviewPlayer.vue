@@ -119,14 +119,14 @@
         </span>
         <span
           class="flexrow-item time-indicator"
-          v-if="!light || fullScreen"
+          v-if="fullScreen"
         >
         /
         </span>
         <span
           class="flexrow-item time-indicator"
           :title="$t('playlists.actions.max_duration')"
-          v-if="!light || fullScreen"
+          v-if="fullScreen"
         >
          {{ maxDuration }}
         </span>
@@ -1034,8 +1034,8 @@ export default {
         annotation = this.getAnnotation(currentTime)
         if (!annotation) {
           if (!this.isMovie) {
-            console.error(
-              'Annotations are malformed and cannot be loaded.', currentTime
+            console.warn(
+              'Annotations are malformed or empty.'
             )
           }
           return

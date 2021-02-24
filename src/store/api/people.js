@@ -4,7 +4,7 @@ export default {
 
   getOrganisation () {
     return client.pget('/api/data/organisations')
-      .then((organisations) => {
+      .then(organisations => {
         let organisation = {
           name: 'Kitsu',
           hours_by_day: 8,
@@ -112,8 +112,8 @@ export default {
     client.get('/api/data/user/done-tasks', callback)
   },
 
-  loadTimeSpents (date, callback) {
-    client.get(`/api/data/user/time-spents/${date}`, callback)
+  loadTimeSpents (date) {
+    return client.pget(`/api/data/user/time-spents/${date}`)
   },
 
   getPersonTasks (personId, callback) {
@@ -148,15 +148,15 @@ export default {
   },
 
   removeFilter (searchFilter, callback) {
-    client.del(`/api/data/user/filters/${searchFilter.id}`, callback)
+    return client.pdel(`/api/data/user/filters/${searchFilter.id}`)
   },
 
-  getTimeSpents (personId, date, callback) {
+  getTimeSpents (personId, date) {
     // Date is a string with following format: YYYYY-MM-DD.
-    client.get(`/api/data/persons/${personId}/time-spents/${date}`, callback)
+    return client.pget(`/api/data/persons/${personId}/time-spents/${date}`)
   },
 
-  setTimeSpent (taskId, personId, date, hours, callback) {
+  setTimeSpent (taskId, personId, date, hours) {
     // Date is a string with following format: YYYYY-MM-DD.
     const data = {
       duration: hours * 60
@@ -167,20 +167,66 @@ export default {
     )
   },
 
-  getDayTable (year, month) {
-    return client.pget(`/api/data/persons/time-spents/day-table/${year}/${month}`)
+  getDayOff (personId, date) {
+    // Date is a string with following format: YYYYY-MM-DD.
+    return client.pget(`/api/data/persons/${personId}/day-offs/${date}`)
   },
 
-  getWeekTable (year) {
-    return client.pget(`/api/data/persons/time-spents/week-table/${year}`)
+  setDayOff (personId, date) {
+    // Date is a string with following format: YYYYY-MM-DD.
+    return client.ppost('/api/data/day-offs', { person_id: personId, date })
   },
 
-  getMonthTable (year) {
-    return client.pget(`/api/data/persons/time-spents/month-table/${year}`)
+  getDayOffs (year, month) {
+    const path = `/api/data/persons/day-offs/${year}/${month}`
+    return client.pget(path)
   },
 
-  getYearTable (year) {
-    return client.pget('/api/data/persons/time-spents/year-table')
+  unsetDayOff (dayOff) {
+    return client.pdel(`/api/data/day-offs/${dayOff.id}`)
+  },
+
+  getAggregatedPersonDaysOff (
+    personId,
+    detailLevel,
+    year,
+    month,
+    week
+  ) {
+    let path = `/api/data/persons/${personId}/day-offs/`
+
+    if (detailLevel === 'year') {
+      path += `year/${year}`
+    } else if (detailLevel === 'month') {
+      path += `month/${year}/${month}`
+    } else if (detailLevel === 'week') {
+      path += `week/${year}/${week}`
+    }
+    return client.pget(path)
+  },
+
+  getDayTable (year, month, productionId) {
+    let path = `/api/data/persons/time-spents/day-table/${year}/${month}`
+    if (productionId) path += `?project_id=${productionId}`
+    return client.pget(path)
+  },
+
+  getWeekTable (year, month, productionId) {
+    let path = `/api/data/persons/time-spents/week-table/${year}`
+    if (productionId) path += `?project_id=${productionId}`
+    return client.pget(path)
+  },
+
+  getMonthTable (year, month, productionId) {
+    let path = `/api/data/persons/time-spents/month-table/${year}`
+    if (productionId) path += `?project_id=${productionId}`
+    return client.pget(path)
+  },
+
+  getYearTable (year, month, productionId) {
+    let path = '/api/data/persons/time-spents/year-table'
+    if (productionId) path += `?project_id=${productionId}`
+    return client.pget(path)
   },
 
   getAggregatedPersonTimeSpents (
@@ -189,7 +235,8 @@ export default {
     year,
     month,
     week,
-    day
+    day,
+    productionId
   ) {
     let path = `/api/data/persons/${personId}/time-spents/`
 
@@ -201,6 +248,10 @@ export default {
       path += `week/${year}/${week}`
     } else {
       path += `day/${year}/${month}/${day}`
+    }
+
+    if (productionId) {
+      path += `?project_id=${productionId}`
     }
 
     return client.pget(path)

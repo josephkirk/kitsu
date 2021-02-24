@@ -46,12 +46,14 @@ import {
 
   SET_TIME_SPENT,
   PEOPLE_TIMESHEET_LOADED,
+  PERSON_SET_DAY_OFF,
   PERSON_LOAD_TIME_SPENTS_END,
 
   SET_ORGANISATION,
 
   SET_PERSON_TASKS_SCROLL_POSITION,
 
+  PEOPLE_SET_DAY_OFFS,
   PEOPLE_SEARCH_CHANGE,
 
   RESET_ALL
@@ -135,7 +137,9 @@ const initialState = {
 
   timesheet: {},
   personTimeSpentMap: {},
-  personTimeSpentTotal: 0
+  personTimeSpentTotal: 0,
+  personIsDayOff: false,
+  dayOffMap: {}
 }
 
 const state = {
@@ -185,7 +189,9 @@ const getters = {
 
   timesheet: state => state.timesheet,
   personTimeSpentMap: state => state.personTimeSpentMap,
-  personTimeSpentTotal: state => state.personTimeSpentTotal
+  personTimeSpentTotal: state => state.personTimeSpentTotal,
+  personIsDayOff: state => state.personIsDayOff,
+  dayOffMap: state => state.dayOffMap
 }
 
 const actions = {
@@ -283,7 +289,7 @@ const actions = {
         commit(IMPORT_PEOPLE_END)
         Promise.resolve()
       })
-      .catch((err) => {
+      .catch(err => {
         commit(IMPORT_PEOPLE_ERROR)
         Promise.reject(err)
       })
@@ -304,15 +310,19 @@ const actions = {
       peopleApi.getPersonDoneTasks(personId, (err, doneTasks) => {
         if (err) doneTasks = []
         commit(LOAD_PERSON_DONE_TASKS_END, doneTasks)
-        peopleApi.getTimeSpents(personId, date, (err, timeSpents) => {
-          if (err) timeSpents = []
-          commit(PERSON_LOAD_TIME_SPENTS_END, timeSpents)
-          commit(
-            LOAD_PERSON_TASKS_END,
-            { personId, tasks, userFilters, taskTypeMap }
-          )
-          if (callback) callback(err)
-        })
+        peopleApi.getTimeSpents(personId, date)
+          .then(timeSpents => {
+            commit(PERSON_LOAD_TIME_SPENTS_END, timeSpents)
+            return peopleApi.getDayOff(personId, date)
+          })
+          .then(dayOff => {
+            commit(PERSON_SET_DAY_OFF, dayOff)
+            commit(
+              LOAD_PERSON_TASKS_END,
+              { personId, tasks, userFilters, taskTypeMap }
+            )
+            if (callback) callback(err)
+          })
       })
     })
   },
@@ -324,20 +334,39 @@ const actions = {
       year,
       month,
       week,
-      day
+      day,
+      productionId
     }) {
-    return new Promise((resolve, reject) => {
-      peopleApi.getAggregatedPersonTimeSpents(
+    return peopleApi.getAggregatedPersonTimeSpents(
+      personId,
+      detailLevel,
+      year,
+      month,
+      week,
+      day,
+      productionId
+    )
+  },
+
+  loadAggregatedPersonDaysOff (
+    { commit, state, rootGetters }, {
+      personId,
+      detailLevel,
+      year,
+      month,
+      week
+    }) {
+    if (detailLevel === 'day') {
+      return Promise.resolve([])
+    } else {
+      return peopleApi.getAggregatedPersonDaysOff(
         personId,
         detailLevel,
         year,
         month,
-        week,
-        day
-      ).then((tasks) => {
-        resolve(tasks)
-      }).catch((err) => reject(err))
-    })
+        week
+      )
+    }
   },
 
   showPersonImportModal ({ commit, state }, personId) {
@@ -381,13 +410,11 @@ const actions = {
   },
 
   removePersonTasksSearch ({ commit, rootGetters }, searchQuery) {
-    return new Promise((resolve, reject) => {
-      peopleApi.removeFilter(searchQuery, (err) => {
+    return peopleApi.removeFilter(searchQuery)
+      .then(() => {
         commit(REMOVE_PERSON_TASKS_SEARCH_END, { searchQuery })
-        if (err) reject(err)
-        else resolve()
+        return Promise.resolve()
       })
-    })
   },
 
   setTimeSpent ({ commit }, { personId, taskId, date, duration }) {
@@ -402,6 +429,24 @@ const actions = {
     })
   },
 
+  setDayOff ({ commit }, { personId, date }) {
+    return peopleApi.setDayOff(
+      personId,
+      date
+    ).then(dayOff => {
+      commit(PERSON_SET_DAY_OFF, dayOff)
+      Promise.resolve(dayOff)
+    })
+  },
+
+  unsetDayOff ({ commit, state }, dayOff) {
+    return peopleApi.unsetDayOff(state.personDayOff)
+      .then(dayOff => {
+        commit(PERSON_SET_DAY_OFF, {})
+        Promise.resolve()
+      })
+  },
+
   setPersonTasksScrollPosition ({ commit }, scrollPosition) {
     commit(SET_PERSON_TASKS_SCROLL_POSITION, scrollPosition)
   },
@@ -409,28 +454,36 @@ const actions = {
   loadTimesheets ({ commit }, {
     detailLevel,
     year,
-    month
+    month,
+    productionId
   }) {
-    return new Promise((resolve, reject) => {
-      const monthString =
-        month.length === 1 ? `0${parseInt(month) + 1}` : `${month}`
-      let mainFunc = peopleApi.getMonthTable
-      if (detailLevel === 'day') {
-        mainFunc = peopleApi.getDayTable
-      }
-      if (detailLevel === 'week') {
-        mainFunc = peopleApi.getWeekTable
-      }
-      if (detailLevel === 'year') {
-        mainFunc = peopleApi.getYearTable
-      }
-      mainFunc(year, monthString)
-        .then((table) => {
+    const monthString =
+      month.length === 1 ? `0${parseInt(month) + 1}` : `${month}`
+    let mainFunc = peopleApi.getMonthTable
+    if (detailLevel === 'day') {
+      mainFunc = peopleApi.getDayTable
+    }
+    if (detailLevel === 'week') {
+      mainFunc = peopleApi.getWeekTable
+    }
+    if (detailLevel === 'year') {
+      mainFunc = peopleApi.getYearTable
+    }
+    return mainFunc(year, monthString, productionId)
+      .then(table => {
+        if (detailLevel === 'day') {
+          console.log('get day offs')
+          peopleApi.getDayOffs(year, monthString)
+            .then(dayOffs => {
+              commit(PEOPLE_SET_DAY_OFFS, dayOffs)
+              commit(PEOPLE_TIMESHEET_LOADED, table)
+              Promise.resolve(table)
+            })
+        } else {
           commit(PEOPLE_TIMESHEET_LOADED, table)
-          resolve()
-        })
-        .catch(reject)
-    })
+          Promise.resolve(table)
+        }
+      })
   },
 
   peopleSearchChange ({ commit }, text) {
@@ -665,6 +718,22 @@ const mutations = {
       .reduce((acc, timeSpent) => timeSpent.duration + acc, 0) / 60
   },
 
+  [PERSON_SET_DAY_OFF] (state, dayOff) {
+    state.personDayOff = dayOff
+    state.personIsDayOff = dayOff !== null && dayOff.id !== undefined
+  },
+
+  [PEOPLE_SET_DAY_OFFS] (state, dayOffs) {
+    const dayOffMap = {}
+    // Build a map that tells if a day is off. It uses two keys: the person id
+    // and the day number.
+    dayOffs.forEach(dayOff => {
+      if (!dayOffMap[dayOff.person_id]) dayOffMap[dayOff.person_id] = {}
+      dayOffMap[dayOff.person_id][dayOff.date.substring(8, 10)] = true
+    })
+    state.dayOffMap = dayOffMap
+  },
+
   [SET_PERSON_TASKS_SCROLL_POSITION] (state, scrollPosition) {
     state.personTasksScrollPosition = scrollPosition
   },
@@ -681,6 +750,7 @@ const mutations = {
   },
 
   [USER_SAVE_PROFILE_SUCCESS] (state, form) {
+    // On profile change we need to update the main list.
     const person = state.personMap[form.id]
     if (person) {
       Object.assign(person, form)

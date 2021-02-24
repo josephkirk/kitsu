@@ -12,10 +12,17 @@
         v-model="selectedDate"
       />
     </div>
-    <div class="flexrow time-spent-total">
+    <div class="flexrow-item flexrow time-spent-total">
     -&nbsp;&nbsp;
     {{ timeSpentTotal }} {{ $t('timesheets.hours') }}
     </div>
+    <div class="filler"></div>
+    <button-simple
+      class="flexrow-item"
+      :text="$t('timesheets.day_off')"
+      :active="personIsDayOff"
+      @click="toggleDayOff"
+    />
   </div>
 
   <div
@@ -53,7 +60,10 @@
           </th>
         </tr>
       </thead>
-      <tbody class="datatable-body" v-if="tasks.length > 0 && !isLoading">
+      <tbody
+        class="datatable-body"
+        v-if="tasks.length > 0 && !isLoading"
+      >
         <tr
           class="datatable-row"
           v-for="(task, i) in displayedTasks"
@@ -77,7 +87,16 @@
 
           <th class="name datatable-row-header" :style="{left: colNamePosX}">
             <router-link :to="entityPath(task)">
-              {{ task.full_entity_name }}
+              <div class="flexrow">
+                <entity-thumbnail
+                  :empty-width="60"
+                  :empty-height="40"
+                  :entity="{preview_file_id: task.entity_preview_file_id}"
+                />
+                <span>
+                 {{ task.full_entity_name }}
+                </span>
+              </div>
             </router-link>
           </th>
           <time-slider-cell
@@ -85,7 +104,9 @@
             class="time-spent"
             :task-id="task.id"
             @change="onSliderChange"
+            v-if="!personIsDayOff"
           />
+          <td v-else></td>
        </tr>
       </tbody>
       <tbody class="datatable-body" v-if="!isLoading && !hideDone">
@@ -129,10 +150,11 @@
            </router-link>
           </th>
           <time-slider-cell
-           :duration="timeSpentMap[task.id] ? timeSpentMap[task.id].duration / 60 : 0"
-           class="time-spent"
-           :task-id="task.id"
-           @change="onSliderChange"
+            :duration="timeSpentMap[task.id] ? timeSpentMap[task.id].duration / 60 : 0"
+            class="time-spent"
+            :task-id="task.id"
+            @change="onSliderChange"
+            v-if="!personIsDayOff"
           />
         </tr>
       </tbody>
@@ -147,6 +169,13 @@
   <p class="has-text-centered footer-info" v-if="!isLoading">
     {{ tasks.length }} {{ $tc('tasks.tasks', tasks.length) }}
   </p>
+
+  <delete-modal
+    :text="$t('timesheets.confirm_day_off')"
+    @confirm="modals.dayOff = false ; $emit('set-day-off')"
+    @cancel="modals.dayOff = false"
+    :active="modals.dayOff"
+  />
 </div>
 </template>
 
@@ -157,6 +186,9 @@ import Datepicker from 'vuejs-datepicker'
 import { en, fr } from 'vuejs-datepicker/dist/locale'
 
 import { PAGE_SIZE } from '@/lib/pagination'
+import ButtonSimple from '@/components/widgets/ButtonSimple'
+import DeleteModal from '@/components/modals/DeleteModal'
+import EntityThumbnail from '@/components/widgets/EntityThumbnail'
 import PageSubtitle from '@/components/widgets/PageSubtitle'
 import ProductionNameCell from '@/components/cells/ProductionNameCell'
 import TableInfo from '@/components/widgets/TableInfo'
@@ -167,7 +199,10 @@ export default {
   name: 'timesheet-list',
 
   components: {
+    ButtonSimple,
     Datepicker,
+    DeleteModal,
+    EntityThumbnail,
     ProductionNameCell,
     PageSubtitle,
     TableInfo,
@@ -216,7 +251,10 @@ export default {
       colTypePosX: '',
       disabledDates: {},
       page: 1,
-      selectedDate: moment().toDate() // By default current day.
+      selectedDate: moment().toDate(), // By default current day.
+      modals: {
+        dayOff: false
+      }
     }
   },
 
@@ -237,6 +275,7 @@ export default {
     ...mapGetters([
       'isCurrentUserArtist',
       'nbSelectedTasks',
+      'personIsDayOff',
       'productionMap',
       'taskTypeMap',
       'user'
@@ -296,6 +335,14 @@ export default {
       }
 
       return route
+    },
+
+    toggleDayOff () {
+      if (this.personIsDayOff) {
+        this.$emit('unset-day-off')
+      } else {
+        this.modals.dayOff = true
+      }
     }
   },
 

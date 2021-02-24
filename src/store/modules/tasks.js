@@ -444,10 +444,10 @@ const actions = {
           commentId: newComment.id
         }
         return tasksApi.addPreview(previewData)
-      }).then((preview) => {
+      }).then(preview => {
         if (!form) form = state.previewForms[0]
         return tasksApi.uploadPreview(preview.id, form)
-      }).then((preview) => {
+      }).then(preview => {
         commit(NEW_TASK_COMMENT_END, { comment: newComment, taskId })
         commit(ADD_PREVIEW_END, {
           preview,
@@ -515,13 +515,13 @@ const actions = {
     taskId, preview, annotations
   }) {
     return tasksApi.updatePreviewAnnotation(preview, annotations)
-      .then((updatedPreview) => {
+      .then(updatedPreview => {
         commit(UPDATE_PREVIEW_ANNOTATION, {
           taskId,
           preview,
           annotations
         })
-        return Promise.resolve()
+        return Promise.resolve(updatedPreview)
       })
       .catch(console.error)
   },
@@ -621,7 +621,7 @@ const actions = {
 
   removeTaskSearch ({ commit, rootGetters }, searchQuery) {
     const production = rootGetters.currentProduction
-    peopleApi.removeFilter(searchQuery)
+    return peopleApi.removeFilter(searchQuery)
       .then(() => {
         commit(REMOVE_TASK_SEARCH_END, { searchQuery, production })
         return Promise.resolve(searchQuery)
@@ -709,6 +709,7 @@ const mutations = {
               annotations: p.annotations,
               extension: p.extension,
               task_id: p.task_id,
+              status: p.status,
               revision: p.revision,
               position: p.position,
               original_name: p.original_name
@@ -843,9 +844,11 @@ const mutations = {
       id: preview.id,
       feedback: false,
       revision: preview.revision,
+      status: preview.status,
       position: preview.position,
       original_name: preview.original_name,
-      extension: preview.extension
+      extension: preview.extension,
+      task_id: taskId
     }
 
     if (state.taskPreviews[taskId]) {
@@ -881,22 +884,20 @@ const mutations = {
   },
 
   [UPDATE_PREVIEW_ANNOTATION] (state, { taskId, preview, annotations }) {
-    let oldPreview = null
-    state.taskPreviews[taskId].forEach((p) => {
-      p.previews.forEach((subPreview) => {
+    preview.annotations = annotations
+    state.taskPreviews[taskId].forEach(p => {
+      p.previews.forEach(subPreview => {
         if (subPreview.id === preview.id) {
-          oldPreview = subPreview
+          subPreview.annotations = annotations
+          subPreview.status = preview.status
         }
       })
 
       if (p.id === preview.id) {
         p.annotations = annotations
+        p.status = preview.status
       }
     })
-
-    if (oldPreview) {
-      oldPreview.annotations = annotations
-    }
   },
 
   [CHANGE_PREVIEW_END] (state, { preview, comment }) {

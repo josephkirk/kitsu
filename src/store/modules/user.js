@@ -31,6 +31,7 @@ import {
   USER_LOAD_TODOS_ERROR,
   USER_LOAD_DONE_TASKS_END,
   USER_LOAD_TIME_SPENTS_END,
+  PERSON_SET_DAY_OFF,
 
   SET_TODOS_SEARCH,
   LOAD_USER_FILTERS_END,
@@ -196,18 +197,23 @@ const actions = {
               commit(USER_LOAD_DONE_TASKS_END, doneTasks)
             }
 
-            peopleApi.loadTimeSpents(date, (err, timeSpents) => {
-              if (err) {
-                commit(USER_LOAD_TODOS_ERROR)
-              } else {
+            return peopleApi.loadTimeSpents(date)
+              .then(timeSpents => {
                 commit(USER_LOAD_TIME_SPENTS_END, timeSpents)
                 commit(
                   USER_LOAD_TODOS_END,
                   { tasks, userFilters, taskTypeMap }
                 )
-              }
-              if (callback) callback(err)
-            })
+                return peopleApi.getDayOff(state.user.id, date)
+              })
+              .then(dayOff => {
+                commit(PERSON_SET_DAY_OFF, dayOff)
+                if (callback) callback()
+              })
+              .catch(err => {
+                console.error(err)
+                commit(USER_LOAD_TODOS_ERROR)
+              })
           })
         }
       })
@@ -269,13 +275,11 @@ const actions = {
   },
 
   removeTodoSearch ({ commit, rootGetters }, searchQuery) {
-    return new Promise((resolve, reject) => {
-      peopleApi.removeFilter(searchQuery, (err) => {
+    return peopleApi.removeFilter(searchQuery)
+      .then(() => {
         commit(REMOVE_TODO_SEARCH_END, { searchQuery })
-        if (err) reject(err)
-        else resolve()
+        return Promise.resolve(searchQuery)
       })
-    })
   },
 
   setTodoListScrollPosition ({ commit, rootGetters }, scrollPosition) {
@@ -517,7 +521,7 @@ const mutations = {
 
   [USER_LOAD_TIME_SPENTS_END] (state, timeSpents) {
     const timeSpentMap = {}
-    timeSpents.forEach((timeSpent) => {
+    timeSpents.forEach(timeSpent => {
       timeSpentMap[timeSpent.task_id] = timeSpent
     })
     state.timeSpentMap = timeSpentMap
@@ -542,6 +546,9 @@ const mutations = {
   },
 
   [SAVE_SHOT_SEARCH_END] (state, { searchQuery, production }) {
+    if (!state.userFilters.shot) {
+      state.userFilters.shot = {}
+    }
     if (!state.userFilters.shot[production.id]) {
       state.userFilters.shot[production.id] = []
     }

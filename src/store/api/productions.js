@@ -29,6 +29,7 @@ export default {
   updateProduction (production) {
     const data = {
       name: production.name,
+      description: production.description,
       project_status_id: production.project_status_id,
       production_type: production.production_type,
       fps: production.fps,
@@ -36,7 +37,9 @@ export default {
       resolution: production.resolution,
       start_date: production.start_date,
       end_date: production.end_date,
-      man_days: production.man_days
+      man_days: production.man_days,
+      nb_episodes: production.nb_episodes,
+      episode_span: production.episode_span
     }
     return client.pput(`/api/data/projects/${production.id}`, data)
   },
@@ -83,7 +86,7 @@ export default {
   removeTaskTypeFromProduction (productionId, taskTypeId) {
     const path =
       `/api/data/projects/${productionId}/settings/task-types/${taskTypeId}`
-    return client.pdel(path)
+    return client.pdel(path).catch(console.error)
   },
 
   addTaskStatusToProduction (productionId, taskStatusId) {

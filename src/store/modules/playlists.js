@@ -107,13 +107,13 @@ const actions = {
   editPlaylist ({ commit, rootGetters }, { data, callback }) {
     if (!rootGetters.isCurrentUserClient) {
       commit(EDIT_PLAYLIST_START)
-      playlistsApi.updatePlaylist(data, (err, playlist) => {
+      return playlistsApi.updatePlaylist(data, (err, playlist) => {
         if (err) commit(EDIT_PLAYLIST_ERROR)
         else commit(EDIT_PLAYLIST_END, playlist)
         if (callback) callback(err, playlist)
       })
     } else {
-      callback()
+      if (callback) callback()
     }
   },
 
@@ -127,11 +127,11 @@ const actions = {
   },
 
   pushEntityToPlaylist (
-    { commit, dispatch }, { playlist, entity, previewFiles, callback }
+    { commit, dispatch }, { playlist, entity, previewFiles, task, callback }
   ) {
     return new Promise((resolve, reject) => {
       commit(LOAD_ENTITY_PREVIEW_FILES_END, { playlist, entity, previewFiles })
-      commit(ADD_ENTITY_TO_PLAYLIST, { playlist, entity })
+      commit(ADD_ENTITY_TO_PLAYLIST, { playlist, entity, task })
       dispatch('editPlaylist', {
         data: playlist,
         callback: (err) => {
@@ -186,7 +186,7 @@ const actions = {
   },
 
   runPlaylistBuild ({ commit }, playlist) {
-    playlistsApi.runPlaylistBuild(playlist)
+    return playlistsApi.runPlaylistBuild(playlist)
   },
 
   changePlaylistType (
@@ -276,6 +276,7 @@ const mutations = {
     if (!playlist.shots) playlist.shots = []
     playlist.shots.push({
       entity_id: entity.id,
+      preview_file_task_id: entity.preview_file_task_id,
       preview_file_id: entity.preview_file_id,
       preview_file_extension: entity.preview_file_extension,
       preview_file_annotations: entity.preview_file_annotations,

@@ -144,7 +144,6 @@ export default {
       'isTVShow',
       'organisation',
       'taskTypeMap',
-      'timezone',
       'user'
     ]),
 
@@ -171,7 +170,7 @@ export default {
     loadData () {
       this.loading.schedule = true
       this.loadScheduleItems(this.currentProduction)
-        .then((scheduleItems) => {
+        .then(scheduleItems => {
           scheduleItems = scheduleItems.map((item) => {
             const taskType = this.taskTypeMap[item.task_type_id]
             let startDate, endDate

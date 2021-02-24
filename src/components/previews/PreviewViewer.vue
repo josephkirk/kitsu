@@ -1,6 +1,23 @@
 <template>
 <div ref="container" class="preview-viewer dark">
 
+    <div
+      class="center status-message"
+      :style="{ height: defaultHeight + 'px' }"
+      v-show="isBroken"
+    >
+      <p>This preview is broken.</p>
+    </div>
+
+    <div
+      class="center status-message"
+      :style="{ height: defaultHeight + 'px' }"
+      title="Video processing in progress..."
+      v-show="isProcessing"
+    >
+      <spinner :is-processing="true" />
+    </div>
+
     <video-viewer
       ref="video-viewer"
       class="video-viewer"
@@ -29,6 +46,7 @@
       :preview="preview"
       @size-changed="dimensions => $emit('size-changed', dimensions)"
       v-show="isPicture"
+
     />
 
     <!--model-viewer
@@ -58,7 +76,6 @@
         ref="preview-file"
         :href="originalDlPath"
         :title="fileTitle"
-        v-if="isFile"
       >
         <download-icon class="icon" />
         <span class="text">
@@ -82,6 +99,7 @@ import {
 } from 'vue-feather-icons'
 // import ModelViewer from '@/components/previews/ModelViewer'
 import PictureViewer from '@/components/previews/PictureViewer'
+import Spinner from '@/components/widgets/Spinner'
 import VideoViewer from '@/components/previews/VideoViewer'
 
 export default {
@@ -93,6 +111,7 @@ export default {
     // pdf,
     DownloadIcon,
     PictureViewer,
+    Spinner,
     VideoViewer
   },
 
@@ -178,24 +197,44 @@ export default {
       return this.preview ? this.preview.extension : ''
     },
 
+    status () {
+      return this.preview && this.preview.status
+        ? this.preview.status
+        : 'ready'
+    },
+
+    isBroken () {
+      return this.status === 'broken'
+    },
+
+    isProcessing () {
+      return this.status === 'processing'
+    },
+
+    isReady () {
+      return this.status === 'ready'
+    },
+
     isMovie () {
-      return this.extension === 'mp4'
+      return this.isReady && this.extension === 'mp4'
     },
 
     isPdf () {
-      return this.extension === 'pdf'
+      return this.isReady && this.extension === 'pdf'
     },
 
     isPicture () {
-      return ['gif', 'png', 'jpg', 'jpeg'].includes(this.extension)
+      return this.isReady &&
+        ['gif', 'png', 'jpg', 'jpeg'].includes(this.extension)
     },
 
     is3DModel () {
-      return this.extension === 'obj'
+      return this.isReady && this.extension === 'obj'
     },
 
     isFile () {
-      return !this.isPicture && !this.isMovie // && !this.is3DModel && !this.isPdf
+      return this.isReady && !this.isPicture && !this.isMovie
+      // && !this.is3DModel && !this.isPdf
     },
 
     originalPath () {
@@ -455,6 +494,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.status-message {
+  color: $white;
 }
 
 .preview-viewer {

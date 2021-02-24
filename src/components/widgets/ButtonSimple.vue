@@ -3,6 +3,8 @@
   :class="{
     button: true,
     active: active,
+    'is-primary': isPrimary,
+    'is-loading': isLoading,
     'is-on': isOn
   }"
   :title="title"
@@ -229,6 +231,14 @@ export default {
       default: false,
       type: Boolean
     },
+    isLoading: {
+      default: false,
+      type: Boolean
+    },
+    isPrimary: {
+      default: false,
+      type: Boolean
+    },
     isResponsive: {
       default: false,
       type: Boolean
@@ -262,5 +272,13 @@ export default {
 <style lang="scss" scoped>
 .icon.is-small.only-icon {
   margin-right: 0;
+}
+
+.is-primary {
+  border-radius: 2em;
+}
+
+.active {
+  box-shadow: inset 0 0 2px 2px var(--box-shadow)
 }
 </style>

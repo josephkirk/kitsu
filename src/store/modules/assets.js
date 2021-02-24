@@ -6,6 +6,9 @@ import tasksStore from './tasks'
 import taskTypesStore from './tasktypes'
 import productionsStore from './productions'
 import peopleStore from './people'
+import {
+  minutesToDays
+} from '../../lib/time'
 
 import { PAGE_SIZE } from '../../lib/pagination'
 import {
@@ -112,18 +115,21 @@ const helpers = {
 
   setListStats (state, assets) {
     let timeSpent = 0
+    let estimations = 0
     if (assets) {
-      assets.forEach((asset) => {
+      assets.forEach(asset => {
         timeSpent += asset.timeSpent
+        estimations += asset.estimation
       })
       Object.assign(state, {
         displayedAssetsLength: assets.length,
-        displayedAssetsTimeSpent: timeSpent
+        displayedAssetsTimeSpent: timeSpent,
+        displayedAssetsEstimation: estimations
       })
     } else {
       Object.assign(state, {
         displayedAssetsLength: 0,
-        displayedAssetsTimeSpent: 0
+        displayedAssetsEstimation: 0
       })
     }
   },
@@ -158,6 +164,7 @@ const helpers = {
   ) {
     const validations = {}
     let timeSpent = 0
+    let estimation = 0
     if (!assetTypeMap[asset.asset_type]) {
       assetTypeMap[asset.asset_type_id] = {
         id: asset.asset_type_id,
@@ -185,6 +192,7 @@ const helpers = {
       }
 
       timeSpent += task.duration
+      estimation += task.estimation
       taskIds.push(task.id)
       validations[task.task_type_id] = task.id
       taskMap[task.id] = task
@@ -193,6 +201,7 @@ const helpers = {
     asset.tasks = taskIds
     asset.validations = validations
     asset.timeSpent = timeSpent
+    asset.estimation = estimation
     return asset
   },
 
@@ -264,6 +273,7 @@ const initialState = {
   displayedAssets: [],
   displayedAssetsLength: 0,
   displayedAssetsTimeSpent: 0,
+  displayedAssetsEstimation: 0,
   assetFilledColumns: {},
   assetSearchText: '',
   assetSelectionGrid: {},
@@ -279,6 +289,7 @@ const initialState = {
   isAssetsLoading: false,
   isAssetsLoadingError: false,
   isAssetDescription: false,
+  isAssetEstimation: false,
   isAssetTime: false,
   assetsCsvFormData: null,
 
@@ -305,6 +316,7 @@ const getters = {
   displayedAssets: state => state.displayedAssets,
   displayedAssetsLength: state => state.displayedAssetsLength,
   displayedAssetsTimeSpent: state => state.displayedAssetsTimeSpent,
+  displayedAssetsEstimation: state => state.displayedAssetsEstimation,
   assetFilledColumns: state => state.assetFilledColumns,
 
   displayedAssetTypes: state => state.displayedAssetTypes,
@@ -328,6 +340,7 @@ const getters = {
 
   assetCreated: state => state.assetCreated,
 
+  isAssetEstimation: state => state.isAssetEstimation,
   isAssetTime: state => state.isAssetTime,
   isAssetDescription: state => state.isAssetDescription,
 
@@ -530,14 +543,12 @@ const actions = {
   },
 
   removeAssetSearch ({ commit, rootGetters }, searchQuery) {
-    return new Promise((resolve, reject) => {
-      const production = rootGetters.currentProduction
-      peopleApi.removeFilter(searchQuery, (err) => {
+    const production = rootGetters.currentProduction
+    return peopleApi.removeFilter(searchQuery)
+      .then(() => {
         commit(REMOVE_ASSET_SEARCH_END, { searchQuery, production })
-        if (err) reject(err)
-        else resolve()
+        return Promise.resolve()
       })
-    })
   },
 
   displayMoreAssets ({ commit, rootGetters }) {
@@ -575,11 +586,12 @@ const actions = {
   getAssetsCsvLines ({ state, rootGetters }) {
     const production = rootGetters.currentProduction
     const episodeMap = rootGetters.episodeMap
+    const organisation = rootGetters.organisation
     let assets = cache.assets
     if (cache.result && cache.result.length > 0) {
       assets = cache.result
     }
-    const lines = assets.map((asset) => {
+    const lines = assets.map(asset => {
       let assetLine = []
       if (rootGetters.isTVShow) {
         assetLine.push(
@@ -593,12 +605,17 @@ const actions = {
       ])
       sortByName([...production.descriptors])
         .filter(d => d.entity_type === 'Asset')
-        .forEach((descriptor) => {
+        .forEach(descriptor => {
           assetLine.push(asset.data[descriptor.field_name])
         })
-      if (state.isAssetTime) assetLine.push(asset.timeSpent)
+      if (state.isAssetTime) {
+        assetLine.push(minutesToDays(organisation, asset.timeSpent).toFixed(2))
+      }
+      if (state.isAssetEstimation) {
+        assetLine.push(minutesToDays(organisation, asset.estimation).toFixed(2))
+      }
       state.assetValidationColumns
-        .forEach((validationColumn) => {
+        .forEach(validationColumn => {
           const task = rootGetters.taskMap[asset.validations[validationColumn]]
           if (task) {
             assetLine.push(task.task_status_short_name)
@@ -681,6 +698,7 @@ const mutations = {
     const validationColumns = {}
     const assetTypeMap = {}
     let isTime = false
+    let isEstimation = false
     let isDescription = false
     assets = sortAssets(assets)
     cache.assets = assets
@@ -688,7 +706,7 @@ const mutations = {
     cache.assetIndex = buildAssetIndex(assets)
     state.assetMap = {}
 
-    assets.forEach((asset) => {
+    assets.forEach(asset => {
       helpers.populateAndRegisterAsset(
         assetTypeMap,
         taskMap,
@@ -700,6 +718,7 @@ const mutations = {
       )
       state.assetMap[asset.id] = asset
       if (!isTime && asset.timeSpent > 0) isTime = true
+      if (!isEstimation && asset.estimation > 0) isEstimation = true
       if (!isDescription && asset.description) isDescription = true
     })
 
@@ -714,6 +733,7 @@ const mutations = {
       taskTypeMap
     )
     state.isAssetTime = isTime
+    state.isAssetEstimation = isEstimation
     state.isAssetDescription = isDescription
 
     state.isAssetsLoading = false
@@ -790,6 +810,9 @@ const mutations = {
         removeModelFromList(state.displayedAssets, assetToDelete)
       if (assetToDelete.timeSpent) {
         state.displayedAssetsTimeSpent -= assetToDelete.timeSpent
+      }
+      if (assetToDelete.estimation) {
+        state.displayedAssetsEstimation -= assetToDelete.estimation
       }
       state.assetFilledColumns = getFilledColumns(state.displayedAssets)
       helpers.setListStats(state, cache.assets)
@@ -929,7 +952,7 @@ const mutations = {
       asset.preview_file_id = previewId
       asset.tasks.forEach((taskId) => {
         const task = taskMap[taskId]
-        task.entity.preview_file_id = previewId
+        if (task) task.entity.preview_file_id = previewId
       })
     }
   },

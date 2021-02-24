@@ -49,7 +49,7 @@
             v-if="rootElement.avatar"
           >
             <production-name
-              :project="rootElement"
+              :production="rootElement"
               :only-avatar="true"
               :size="30"
               v-if="rootElement.type === 'Project'"
@@ -1275,7 +1275,7 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
-  height: 100vh;
+  height: 97vh;
   overflow: hidden;
   display: flex;
   flex-direction: row;

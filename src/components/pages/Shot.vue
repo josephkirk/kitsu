@@ -4,7 +4,7 @@
     <div class="page-header flexrow">
       <router-link
         class="flexrow-item has-text-centered back-link"
-        :to="shotsPath"
+        :to="getShotsRoute"
       >
         <chevron-left-icon />
       </router-link>
@@ -240,7 +240,7 @@ export default {
       },
       modals: {
         edit: false
-      },
+        },
       metadata: {},
       options: {
         name: 'metadata root',
@@ -319,6 +319,16 @@ export default {
       return this.currentShot &&
         this.currentShot.preview_file_id &&
         this.currentShot.preview_file_id.length > 0
+    },
+
+    getShotsRoute () {
+      const route = {
+        name: 'shots',
+        params: {
+          production_id: this.currentProduction.id
+        }
+      }
+      return route
     }
   },
 
@@ -390,24 +400,26 @@ export default {
     },
 
     resetData () {
-      this.loadShots(() => {
-        this.loadAssets()
-          .then(() => {
-            this.currentShot = this.getCurrentShot()
-            return this.loadShotCasting(this.currentShot)
-              .then(() => {
-                this.casting.isLoading = false
-              })
-              .catch((err) => {
-                console.error(err)
-                this.casting.isError = true
-              })
-          })
+      this.$nextTick(() => {
+        this.loadShots(() => {
+          this.loadAssets()
+            .then(() => {
+              this.currentShot = this.getCurrentShot()
+              return this.loadShotCasting(this.currentShot)
+                .then(() => {
+                  this.casting.isLoading = false
+                })
+                .catch((err) => {
+                  console.error(err)
+                  this.casting.isError = true
+                })
+            })
+        })
       })
     }
   },
 
-  watch: {
+  watch: { // Needed when reloading the page with F5
     currentProduction () {
       if (!this.isTVShow) this.resetData()
     },

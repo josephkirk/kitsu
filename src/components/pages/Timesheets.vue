@@ -3,7 +3,18 @@
     <div class="column main-column">
       <div class="timesheets page">
         <div class="page-header flexrow">
-          <page-title class="flexrow-item" :text="$t('timesheets.title')"/>
+          <page-title
+            class="flexrow-item title"
+            :text="$t('timesheets.title')"
+          />
+
+          <combobox-production
+            class="flexrow-item"
+            :label="$t('main.production')"
+            :production-list="productionList"
+            v-model="productionIdString"
+          />
+
           <combobox
             class="flexrow-item"
             :label="$t('timesheets.detail_level')"
@@ -33,6 +44,13 @@
             icon="download"
             @click="exportTimesheet"
           />
+          <button-href-link
+            class="flexrow-item"
+            :title="$t('timesheets.export_timespents')"
+            path="/api/export/csv/time-spents.csv"
+            icon="list"
+            v-if="isCurrentUserAdmin"
+          />
         </div>
 
         <people-timesheet-list
@@ -53,6 +71,7 @@
     >
       <people-timesheet-info
         :person="currentPerson"
+        :production="productionId"
         :year="currentYear"
         :month="currentMonth"
         :week="currentWeek"
@@ -60,6 +79,7 @@
         :is-loading="isInfoLoading"
         :is-loading-error="isInfoLoadingError"
         :tasks="tasks"
+        :day-off-count="dayOffCount"
         @close="hideSideInfo"
       />
     </div>
@@ -70,20 +90,25 @@
 import moment from 'moment-timezone'
 import { mapGetters, mapActions } from 'vuex'
 
-import ButtonSimple from '../widgets/ButtonSimple'
-import Combobox from '../widgets/Combobox'
-import PeopleTimesheetList from '../lists/PeopleTimesheetList'
-import PeopleTimesheetInfo from '../sides/PeopleTimesheetInfo'
-import PageTitle from '../widgets/PageTitle'
-import csv from '../../lib/csv'
-import { monthToString, range } from '../../lib/time'
-import stringHelpers from '../../lib/string'
+import csv from '@/lib/csv'
+import { monthToString, range } from '@/lib/time'
+import stringHelpers from '@/lib/string'
+
+import ButtonHrefLink from '@/components/widgets/ButtonHrefLink'
+import ButtonSimple from '@/components/widgets/ButtonSimple'
+import Combobox from '@/components/widgets/Combobox'
+import ComboboxProduction from '@/components/widgets/ComboboxProduction'
+import PeopleTimesheetList from '@/components/lists/PeopleTimesheetList'
+import PeopleTimesheetInfo from '@/components/sides/PeopleTimesheetInfo'
+import PageTitle from '@/components/widgets/PageTitle'
 
 export default {
   name: 'people',
   components: {
     ButtonSimple,
+    ButtonHrefLink,
     Combobox,
+    ComboboxProduction,
     PageTitle,
     PeopleTimesheetList,
     PeopleTimesheetInfo
@@ -109,10 +134,10 @@ export default {
           value: 'year'
         }
       ],
-
       detailLevelString: 'day',
       detailLevel: 'day',
-
+      productionIdString: '',
+      productionId: '',
       yearString: `${moment().year()}`,
       monthString: `${moment().month() + 1}`,
 
@@ -125,9 +150,10 @@ export default {
       isLoading: false,
       isLoadingError: false,
 
-      showInfo: true,
+      dayOffCount: 0,
       isInfoLoading: false,
       isInfoLoadingError: false,
+      showInfo: true,
       tasks: []
     }
   },
@@ -143,16 +169,38 @@ export default {
     }
   },
 
+  mounted () {
+    const productionId = this.$route.query.productionId
+    if (productionId) {
+      this.silent = true
+      this.productionId = productionId
+      this.productionIdString = productionId
+      this.reloadTimesheet()
+        .then(() => {
+          this.silent = false
+        })
+    }
+  },
+
   computed: {
     ...mapGetters([
+      'isCurrentUserAdmin',
       'isCurrentUserManager',
+      'openProductions',
       'people',
       'personMap',
       'timesheet'
     ]),
 
+    productionList () {
+      return [{
+        id: '',
+        name: this.$t('main.all')
+      }].concat([...this.openProductions])
+    },
+
     filteredPeople () {
-      return this.people.filter((person) => {
+      return this.people.filter(person => {
         const keys = Object.keys(this.timesheet)
         let isThere = false
         let i = 0
@@ -196,23 +244,29 @@ export default {
   methods: {
     ...mapActions([
       'loadPeople',
+      'loadAggregatedPersonDaysOff',
       'loadAggregatedPersonTimeSpents',
       'loadTimesheets'
     ]),
 
     reloadTimesheet () {
       this.isLoading = true
-      this.loadTimesheets({
+      this.isLoadingError = false
+      return this.loadTimesheets({
         detailLevel: this.detailLevel,
         year: this.currentYear,
-        month: this.currentMonth
+        month: this.currentMonth,
+        productionId: this.productionId
       })
         .then((table) => {
           this.isLoading = false
+          return Promise.resolve()
         })
-        .catch(() => {
+        .catch(err => {
+          console.error(err)
           this.isLoading = false
           this.isLoadingError = true
+          return Promise.resolve()
         })
     },
 
@@ -225,18 +279,23 @@ export default {
     },
 
     loadRoute () {
+      // The main idea is to build the context from the route and compare it
+      // to the current context. If there are changes, it applies it.
+      // It handles too the display or not of the side column.
+      this.$options.silent = true
       const { month, year, week, day } = this.$route.params
-
+      const previousProduction = `${this.productionId}`
       const previousDetailLevel = `${this.detailLevel}`
       const previousMonth = `${this.currentMonth}`
       const previousYear = `${this.currentYear}`
+
       if (this.$route.path.indexOf('week') > 0) this.detailLevel = 'week'
       if (this.$route.path.indexOf('month') > 0) this.detailLevel = 'month'
       if (this.$route.path.indexOf('day') > 0) this.detailLevel = 'day'
       if (this.$route.path.indexOf('year') > 0) this.detailLevel = 'year'
-
       this.currentPerson = this.getCurrentPerson()
       this.detailLevelString = this.detailLevel
+
       if (month) {
         this.currentMonth = Number(month)
         this.monthString = `${month}`
@@ -252,29 +311,34 @@ export default {
       if (day) {
         this.currentDay = Number(day)
       }
+      this.productionId = this.$route.query.productionId || ''
 
       const detailLevelHasChanged = previousDetailLevel !== this.detailLevel
       const monthHasChanged =
         previousMonth.localeCompare(`${this.currentMonth}`) !== 0
       const yearHasChanged =
         previousYear.localeCompare(`${this.currentYear}`) !== 0
+      const productionHasChanged =
+        previousProduction.localeCompare(`${this.productionId}`) !== 0
+      this.$nextTick(() => {
+        this.$options.silent = false
+      })
 
       if (this.$route.path.indexOf('person') > 0) {
         this.showSideInfo()
         this.loadAggregate()
-        if (this.isLoading) {
-          this.reloadTimesheet()
-        }
       } else {
         this.hideSideInfo()
-        if (
-          this.isLoading ||
-          monthHasChanged ||
-          yearHasChanged ||
-          detailLevelHasChanged
-        ) {
-          this.reloadTimesheet()
-        }
+      }
+
+      if (
+        this.isLoading ||
+        monthHasChanged ||
+        yearHasChanged ||
+        detailLevelHasChanged ||
+        productionHasChanged
+      ) {
+        this.reloadTimesheet()
       }
     },
 
@@ -288,11 +352,21 @@ export default {
         year: this.$route.params.year,
         month: this.$route.params.month,
         week: this.$route.params.week,
-        day: this.$route.params.day
-      }).then((tasks) => {
+        day: this.$route.params.day,
+        productionId: this.productionId
+      }).then(tasks => {
+        this.tasks = tasks.filter(task => task.duration > 0)
+        return this.loadAggregatedPersonDaysOff({
+          personId: this.$route.params.person_id,
+          detailLevel: this.detailLevel,
+          year: this.$route.params.year,
+          month: this.$route.params.month,
+          week: this.$route.params.week
+        })
+      }).then(dayOffs => {
+        this.dayOffCount = dayOffs.length
         this.isInfoLoading = false
-        this.tasks = tasks.filter((task) => task.duration > 0)
-      }).catch((err) => {
+      }).catch(err => {
         console.error(err)
         this.isInfoLoadingError = true
       })
@@ -331,20 +405,23 @@ export default {
 
   watch: {
     detailLevelString () {
+      if (this.silent) return
       if (this.detailLevel !== this.detailLevelString) {
         if (this.detailLevelString === 'month') {
           this.$router.push({
             name: 'timesheets-month',
             params: {
               year: this.currentYear
-            }
+            },
+            query: this.$route.query
           })
         } else if (this.detailLevelString === 'week') {
           this.$router.push({
             name: 'timesheets-week',
             params: {
               year: this.currentYear
-            }
+            },
+            query: this.$route.query
           })
         } else if (this.detailLevelString === 'day') {
           this.$router.push({
@@ -352,32 +429,37 @@ export default {
             params: {
               year: this.currentYear,
               month: this.currentMonth
-            }
+            },
+            query: this.$route.query
           })
         } else if (this.detailLevelString === 'year') {
           this.$router.push({
             name: 'timesheets-year',
             params: {
               year: this.currentYear
-            }
+            },
+            query: this.$route.query
           })
         }
       }
     },
 
     yearString () {
+      if (this.silent) return
       const year = Number(this.yearString)
       const currentMonth = moment().month()
       if (this.currentYear !== year) {
         if (this.detailLevel === 'month') {
           this.$router.push({
             name: 'timesheets-month',
-            params: { year }
+            params: { year },
+            query: this.$route.query
           })
         } else if (this.detailLevel === 'week') {
           this.$router.push({
             name: 'timesheets-week',
-            params: { year }
+            params: { year },
+            query: this.$route.query
           })
         } else {
           this.$router.push({
@@ -385,22 +467,34 @@ export default {
             params: {
               year: year,
               month: Math.min(Number(this.monthString), currentMonth)
-            }
+            },
+            query: this.$route.query
           })
         }
       }
     },
 
     monthString () {
+      if (this.silent) return
       if (this.currentMonth !== Number(this.monthString)) {
         this.$router.push({
           name: 'timesheets-day',
           params: {
             year: this.currentYear,
             month: Number(this.monthString)
-          }
+          },
+          query: this.$route.query
         })
       }
+    },
+
+    productionIdString () {
+      if (this.silent) return
+      this.$router.push({
+        query: {
+          productionId: this.productionIdString
+        }
+      })
     },
 
     $route () {
@@ -432,19 +526,12 @@ export default {
   padding-bottom: 1em;
 }
 
-.columns {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-}
-
-.column {
-  overflow-y: auto;
-  padding: 0;
-}
-
 .main-column {
   border-right: 3px solid $light-grey;
   margin: 0;
+}
+
+.title {
+  margin-right: 1em;
 }
 </style>

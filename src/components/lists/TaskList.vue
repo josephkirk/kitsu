@@ -325,6 +325,16 @@ export default {
       'removeSelectedTask'
     ]),
 
+    isTaskChanged (task, data) {
+      const taskStart = task.start_date ? task.start_date.substring(0, 10) : ''
+      const taskDue = task.due_date ? task.due_date.substring(0, 10) : ''
+      return (
+        (data.start_date && taskStart !== data.start_date) ||
+        (data.due_date && taskDue !== data.due_date) ||
+        (data.estimation && task.estimation !== data.estimation)
+      )
+    },
+
     getDate (date) {
       return date ? moment(date, 'YYYY-MM-DD').toDate() : null
     },
@@ -337,8 +347,11 @@ export default {
     updateStartDate (date) {
       Object.keys(this.selectionGrid).forEach(taskId => {
         const task = this.taskMap[taskId]
-        if (task.start_date.substring(0, 10) === formatSimpleDate(date)) return
         const startDate = moment(date)
+        if (
+          task.start_date &&
+          task.start_date.substring(0, 10) === formatSimpleDate(startDate)
+        ) return
         const dueDate = task.due_date ? moment(task.due_date) : null
         let data = {
           start_date: null,
@@ -351,8 +364,10 @@ export default {
             minutesToDays(this.organisation, task.estimation)
           )
         }
-        this.updateTask({ taskId, data })
-          .catch(console.error)
+        if (this.isTaskChanged(task, data)) {
+          this.updateTask({ taskId, data })
+            .catch(console.error)
+        }
       })
     },
 
@@ -361,6 +376,10 @@ export default {
         const task = this.taskMap[taskId]
         const startDate = task.start_date ? moment(task.start_date) : null
         const dueDate = moment(date)
+        if (
+          task.due_date &&
+          task.due_date.substring(0, 10) === formatSimpleDate(dueDate)
+        ) return
         let data = {
           start_date: null,
           due_date: null
@@ -372,8 +391,31 @@ export default {
             minutesToDays(this.organisation, task.estimation)
           )
         }
-        this.updateTask({ taskId, data })
-          .catch(console.error)
+        if (this.isTaskChanged(task, data)) {
+          this.updateTask({ taskId, data })
+            .catch(console.error)
+        }
+      })
+    },
+
+    updateTasksEstimation ({ estimation }) {
+      Object.keys(this.selectionGrid).forEach(taskId => {
+        const task = this.taskMap[taskId]
+        let data = { estimation }
+        if (task.start_date) {
+          const startDate = moment(task.start_date)
+          const dueDate = task.due_date ? moment(task.due_date) : null
+          data = getDatesFromStartDate(
+            startDate,
+            dueDate,
+            minutesToDays(this.organisation, estimation)
+          )
+          data.estimation = estimation
+        }
+        if (this.isTaskChanged(task, data)) {
+          this.updateTask({ taskId, data })
+            .catch(console.error)
+        }
       })
     },
 
@@ -422,7 +464,10 @@ export default {
       if (event && event.target && (
         // Dirty hack needed to make date picker and inputs work properly
         ['INPUT'].includes(event.target.nodeName) ||
-        ['HEADER'].includes(event.target.parentNode.nodeName) ||
+        (
+          event.target.parentNode &&
+          ['HEADER'].includes(event.target.parentNode.nodeName)
+        ) ||
         ['cell day selected'].includes(event.target.className)
       )) return
       const isSelected = this.selectionGrid[task.id]
@@ -539,25 +584,6 @@ export default {
         taskLines.push(line)
       })
       return taskLines
-    },
-
-    updateTasksEstimation ({ estimation }) {
-      Object.keys(this.selectionGrid).forEach(taskId => {
-        const task = this.taskMap[taskId]
-        let data = { estimation }
-        if (task.start_date) {
-          const startDate = moment(task.start_date)
-          const dueDate = task.due_date ? moment(task.due_date) : null
-          data = getDatesFromStartDate(
-            startDate,
-            dueDate,
-            minutesToDays(this.organisation, estimation)
-          )
-          data.estimation = estimation
-        }
-        this.updateTask({ taskId, data })
-          .catch(console.error)
-      })
     }
   },
 
@@ -625,9 +651,9 @@ export default {
 
 th.start-date,
 th.due-date {
-  min-width: 105px;
-  max-width: 105px;
-  width: 105px;
+  min-width: 106px;
+  max-width: 106px;
+  width: 106px;
 }
 
 td.start-date,

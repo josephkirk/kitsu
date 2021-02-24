@@ -111,10 +111,6 @@
             :person="user"
             :is-link="false"
           />
-          <people-name
-            class="user-name"
-            :person="user"
-          />
         </div>
       </div>
     </nav>
@@ -122,7 +118,9 @@
     <nav
       class="user-menu"
       ref="user-menu"
-      v-show="!isUserMenuHidden"
+      :style="{
+        top: isUserMenuHidden ? '-460px' : '60px'
+      }"
     >
       <ul>
         <li>
@@ -198,13 +196,15 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { ChevronLeftIcon, LogOutIcon, ZapIcon } from 'vue-feather-icons'
+import VueRouter from 'vue-router'
 
 import Combobox from '../widgets/Combobox'
 import NotificationBell from '../widgets/NotificationBell'
 import PeopleAvatar from '../widgets/PeopleAvatar'
-import PeopleName from '../widgets/PeopleName'
 import ShortcutModal from '../modals/ShortcutModal'
 import { version } from '../../../package.json'
+
+const { isNavigationFailure, NavigationFailureType } = VueRouter
 
 export default {
   name: 'topbar',
@@ -213,7 +213,6 @@ export default {
     ChevronLeftIcon,
     LogOutIcon,
     NotificationBell,
-    PeopleName,
     PeopleAvatar,
     ShortcutModal,
     ZapIcon
@@ -225,8 +224,7 @@ export default {
       currentEpisodeId: this.$route.params.episode_id,
       currentProjectSection: this.isCurrentUserClient ? 'playlists' : 'assets',
       kitsuVersion: version,
-      silent: false,
-
+      silent: true,
       display: {
         shortcutModal: false
       }
@@ -239,16 +237,6 @@ export default {
       position: 'bottom',
       align: 'right'
     })
-    const userMenu = this.$refs['user-menu']
-    const userName = this.$refs['user-name']
-    if (userName) {
-      const userNameWidth = userName.clientWidth
-
-      if (userNameWidth > 100) {
-        userMenu.style.width = `${userNameWidth}px`
-        userName.style.width = `${userNameWidth}px`
-      }
-    }
 
     this.currentProjectSection = this.getCurrentSectionFromRoute()
     this.setProductionFromRoute()
@@ -590,7 +578,13 @@ export default {
         }
       }
       route = this.episodifyRoute(route, section, episodeId, isTVShow)
-      if (route && route.params.production_id) this.$router.push(route)
+      if (route && route.params.production_id) {
+        this.$router.push(route).catch(error => {
+          if (isNavigationFailure(error, NavigationFailureType.redirected)) {
+            console.error(error)
+          }
+        })
+      }
     },
 
     episodifyRoute (route, section, episodeId, isTVShow) {
@@ -743,6 +737,12 @@ export default {
   hr {
     background-color: $grey-strong;
   }
+
+  .user-menu li {
+    &:not(.version):hover {
+      background: $dark-grey-light;
+    }
+  }
 }
 
 .nav {
@@ -766,7 +766,6 @@ export default {
 
 .user-nav {
   cursor: pointer;
-  min-width: 180px;
 }
 
 .user-nav.active {
@@ -774,19 +773,16 @@ export default {
 
 .user-menu {
   position: fixed;
-  top: 60px;
-  width: 180px;
-  min-width: 180px;
+  width: 220px;
+  min-width: 220px;
   right: 0;
   background-color: white;
   padding: 1em 1em 1em 1em;
   z-index: 203;
   box-shadow: 2px 3px 3px rgba(0,0,0,0.2);
-  transition-property: all;
-  transition-duration: .5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
   border-left: 1px solid $white-grey;
   border-bottom: 1px solid $white-grey;
+  transition: top .5s ease;
 }
 
 .user-menu ul {
@@ -794,10 +790,17 @@ export default {
 }
 
 .user-menu li {
-  cursor: pointer;
+  cursor: default;
   padding: 0.2em;
+  padding-left: 0.4em;
   font-size: 1.1em;
   list-style-type: none;
+
+  &:not(.version):hover {
+    cursor: pointer;
+    background: $white-grey;
+    border-radius: 5px;
+  }
 }
 
 .user-menu li a {
@@ -845,11 +848,6 @@ strong {
 
 .version {
   color: $grey;
-}
-
-.user-name {
-  min-width: 180px;
-  text-align: left;
 }
 
 .changelog-button {
