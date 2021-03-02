@@ -237,7 +237,6 @@ export default {
       position: 'bottom',
       align: 'right'
     })
-
     this.currentProjectSection = this.getCurrentSectionFromRoute()
     this.setProductionFromRoute()
   },
@@ -518,13 +517,20 @@ export default {
       this.silent = true
       this.currentProductionId = productionId
       this.currentProjectSection = section
-      this.currentProjectSection = null
+
       this.$nextTick(() => {
-        this.currentProjectSection = section
-        this.currentEpisodeId = null
+        this.currentProjectSection = null
         this.$nextTick(() => {
-          this.currentEpisodeId = episodeId
-          this.silent = false
+          this.currentProjectSection = section
+          this.$nextTick(() => {
+            this.currentEpisodeId = null
+            this.$nextTick(() => {
+              this.currentEpisodeId = episodeId
+              this.$nextTick(() => {
+                this.silent = false
+              })
+            })
+          })
         })
       })
     },
@@ -578,11 +584,13 @@ export default {
         }
       }
       route = this.episodifyRoute(route, section, episodeId, isTVShow)
+
+      if (['assets', 'shots'].includes(section)) {
+        route.query = { search: '' }
+      }
       if (route && route.params.production_id) {
-        this.$router.push(route).catch(error => {
-          if (isNavigationFailure(error, NavigationFailureType.redirected)) {
-            console.error(error)
-          }
+        this.$router.push(route).catch(err => {
+          console.error(err)
         })
       }
     },
@@ -678,11 +686,15 @@ export default {
     },
 
     currentEpisode () {
+      this.silent = true
       if (!this.currentEpisode) {
         this.currentEpisodeId = null
       } else if (this.currentEpisodeId !== this.currentEpisode.id) {
         this.currentEpisodeId = this.currentEpisode.id
       }
+      this.$nextTick(() => {
+        this.silent = false
+      })
     },
 
     currentProduction () {
