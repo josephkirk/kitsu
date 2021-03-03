@@ -196,7 +196,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { ChevronLeftIcon, LogOutIcon, ZapIcon } from 'vue-feather-icons'
-import VueRouter from 'vue-router'
+// import VueRouter from 'vue-router'
 
 import Combobox from '../widgets/Combobox'
 import NotificationBell from '../widgets/NotificationBell'
@@ -204,7 +204,7 @@ import PeopleAvatar from '../widgets/PeopleAvatar'
 import ShortcutModal from '../modals/ShortcutModal'
 import { version } from '../../../package.json'
 
-const { isNavigationFailure, NavigationFailureType } = VueRouter
+// const { isNavigationFailure, NavigationFailureType } = VueRouter
 
 export default {
   name: 'topbar',

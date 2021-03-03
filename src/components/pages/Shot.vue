@@ -240,7 +240,7 @@ export default {
       },
       modals: {
         edit: false
-        },
+      },
       metadata: {},
       options: {
         name: 'metadata root',

@@ -22,8 +22,8 @@
 			"group": "build",
 			"options": {
 				"env": {
-					"KITSU_API_TARGET": "http://localhost/api",
-					"KITSU_EVENT_TARGET": "http://localhost"
+					"KITSU_API_TARGET": "http://localhost:8081/api",
+					"KITSU_EVENT_TARGET": "http://localhost:8081"
 				}
 			}
 		},
